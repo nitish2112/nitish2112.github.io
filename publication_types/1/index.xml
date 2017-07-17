@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>1 on Nitish Srivastava</title>
+    <link>https://nitish2112.github.io/publication_types/1/index.xml</link>
+    <description>Recent content in 1 on Nitish Srivastava</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; 2016 Nitish Srivastava</copyright>
+    <atom:link href="/publication_types/1/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Accelerating Face Detection on Programmable SoC Using C-Based Synthesis</title>
+      <link>https://nitish2112.github.io/publication/face-detect/</link>
+      <pubDate>Fri, 10 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://nitish2112.github.io/publication/face-detect/</guid>
+      <description>&lt;p&gt;More detail can easily be written here using &lt;em&gt;Markdown&lt;/em&gt; and $\rm \LaTeX$ math code.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Flexible and Dynamic Power Allocation in Broadband Multi-Beam Satellites</title>
+      <link>https://nitish2112.github.io/publication/dynamic-power-satellite/</link>
+      <pubDate>Fri, 10 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://nitish2112.github.io/publication/dynamic-power-satellite/</guid>
+      <description>&lt;p&gt;More detail can easily be written here using &lt;em&gt;Markdown&lt;/em&gt; and $\rm \LaTeX$ math code.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

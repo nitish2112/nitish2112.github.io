@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Computer Atrchitecture on Nitish Srivastava</title>
+    <link>https://nitish2112.github.io/tags/computer-atrchitecture/index.xml</link>
+    <description>Recent content in Computer Atrchitecture on Nitish Srivastava</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; 2016 Nitish Srivastava</copyright>
+    <atom:link href="/tags/computer-atrchitecture/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Pointer-Chase Prefetcher</title>
+      <link>https://nitish2112.github.io/project/prefetcher/</link>
+      <pubDate>Wed, 27 Apr 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://nitish2112.github.io/project/prefetcher/</guid>
+      <description>
+
+&lt;h1 id=&#34;caches-only-exploit-spatial-and-temporal-locality-in-a-set-of-address-referenced-in-a-program-due-to-dynamic-construction-of-linked-data-structures-they-difficult-to-cache-as-the-spatial-locality-between-the-nodes-is-highly-dependent-on-the-data-layout-prefetching-can-play-an-important-role-in-improving-the-performance-of-linked-data-structures-in-this-project-a-pointer-chase-mechanism-along-with-compiler-hints-is-adopted-for-prefetching&#34;&gt;Caches only exploit spatial and temporal locality in a set of address referenced in a program. Due to dynamic construction of linked data-structures, they difficult to cache as the spatial locality between the nodes is highly dependent on the data layout. Prefetching can play an important role in improving the performance of linked data-structures. In this project a pointer chase mechanism along with compiler hints is adopted for prefetching.&lt;/h1&gt;
+
+&lt;p&gt;image = &amp;ldquo;prefetcher.png&amp;rdquo;
+caption = &amp;ldquo;My caption 😄&amp;rdquo;&lt;/p&gt;
+
+&lt;p&gt;+++&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
