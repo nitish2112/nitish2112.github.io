@@ -21,11 +21,16 @@
     <link rel="stylesheet" href="../../css/highlight.min.css">
     
   
-  <link rel="stylesheet" href="../../css/bootstrap.min.css">
-  <link rel="stylesheet" href="../../css/font-awesome.min.css">
-  <link rel="stylesheet" href="../../css/academicons.min.css">
-  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:400,700|Merriweather|Roboto+Mono">
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha512-6MXa8B6uaO18Hid6blRMetEIoPqHf7Ux1tnyIQdpt9qI5OACx7C+O3IVTr98vwGnlcg0LOLa02i9Y1HpVhlfiw==" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.0/css/academicons.min.css" integrity="sha512-GGGNUPDhnG8LEAEDsjqYIQns+Gu8RBs4j5XGlxl7UfRaZBhCCm5jenJkeJL8uPuOXGqgl8/H1gjlWQDRjd3cUQ==" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha512-SfTiTlX6kk+qitfevl/7LibUOeJWlt9rbyDn92a1DqWOw9vWG2MFoays0sgObmWazO5BQPiFucnnEAjpAB+/Sw==" crossorigin="anonymous">
+  
+  
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:400,700%7CMerriweather%7CRoboto+Mono">
   <link rel="stylesheet" href="../../css/hugo-academic.css">
+  
+
   
 
   <link rel="alternate" href="https://nitish2112.github.io/index.xml" type="application/rss+xml" title="Nitish Srivastava">
@@ -136,6 +141,8 @@
 
         
         
+
+        
       </ul>
 
     </div>
@@ -146,6 +153,7 @@
 <article class="article" itemscope itemtype="http://schema.org/Article">
 
   
+
 
   <div class="article-container">
     <h1 itemprop="name">A Tutorial on the Gem5 Minor CPU Model</h1>
@@ -379,33 +387,53 @@ Pipeline::evaluate()
 <pre><code class="language-c++">void 
 Execute::evaluate()
 {
+    // Set the dToE Latch data as the one to be pushed into input buffer next
+    inputBuffer[inp.outputWire-&gt;threadId].setTail(*inp.outputWire);
+
     lsq.step(); // Step the Load-Store Queues
     commit();   // Commit the instruction 
     issue();    // Issue instructions whose dependencies are satisfied 
+
+    // Push the dToE Latch data into the input buffer
+    inputBuffer[inp.outputWire-&gt;threadId].pushTail();
 }
 </code></pre>
 
 <p>The commit method looks like this:</p>
 
-<pre><code class="language-c++">void
+<pre><code class="language-c++">/** Commit takes an inst out from the head of the inflight inst queue and
+  * depending upon whether out of order memory requests are supported or
+  * not it commits the instruction, clears its destination entry from 
+  * scorebiard and remove it from the head of the inflight insts 
+*/
+void
 Execute::commit(){
-    while (executeInfo[tid].inFlightInsts-&gt;empty() &amp;&amp; num_insts_committed != commitLimit){
+    // While issue() has already issued some instructions in the FUs 
+    while (executeInfo[tid].inFlightInsts-&gt;empty() 
+             &amp;&amp; num_insts_committed != commitLimit){
+
         head_inflight_inst = executeInfo[tid].inFlightInsts.front();
         inst = head_inflight_inst-&gt;inst;
-        mem_response = ( head_inflight_inst-&gt;inst-&gt;inLSQ ) ? lsq.findResponse() : NULL;
+        mem_response = ( head_inflight_inst-&gt;inst-&gt;inLSQ ) ? 
+                                     lsq.findResponse() : NULL;
 
         if (mem_response)
             handleMemResponse(inst,...);
         else {
+	    // If there is a load/store inflight try to commit it before the
+	    // the head of the inflight inst
             if (!executeInfo[tid].inFUMemInsts-&gt;empty() &amp;&amp; lsq.canRequest()) {
-                fun_inst = execeuteInfo.inFUMemInsts.fron().inst;
+                fun_inst = execeuteInfo.inFUMemInsts.front().inst;
                 fu = funcUnits[ fun_inst-&gt;fuIndex ];
-                if (!fu_inst-&gt;inLSQ &amp;&amp; fu_inst-&gt;canEarlyIssue )// set by execute::issue()
+                if (!fu_inst-&gt;inLSQ &amp;&amp; fu_inst-&gt;canEarlyIssue )
                 {
                     try_to_commit = true;
                     inst = fu_inst;
                 }
             }
+	    // At this point depending on whether we are doing an early
+	    // issue of mem request or actually handling the head of the 
+	    // inflight inst. inst will be pointing to the corresponding inst
             if (!completed_inst &amp;&amp; !inst-&gt;inLSQ) 
             {
                 fu_inst = funcUnits[inst-&gt;fuIndex]-&gt;front();
@@ -416,7 +444,10 @@ Execute::commit(){
             }
             if (try_to_commit)
             {
-                discard_inst = inst-&gt;id.streamSeqNum != executeInfo[tid].streamSeqNum;
+		// If there is a stream sequence mismatch i.e. inst is a post
+		// branch inst, then discard the inst.
+                discard_inst = 
+                     inst-&gt;id.streamSeqNum != executeInfo[tid].streamSeqNum;
                 if (!discard_inst)
                     completed_inst = commitInst(...);
             
@@ -424,7 +455,7 @@ Execute::commit(){
             if (completed_inst)
             {
                 funcUnits[inst-&gt;fuIndex]-&gt;stalled = false;
-                executeInfo[tid]inFlightInsts-&gt;pop();
+                executeInfo[tid].inFlightInsts-&gt;pop();
                 scoreboard[tid].clearInstDests(inst);
             }             
         }
@@ -459,17 +490,25 @@ Execute::commitInst( inst, branch )
 }
 </code></pre>
 
-<pre><code class="language-c++">void 
+<pre><code class="language-c++">/** Takes a set of instructions out to the inputBuffer. If the dependencies
+ *  are satisfied keeps issuing the instructions bhy pushing them to FU 
+ *  and marking the dests in scoreboard. It stops and removes the instruction
+ *  from the inputBuffer in case all the insts in Latch are sent to the FUs. It
+ *  also stops in the case when any of the inst is dependent on some previous
+ *  inst. In this case any of insts after that are also not scheduled
+*/
+void 
 Execute::issue ( inst )
 {
     inst_in = inputBuffer[tid].front();
 
     do {
 	issued = false;
+	inst = insts_in-&gt;insts[thread.inputIndex];
 	for ( fu_idx = 0; fu_idx &lt; numFuncUnits; fu_idx++ ){
 	    fu = funcUnits[fu_idx];
 	    if ( !fu-&gt;stalled &amp;&amp; fu-&gt;provides(inst) ){
-		// Check the scoreboard to see if this inst depends on some previous inst
+		// Check scoreboard to see if inst depends on previous insts
 		if ( scoreBoard.canInstIssue(inst) ){
 		    fu-&gt;push( inst );
 		    // Mark the destination regs in the scoreboard
@@ -479,9 +518,11 @@ Execute::issue ( inst )
 		}
 	    }
 	}
-	if ( issued )
-	    executeInfo[tid].pop();	
-    } while ( inst_in &amp;&amp; !issued )
+	if (executeInfo[tid].inputIndex == insts_in-&gt;width() ){
+	    inputBuffer[tid].pop();	
+	    inst_in = NULL;
+	}
+    } while ( inst_in &amp;&amp; issued )
 }
 </code></pre>
 
@@ -490,10 +531,16 @@ Execute::issue ( inst )
 <pre><code class="language-c++">void
 fetch2::evaluate()
 {
-    inputBuffer[tid].push(*inp.OutputWire); // f1ToF2
+    // Mark the data in the f1ToF2 Lacth as the one to be 
+    // pushed to the inputBuffer next
+    inputBuffer[tid].setTail(*inp.OutputWire); // f1ToF2
 
     ForwardInstData &amp;insts_out = *out.inputWire; // f2ToD
     BranchData &amp;branch_inp = *branchInp.outputWire; // eToF1
+
+    // React to branches from execute stage to update local branch
+    // prediction structures (update the branch predictor itself)
+    updateBranchPrediction(branch_inp);    
 
     // thread will be blocked if no space in decode's inputBuffer
     fetchInfo[tid].blocked = !nextStageReserve[tid].canReserve();
@@ -503,8 +550,21 @@ fetch2::evaluate()
 		inputBuffer[tid].pop();
 
     line_in = inputBuffer[tid].front();
-   
-    while ( line_in &amp;&amp; fetchInfo[tid].inputIndex &lt; line_in-&gt;lineWidth )
+    
+    // Discard the instructions for which Fetch2 predicted sequence number is 
+    // different from the one with fetch1 fetched these instructions i.e. discard 
+    // the instructions which are fetched not complying to branch pred decision in fetch2
+    if ( line_in &amp;&amp; fetchInfo[tid].expectedStreamSeqNum == line_in-&gt;id.streamSeqNum 
+              &amp;&amp; fetchInfo[tid].predictionSeqNum != line_in-&gt;id.predictionSeqNum) {
+        inputBuffer.pop();
+    }
+
+    // fetch1 sends an entire caache line to fetch2 and not just a single inst
+    // fetch2 depending on what the output width is decodes that many insts.
+    // This decoding in hardware can be done using multiple decoders or
+    // a single decoder time-multiplexed. 
+    while ( line_in &amp;&amp; fetchInfo[tid].inputIndex &lt; line_in-&gt;lineWidth
+             &amp;&amp; outputIndex &lt; outputWidth )
     {
 	fetchInfo.pc = line_in-&gt;pc;
         dyn_inst = new MinorDynInst(line_in-&gt;id);
@@ -518,9 +578,14 @@ fetch2::evaluate()
 	insts_out.insts[output_index++] = dyn_inst;
 	if ( !prediction.isBubble() )
 	    line_in = NULL;
-	else
+	else if ( fetchInfp[tid[.inputIndex == line_in-&gt;lineWidth ) 
 	    inputBuffer[tid].pop();
    }
+   if ( !inst_out.isBubble() )
+        nextStageReserve[tid].reserve();
+
+   if ( !inp.outputWire-&gt;isBubble )
+        inputBuffer[inp.outputWire-&gt;id.threadId].pushTail();        
 }
 </code></pre>
 
@@ -585,7 +650,7 @@ fetch1::evaluate()
     
 
     
-    <li class="next"><a href="https://nitish2112.github.io/post/sketch-gallery/">Sketches <span
+    <li class="next"><a href="https://nitish2112.github.io/post/adding-instruction-riscv/">A Tutorial on the Gem5 Minor CPU Model <span
       aria-hidden="true">&rarr;</span></a></li>
     
   </ul>
@@ -619,15 +684,15 @@ fetch1::evaluate()
   </div>
 </footer>
 
-    <script src="//cdnjs.cloudflare.com/ajax/libs/gsap/1.18.4/TweenMax.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/gsap/latest/plugins/ScrollToPlugin.min.js"></script>
-    <script src="../../js/jquery-1.12.3.min.js"></script>
-    <script src="../../js/bootstrap.min.js"></script>
-    <script src="../../js/isotope.pkgd.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.1/imagesloaded.pkgd.min.js"></script>
-    <script src="../../js/hugo-academic.js"></script>
     
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js" integrity="sha512-jGsMH83oKe9asCpkOVkBnUrDDTp8wl+adkB2D+//JtlxO4SrLoJdhbOysIFQJloQFD+C4Fl1rMsQZF76JjV0eQ==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.2/imagesloaded.pkgd.min.js" integrity="sha512-iHzEu7GbSc705hE2skyH6/AlTpOfBmkx7nUqTLGzPYR+C1tRaItbRlJ7hT/D3YQ9SV0fqLKzp4XY9wKulTBGTw==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.1/TweenMax.min.js" integrity="sha512-Z5heTz36xTemt1TbtbfXtTq5lMfYnOkXM2/eWcTTiLU01+Sw4ku1i7vScDc8fWhrP2abz9GQzgKH5NGBLoYlAw==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.1/plugins/ScrollToPlugin.min.js" integrity="sha512-CDeU7pRtkPX6XJtF/gcFWlEwyaX7mcAp5sO3VIu/ylsdR74wEw4wmBpD5yYTrmMAiAboi9thyBUr1vXRPA7t0Q==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha512-iztkobsvnjKfAtTNdHkGVjAYTrrtlC7mGp/54c40wowO7LhURYl3gVzzcEqGl/qKXQltJ2HwMrdLcNUdo+N/RQ==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.4/isotope.pkgd.min.js" integrity="sha512-VDBOIlDbuC4VWxGJNmuFRQ0Li0SKkDpmGyuhAG5LTDLd/dJ/S0WMVxriR2Y+CyPL5gzjpN4f/6iqWVBJlht0tQ==" crossorigin="anonymous"></script>
+    
+    <script src="../../js/hugo-academic.js"></script>
     
 
     
@@ -647,7 +712,9 @@ fetch1::evaluate()
     <script type="text/x-mathjax-config">
         MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });
     </script>
-    <script async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_CHTML" integrity="sha512-tOav5w1OjvsSJzePRtt2uQPFwBoHt1VZcUq8l8nm5284LEKE9FSJBQryzMBzHxY5P0zRdNqEcpLIRVYFNgu1jw==" crossorigin="anonymous"></script>
+    
     
 
   </body>
