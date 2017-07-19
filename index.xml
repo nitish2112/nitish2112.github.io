@@ -186,17 +186,6 @@
     
     <item>
       <title>A Tutorial on the Gem5 Minor CPU Model</title>
-      <link>https://nitish2112.github.io/post/adding-instruction-riscv/</link>
-      <pubDate>Mon, 10 Jul 2017 10:09:32 -0400</pubDate>
-      
-      <guid>https://nitish2112.github.io/post/adding-instruction-riscv/</guid>
-      <description>&lt;p&gt;This is an introduction tutorial on gem5 minor cpu model.&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>A Tutorial on the Gem5 Minor CPU Model</title>
       <link>https://nitish2112.github.io/post/gem5-minor-cpu/</link>
       <pubDate>Mon, 10 Jul 2017 10:09:32 -0400</pubDate>
       
@@ -608,6 +597,17 @@ fetch1::evaluate()
 &lt;h1 id=&#34;instructions&#34;&gt;Instructions&lt;/h1&gt;
 
 &lt;p&gt;Each cpu has its own class for dynamic instruction for e.g. for minor cpu this is defined in dyn_inst.cc as class MinorDynInst. Each Dynamic instruction class has an object of class StaticInst. StaticInst is an abstract class whose execute() method is purely virtual. It provides a base abstract class for all the different kinds of instructions in the ISA. Based on which ISA you are compiling gem5 with, the build system generates a class for each of the instructions in the ISA which is derived from StaticInst class and it has the execute method which can be used to execute the instruction and update the register file. Go to the file build/RISCV/arch/riscv/generated/decoder-ns.hh.inc and you will see all the classes for different instructions. The execute method for these classes are implemented in build/RISCV/arch/riscv/generated/exec-ns.cc.inc . To know more on how these classes got built with gem5 please refer to my tutorial on [How to add instruction to RISCV ISA and simulate on gem5](). gem5 minor cpu model does not read the registers while being issued to the functional unit pipelines. Instead, the function unit pipelines are just to model the delays and all the execution is done by calling execute() method in commitInst() method in the execute unit.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Adding custom instruction to RISCV ISA and running it on gem5</title>
+      <link>https://nitish2112.github.io/post/adding-instruction-riscv/</link>
+      <pubDate>Mon, 10 Jul 2017 10:09:32 -0400</pubDate>
+      
+      <guid>https://nitish2112.github.io/post/adding-instruction-riscv/</guid>
+      <description>&lt;p&gt;This is a tutorial on how to add an instruction to the RISCV ISA, how to write program with the special instruction. I will also talk about how to add the new instruction to RISCV assembler and how to execute it on gem5.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
