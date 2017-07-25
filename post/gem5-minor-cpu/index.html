@@ -291,7 +291,7 @@
 
 <p>and then there is an evaluate() method which is the actiopn this stage has to perform at each CPU tick. As it can be seen from the implementation of Execute class that there are two wires one for input and one for output. The one named &ldquo;inp&rdquo; is connected to the output of dTE Latch and the one named &ldquo;out&rdquo; is connected to eToF1 Latch by the constructor of Pipeline class. The dToE Latch carries the instructions from decode to execute and eToF1 carries branch updates (the branch outcome is known only in execute) to the fetch1 stage. There is vector of objects of the class Scoreboard. Each element in the vector corresponds to a scoreboard for a thread. As the processor can be multithreaded this is necessary to seperate the scoreboards of different threads. In the rest of this tutorial I will assume a single threaded processor, so only scoreboard[0] will be a valid entry. Same is the case for the funcUnits which is a vector of functional unit pipelines for different threads and inputBuffer. The figure below gives a pictorial representation of how the execute stage looks like.</p>
 
-<p><img src="gem5-logo.png" alt="gem5" /></p>
+<p><img src="execute.png" alt="execute" /></p>
 
 <h2 id="decode">Decode</h2>
 
@@ -311,8 +311,7 @@
 
 <p>Similar to execute stage, decode contains one input wire and one output wire, but this time the input wire is carrying the decoded instruction from fetch2 to decode and the output wire is carrying the output instruction from decode to execute. As decode does not determine the outcome of branches there is no wire going from decode to fetch1 as in the case of execute. decode also contains an alias ( reference ) to the inputBuffer object of the execute stage. This reference is used to reserve an entry in the inputBuffer of the execute stage. By doing this decode makes sure that whatever instruction it is inserting in the dTE latch will have a place in the input buffer of the execute from which it executes the instructions.</p>
 
-<p>&hellip; goes here
-<img src="gem5-logo.png" alt="gem5" /></p>
+<p><img src="decode.png" alt="decode" /></p>
 
 <h2 id="fetch2">Fetch2</h2>
 
@@ -335,6 +334,8 @@
 </code></pre>
 
 <p>By now it should be clear what are the different components in the pipeline stages are. First of all there are some wires which are either input to the stage (and hence the Output of the Latch) or are outputs from the stage (Inputs to the Latches). Then there is an instruction buffer for each stage which holds entries of ForwardInstData or ForwardLine data which are just instructions wrapped in a class. Then at last there is a reference to the input buffer of the next stage and an evaluate() function which gets executed every clock tick. The main function that fetch2 is responsible for is decoding the instruction. The names can be sometimes misleading as the decode stage is not the one that does the real decoding. The decoding is indeed done in the fetch2 stage.</p>
+
+<p><img src="fetch2.png" alt="fetch2" /></p>
 
 <h2 id="fetch1">Fetch1</h2>
 
@@ -657,6 +658,12 @@ fetch1::evaluate()
 <h1 id="instruction-decoding">Instruction Decoding</h1>
 
 <p>The fetch2 stage has decoder which belongs to the class TheISA::Decoder. For RISCV ISA its implementation can be found in src/arch/riscv/decoder.hh. The Decoder has two important functions moreBytes(pc,inst) and decode(nextPC). moreBytes is used to copy the 32-bit instruction into the decoder so that when decode() is invoked it can decode the instruction. However, each decoder calls a GenericISA::BasicDecodeCache::decode() method. This method is implemented in src/arch/generic/decode_cache.cc. This looksup if it has already decoded this instruction in the decodePages and instMap cache structures, if it does not find it there it calls the decodeInst() method of the original decoder. This is a templated method in src/arch/isa_parser.py. Whenever gem5 is compiled for specific ISA for eg. RISCV build/RISCV/arch/riscv/generated/decode-method.cc.inc gets generated which has the decodeInst(machInst) method. It mostly does nothing, just sees the OPCODE and FUNC bits of the instruction and in a switch case create an object of that particular instruction by calling its constructor. All these instruction classes are defined in build/RISCV/arch/riscv/generated/decoder-ns.hh.inc and are derived from the StaticInst class. The constructors of the instructions&rsquo; classes and the base StaticInst class initialize the members like number of source and destinations registers, the immediate value, machInst(actual instruction in binary). The constructors of these instruction classes are given in build/RISCV/arch/riscv/generated/decoder-ns.cc.inc with their class definitions in build/RISCV/arch/riscv/generated/decoder-ns.hh.inc. To create a dynamic instruction the machine instruction is passed to the decoder which creates a StaticInt object and returns it. This StaticInst object is then stick into the object of dynamic instruction.</p>
+
+<h1 id="squashing-in-minor-cpu">Squashing in minor cpu</h1>
+
+<h1 id="caches-in-gem5">Caches in gem5</h1>
+
+<p>L1Cache, L1_ICache, L1_DCache, L2Cache, IOCache and  PageTableWalkerCache all are derived from class Cache by ovewriting the latency and size configurations. class Cache is defined in src/mem/cache/cache.hh and is the child class of BaseCache in src/mem/cache/base.hh.</p>
     </div>
   </div>
 
@@ -671,7 +678,7 @@ fetch1::evaluate()
     
 
     
-    <li class="next"><a href="https://nitish2112.github.io/post/sketch-gallery/">Sketches <span
+    <li class="next"><a href="https://nitish2112.github.io/post/gem5-simulation/">A Tutorial on Gem5 Simulation Framework <span
       aria-hidden="true">&rarr;</span></a></li>
     
   </ul>

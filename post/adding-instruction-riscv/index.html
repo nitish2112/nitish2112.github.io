@@ -46,17 +46,17 @@
     
   
 
-  <link rel="alternate" href="https://nitish2112.github.io/tags/gem5/index.xml" type="application/rss+xml" title="Nitish Srivastava">
-  <link rel="feed" href="https://nitish2112.github.io/tags/gem5/index.xml" type="application/rss+xml" title="Nitish Srivastava">
+  <link rel="alternate" href="https://nitish2112.github.io/index.xml" type="application/rss+xml" title="Nitish Srivastava">
+  <link rel="feed" href="https://nitish2112.github.io/index.xml" type="application/rss+xml" title="Nitish Srivastava">
 
   <link rel="icon" type="image/png" href="../../img/icon.png">
   <link rel="apple-touch-icon" type="image/png" href="../../img/apple-touch-icon.png">
 
-  <link rel="canonical" href="https://nitish2112.github.io/tags/gem5/">
+  <link rel="canonical" href="https://nitish2112.github.io/post/adding-instruction-riscv/">
 
   
 
-  <title>Gem5 | Nitish Srivastava</title>
+  <title>Adding custom instruction to RISCV ISA and running it on gem5 | Nitish Srivastava</title>
 
 </head>
 <body id="top" data-spy="scroll" data-target="#navbar-main" data-offset="71">
@@ -163,67 +163,137 @@
 </nav>
 
 
+<article class="article" itemscope itemtype="http://schema.org/Article">
+
+  
 
 
+  <div class="article-container">
+    <h1 itemprop="name">Adding custom instruction to RISCV ISA and running it on gem5</h1>
+    
 
-<div class="universal-wrapper">
+<div class="article-metadata">
 
-  <h1>Gem5</h1>
+  <span class="article-date">
+    <time datetime="2017-07-10 10:09:32 -0400 EDT" itemprop="datePublished">
+      Mon, Jul 10, 2017
+    </time>
+  </span>
 
   
 
   
   
-  <div>
-    <h2><a href="https://nitish2112.github.io/post/gem5-simulation/">A Tutorial on Gem5 Simulation Framework</a></h2>
-    <div class="article-style">
-      
-      This is an introduction tutorial to gem5 simulation framework</p>
+  
+  <span class="article-tags">
+    <i class="fa fa-tags"></i>
+    
+    <a href="../../tags/gem5">gem5</a
+    >
+    
+  </span>
+  
+  
 
-<p>
-      
+  
+  
+<div class="share-box" aria-hidden="true">
+  <ul class="share">
+    <li>
+      <a class="facebook"
+         href="https://www.facebook.com/sharer.php?u=https%3a%2f%2fnitish2112.github.io%2fpost%2fadding-instruction-riscv%2f"
+         target="_blank">
+        <i class="fa fa-facebook"></i>
+      </a>
+    </li>
+    <li>
+      <a class="twitter"
+         href="https://twitter.com/intent/tweet?text=Adding%20custom%20instruction%20to%20RISCV%20ISA%20and%20running%20it%20on%20gem5&amp;url=https%3a%2f%2fnitish2112.github.io%2fpost%2fadding-instruction-riscv%2f"
+         target="_blank">
+        <i class="fa fa-twitter"></i>
+      </a>
+    </li>
+    <li>
+      <a class="linkedin"
+         href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fnitish2112.github.io%2fpost%2fadding-instruction-riscv%2f&amp;title=Adding%20custom%20instruction%20to%20RISCV%20ISA%20and%20running%20it%20on%20gem5"
+         target="_blank">
+        <i class="fa fa-linkedin"></i>
+      </a>
+    </li>
+    <li>
+      <a class="weibo"
+         href="http://service.weibo.com/share/share.php?url=https%3a%2f%2fnitish2112.github.io%2fpost%2fadding-instruction-riscv%2f&amp;title=Adding%20custom%20instruction%20to%20RISCV%20ISA%20and%20running%20it%20on%20gem5"
+         target="_blank">
+        <i class="fa fa-weibo"></i>
+      </a>
+    </li>
+    <li>
+      <a class="email"
+         href="mailto:?subject=Adding%20custom%20instruction%20to%20RISCV%20ISA%20and%20running%20it%20on%20gem5&amp;body=https%3a%2f%2fnitish2112.github.io%2fpost%2fadding-instruction-riscv%2f">
+        <i class="fa fa-envelope"></i>
+      </a>
+    </li>
+  </ul>
+</div>
+
+
+  
+
+</div>
+
+    <div class="article-style" itemprop="articleBody">
+      <p>This is a tutorial on how to add an instruction to the RISCV ISA, how to write program with the special instruction. I will also talk about how to add the new instruction to RISCV assembler and how to execute it on gem5.</p>
+
+<p></p>
+
+<p>First of all compile all the RISCV tools as mentioned [here]():Q</p>
     </div>
   </div>
+
+</article>
+
+<div class="container">
+  <nav>
+  <ul class="pager">
+    
+    <li class="previous"><a href="https://nitish2112.github.io/post/event-driven-simulation/"><span
+      aria-hidden="true">&larr;</span> Computer Architectural Simulation Techniques</a></li>
+    
+
+    
+    <li class="next"><a href="https://nitish2112.github.io/post/gem5-minor-cpu/">A Tutorial on the Gem5 Minor CPU Model <span
+      aria-hidden="true">&rarr;</span></a></li>
+    
+  </ul>
+</nav>
+
+</div>
+
+<div class="article-container">
   
-  <div>
-    <h2><a href="https://nitish2112.github.io/post/gem5-minor-cpu/">A Tutorial on the Gem5 Minor CPU Model</a></h2>
-    <div class="article-style">
-      
-      This is an introduction tutorial on gem5 minor cpu model.</p>
+<section id="comments">
+  <div id="disqus_thread">
+    <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'nitish2112-github-io';
+    var disqus_identifier = 'https:\/\/nitish2112.github.io\/post\/adding-instruction-riscv\/';
+    var disqus_title = 'Adding custom instruction to RISCV ISA and running it on gem5';
+    var disqus_url = 'https:\/\/nitish2112.github.io\/post\/adding-instruction-riscv\/';
 
-<p>Many a times it gets difficult for the computer architects to get started with event-driven simulators. This document is written to target that audience and provide an overview of the minor cpu model in gem5 which implements an in-order pipelined processor. If you have never worked on event-driven simulators and don&rsquo;t know what they are, there is a cool video <a href="https://www.youtube.com/watch?v=irbshkdVFao" target="_blank">here</a>. This tutorial will help the reader to understand how the event-driven minor cpu model is implemented in gem5 and will not go much into details of how to compile and build gem5, how to add tracing and what are ports and how do they work. This information can be found in <a href="http://learning.gem5.org/book/index.html" target="_blank">Learning Gem5</a>. OK!! So lets get started.</p>
-
-<p>
-      
-    </div>
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
   </div>
-  
-  <div>
-    <h2><a href="https://nitish2112.github.io/post/adding-instruction-riscv/">Adding custom instruction to RISCV ISA and running it on gem5</a></h2>
-    <div class="article-style">
-      
-      This is a tutorial on how to add an instruction to the RISCV ISA, how to write program with the special instruction. I will also talk about how to add the new instruction to RISCV assembler and how to execute it on gem5.</p>
-
-<p>
-      
-    </div>
-  </div>
-  
-  <div>
-    <h2><a href="https://nitish2112.github.io/post/event-driven-simulation/">Computer Architectural Simulation Techniques</a></h2>
-    <div class="article-style">
-      
-      This is an introduction tutorial on different types of simulation techniques and a brief overview of event driven simulators.
-
-      
-    </div>
-  </div>
-  
-
-  
+</section>
 
 
 </div>
+
 <footer class="site-footer">
   <div class="container">
     <p class="powered-by">

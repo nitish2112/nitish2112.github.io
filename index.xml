@@ -185,6 +185,21 @@
     </item>
     
     <item>
+      <title>A Tutorial on Gem5 Simulation Framework</title>
+      <link>https://nitish2112.github.io/post/gem5-simulation/</link>
+      <pubDate>Mon, 10 Jul 2017 10:09:32 -0400</pubDate>
+      
+      <guid>https://nitish2112.github.io/post/gem5-simulation/</guid>
+      <description>&lt;p&gt;This is an introduction tutorial to gem5 simulation framework&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;h1 id=&#34;simulation-using-gem5&#34;&gt;Simulation using gem5&lt;/h1&gt;
+
+&lt;p&gt;The configuration file se.py calls Simulation.run(). The Simulation.py in config/common/Simulation.py implements the run() method. This method calls m5.instantiate() and then calls benchCheckpoints() methods. benchCheckpoints() method calls m5.simulate(). The m5 package is located in src/python/m5. m5.initantiate() and m5.simulate() both are implemented in simulate.py. The m5.instantiate() first gets the root instance by calling objects.Root.getInstance(). The Root package is in src/sim/Root.py. m5.simulate() then calls obj.createCCObject(), obj.connectPorts(), obj.init(), obj.regStats(), obj.regProbePoints(), obj.regProbeListeners(), and obj.initState() in sequence on all the obj which are the descendants of the root ( i.e. all the objects ). Each of these methods is defined in the C++ or python version of SimObject and can be reimplemented by the class itself. The m5.simulate() calls the startup() method on all the descendants of the root. The descendants of the root are basically all the objects in the tree of hierarchies not just the ones that are specified in the config file.  These startup methods are implemented in the classes for e.g. there is a startup method in class MinorCPU, BaseCPU, SimpleThread etc. After calling the startup() methods it calls _m5.event.simulate(). Don&amp;rsquo;t know how but this simulate() method calls simulate() method in src/sim/simulate.cc. The simulate method calls a doSimLoop() method which has a while(1) loop that calls eventq-&amp;gt;serviceOne() each iteration and the serviceOne method pops an event at the head of the queue and calls process() method of that event.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
       <title>A Tutorial on the Gem5 Minor CPU Model</title>
       <link>https://nitish2112.github.io/post/gem5-minor-cpu/</link>
       <pubDate>Mon, 10 Jul 2017 10:09:32 -0400</pubDate>
@@ -239,7 +254,7 @@
 
 &lt;p&gt;and then there is an evaluate() method which is the actiopn this stage has to perform at each CPU tick. As it can be seen from the implementation of Execute class that there are two wires one for input and one for output. The one named &amp;ldquo;inp&amp;rdquo; is connected to the output of dTE Latch and the one named &amp;ldquo;out&amp;rdquo; is connected to eToF1 Latch by the constructor of Pipeline class. The dToE Latch carries the instructions from decode to execute and eToF1 carries branch updates (the branch outcome is known only in execute) to the fetch1 stage. There is vector of objects of the class Scoreboard. Each element in the vector corresponds to a scoreboard for a thread. As the processor can be multithreaded this is necessary to seperate the scoreboards of different threads. In the rest of this tutorial I will assume a single threaded processor, so only scoreboard[0] will be a valid entry. Same is the case for the funcUnits which is a vector of functional unit pipelines for different threads and inputBuffer. The figure below gives a pictorial representation of how the execute stage looks like.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;gem5-logo.png&#34; alt=&#34;gem5&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;execute.png&#34; alt=&#34;execute&#34; /&gt;&lt;/p&gt;
 
 &lt;h2 id=&#34;decode&#34;&gt;Decode&lt;/h2&gt;
 
@@ -259,8 +274,7 @@
 
 &lt;p&gt;Similar to execute stage, decode contains one input wire and one output wire, but this time the input wire is carrying the decoded instruction from fetch2 to decode and the output wire is carrying the output instruction from decode to execute. As decode does not determine the outcome of branches there is no wire going from decode to fetch1 as in the case of execute. decode also contains an alias ( reference ) to the inputBuffer object of the execute stage. This reference is used to reserve an entry in the inputBuffer of the execute stage. By doing this decode makes sure that whatever instruction it is inserting in the dTE latch will have a place in the input buffer of the execute from which it executes the instructions.&lt;/p&gt;
 
-&lt;p&gt;&amp;hellip; goes here
-&lt;img src=&#34;gem5-logo.png&#34; alt=&#34;gem5&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;decode.png&#34; alt=&#34;decode&#34; /&gt;&lt;/p&gt;
 
 &lt;h2 id=&#34;fetch2&#34;&gt;Fetch2&lt;/h2&gt;
 
@@ -283,6 +297,8 @@
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;By now it should be clear what are the different components in the pipeline stages are. First of all there are some wires which are either input to the stage (and hence the Output of the Latch) or are outputs from the stage (Inputs to the Latches). Then there is an instruction buffer for each stage which holds entries of ForwardInstData or ForwardLine data which are just instructions wrapped in a class. Then at last there is a reference to the input buffer of the next stage and an evaluate() function which gets executed every clock tick. The main function that fetch2 is responsible for is decoding the instruction. The names can be sometimes misleading as the decode stage is not the one that does the real decoding. The decoding is indeed done in the fetch2 stage.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;fetch2.png&#34; alt=&#34;fetch2&#34; /&gt;&lt;/p&gt;
 
 &lt;h2 id=&#34;fetch1&#34;&gt;Fetch1&lt;/h2&gt;
 
@@ -604,7 +620,13 @@ fetch1::evaluate()
 
 &lt;h1 id=&#34;instruction-decoding&#34;&gt;Instruction Decoding&lt;/h1&gt;
 
-&lt;p&gt;The fetch2 stage has decoder which belongs to the class TheISA::Decoder. For RISCV ISA its implementation can be found in src/arch/riscv/decoder.hh. The Decoder has two important functions moreBytes(pc,inst) and decode(nextPC). moreBytes is used to copy the 32-bit instruction into the decoder so that when decode() is invoked it can decode the instruction. However, each decoder calls a GenericISA::BasicDecodeCache::decode() method. This method is implemented in src/arch/generic/decode_cache.cc. This looksup if it has already decoded this instruction in the decodePages and instMap cache structures, if it does not find it there it calls the decodeInst() method of the original decoder. This is a templated method in src/arch/isa_parser.py. Whenever gem5 is compiled for specific ISA for eg. RISCV build/RISCV/arch/riscv/generated/decode-method.cc.inc gets generated which has the decodeInst(machInst) method. It mostly does nothing, just sees the OPCODE and FUNC bits of the instruction and in a switch case create an object of that particular instruction by calling its constructor. All these instruction classes are defined in build/RISCV/arch/riscv/generated/decoder-ns.hh.inc and are derived from the StaticInst class. The constructors of the instructions&amp;rsquo; classes and the base StaticInst class initialize the members like number of source and destinations registers, the immediate value, machInst(actual instruction in binary). The constructors of these instruction classes are given in build/RISCV/arch/riscv/generated/decoder-ns.cc.inc with their class definitions in build/RISCV/arch/riscv/generated/decoder-ns.hh.inc. To create a dynamic instruction the machine instruction is passed to the decoder which creates a StaticInt object and returns it. This StaticInst object is then stick into the object of dynamic instruction.&lt;/p&gt;</description>
+&lt;p&gt;The fetch2 stage has decoder which belongs to the class TheISA::Decoder. For RISCV ISA its implementation can be found in src/arch/riscv/decoder.hh. The Decoder has two important functions moreBytes(pc,inst) and decode(nextPC). moreBytes is used to copy the 32-bit instruction into the decoder so that when decode() is invoked it can decode the instruction. However, each decoder calls a GenericISA::BasicDecodeCache::decode() method. This method is implemented in src/arch/generic/decode_cache.cc. This looksup if it has already decoded this instruction in the decodePages and instMap cache structures, if it does not find it there it calls the decodeInst() method of the original decoder. This is a templated method in src/arch/isa_parser.py. Whenever gem5 is compiled for specific ISA for eg. RISCV build/RISCV/arch/riscv/generated/decode-method.cc.inc gets generated which has the decodeInst(machInst) method. It mostly does nothing, just sees the OPCODE and FUNC bits of the instruction and in a switch case create an object of that particular instruction by calling its constructor. All these instruction classes are defined in build/RISCV/arch/riscv/generated/decoder-ns.hh.inc and are derived from the StaticInst class. The constructors of the instructions&amp;rsquo; classes and the base StaticInst class initialize the members like number of source and destinations registers, the immediate value, machInst(actual instruction in binary). The constructors of these instruction classes are given in build/RISCV/arch/riscv/generated/decoder-ns.cc.inc with their class definitions in build/RISCV/arch/riscv/generated/decoder-ns.hh.inc. To create a dynamic instruction the machine instruction is passed to the decoder which creates a StaticInt object and returns it. This StaticInst object is then stick into the object of dynamic instruction.&lt;/p&gt;
+
+&lt;h1 id=&#34;squashing-in-minor-cpu&#34;&gt;Squashing in minor cpu&lt;/h1&gt;
+
+&lt;h1 id=&#34;caches-in-gem5&#34;&gt;Caches in gem5&lt;/h1&gt;
+
+&lt;p&gt;L1Cache, L1_ICache, L1_DCache, L2Cache, IOCache and  PageTableWalkerCache all are derived from class Cache by ovewriting the latency and size configurations. class Cache is defined in src/mem/cache/cache.hh and is the child class of BaseCache in src/mem/cache/base.hh.&lt;/p&gt;</description>
     </item>
     
     <item>

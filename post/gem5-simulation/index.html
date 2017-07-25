@@ -46,17 +46,17 @@
     
   
 
-  <link rel="alternate" href="https://nitish2112.github.io/tags/gem5/index.xml" type="application/rss+xml" title="Nitish Srivastava">
-  <link rel="feed" href="https://nitish2112.github.io/tags/gem5/index.xml" type="application/rss+xml" title="Nitish Srivastava">
+  <link rel="alternate" href="https://nitish2112.github.io/index.xml" type="application/rss+xml" title="Nitish Srivastava">
+  <link rel="feed" href="https://nitish2112.github.io/index.xml" type="application/rss+xml" title="Nitish Srivastava">
 
   <link rel="icon" type="image/png" href="../../img/icon.png">
   <link rel="apple-touch-icon" type="image/png" href="../../img/apple-touch-icon.png">
 
-  <link rel="canonical" href="https://nitish2112.github.io/tags/gem5/">
+  <link rel="canonical" href="https://nitish2112.github.io/post/gem5-simulation/">
 
   
 
-  <title>Gem5 | Nitish Srivastava</title>
+  <title>A Tutorial on Gem5 Simulation Framework | Nitish Srivastava</title>
 
 </head>
 <body id="top" data-spy="scroll" data-target="#navbar-main" data-offset="71">
@@ -163,67 +163,139 @@
 </nav>
 
 
+<article class="article" itemscope itemtype="http://schema.org/Article">
+
+  
 
 
+  <div class="article-container">
+    <h1 itemprop="name">A Tutorial on Gem5 Simulation Framework</h1>
+    
 
-<div class="universal-wrapper">
+<div class="article-metadata">
 
-  <h1>Gem5</h1>
+  <span class="article-date">
+    <time datetime="2017-07-10 10:09:32 -0400 EDT" itemprop="datePublished">
+      Mon, Jul 10, 2017
+    </time>
+  </span>
 
   
 
   
   
-  <div>
-    <h2><a href="https://nitish2112.github.io/post/gem5-simulation/">A Tutorial on Gem5 Simulation Framework</a></h2>
-    <div class="article-style">
-      
-      This is an introduction tutorial to gem5 simulation framework</p>
+  
+  <span class="article-tags">
+    <i class="fa fa-tags"></i>
+    
+    <a href="../../tags/gem5">gem5</a
+    >
+    
+  </span>
+  
+  
 
-<p>
-      
+  
+  
+<div class="share-box" aria-hidden="true">
+  <ul class="share">
+    <li>
+      <a class="facebook"
+         href="https://www.facebook.com/sharer.php?u=https%3a%2f%2fnitish2112.github.io%2fpost%2fgem5-simulation%2f"
+         target="_blank">
+        <i class="fa fa-facebook"></i>
+      </a>
+    </li>
+    <li>
+      <a class="twitter"
+         href="https://twitter.com/intent/tweet?text=A%20Tutorial%20on%20Gem5%20Simulation%20Framework&amp;url=https%3a%2f%2fnitish2112.github.io%2fpost%2fgem5-simulation%2f"
+         target="_blank">
+        <i class="fa fa-twitter"></i>
+      </a>
+    </li>
+    <li>
+      <a class="linkedin"
+         href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fnitish2112.github.io%2fpost%2fgem5-simulation%2f&amp;title=A%20Tutorial%20on%20Gem5%20Simulation%20Framework"
+         target="_blank">
+        <i class="fa fa-linkedin"></i>
+      </a>
+    </li>
+    <li>
+      <a class="weibo"
+         href="http://service.weibo.com/share/share.php?url=https%3a%2f%2fnitish2112.github.io%2fpost%2fgem5-simulation%2f&amp;title=A%20Tutorial%20on%20Gem5%20Simulation%20Framework"
+         target="_blank">
+        <i class="fa fa-weibo"></i>
+      </a>
+    </li>
+    <li>
+      <a class="email"
+         href="mailto:?subject=A%20Tutorial%20on%20Gem5%20Simulation%20Framework&amp;body=https%3a%2f%2fnitish2112.github.io%2fpost%2fgem5-simulation%2f">
+        <i class="fa fa-envelope"></i>
+      </a>
+    </li>
+  </ul>
+</div>
+
+
+  
+
+</div>
+
+    <div class="article-style" itemprop="articleBody">
+      <p>This is an introduction tutorial to gem5 simulation framework</p>
+
+<p></p>
+
+<h1 id="simulation-using-gem5">Simulation using gem5</h1>
+
+<p>The configuration file se.py calls Simulation.run(). The Simulation.py in config/common/Simulation.py implements the run() method. This method calls m5.instantiate() and then calls benchCheckpoints() methods. benchCheckpoints() method calls m5.simulate(). The m5 package is located in src/python/m5. m5.initantiate() and m5.simulate() both are implemented in simulate.py. The m5.instantiate() first gets the root instance by calling objects.Root.getInstance(). The Root package is in src/sim/Root.py. m5.simulate() then calls obj.createCCObject(), obj.connectPorts(), obj.init(), obj.regStats(), obj.regProbePoints(), obj.regProbeListeners(), and obj.initState() in sequence on all the obj which are the descendants of the root ( i.e. all the objects ). Each of these methods is defined in the C++ or python version of SimObject and can be reimplemented by the class itself. The m5.simulate() calls the startup() method on all the descendants of the root. The descendants of the root are basically all the objects in the tree of hierarchies not just the ones that are specified in the config file.  These startup methods are implemented in the classes for e.g. there is a startup method in class MinorCPU, BaseCPU, SimpleThread etc. After calling the startup() methods it calls _m5.event.simulate(). Don&rsquo;t know how but this simulate() method calls simulate() method in src/sim/simulate.cc. The simulate method calls a doSimLoop() method which has a while(1) loop that calls eventq-&gt;serviceOne() each iteration and the serviceOne method pops an event at the head of the queue and calls process() method of that event.</p>
     </div>
   </div>
+
+</article>
+
+<div class="container">
+  <nav>
+  <ul class="pager">
+    
+    <li class="previous"><a href="https://nitish2112.github.io/post/gem5-minor-cpu/"><span
+      aria-hidden="true">&larr;</span> A Tutorial on the Gem5 Minor CPU Model</a></li>
+    
+
+    
+    <li class="next"><a href="https://nitish2112.github.io/post/sketch-gallery/">Sketches <span
+      aria-hidden="true">&rarr;</span></a></li>
+    
+  </ul>
+</nav>
+
+</div>
+
+<div class="article-container">
   
-  <div>
-    <h2><a href="https://nitish2112.github.io/post/gem5-minor-cpu/">A Tutorial on the Gem5 Minor CPU Model</a></h2>
-    <div class="article-style">
-      
-      This is an introduction tutorial on gem5 minor cpu model.</p>
+<section id="comments">
+  <div id="disqus_thread">
+    <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'nitish2112-github-io';
+    var disqus_identifier = 'https:\/\/nitish2112.github.io\/post\/gem5-simulation\/';
+    var disqus_title = 'A Tutorial on Gem5 Simulation Framework';
+    var disqus_url = 'https:\/\/nitish2112.github.io\/post\/gem5-simulation\/';
 
-<p>Many a times it gets difficult for the computer architects to get started with event-driven simulators. This document is written to target that audience and provide an overview of the minor cpu model in gem5 which implements an in-order pipelined processor. If you have never worked on event-driven simulators and don&rsquo;t know what they are, there is a cool video <a href="https://www.youtube.com/watch?v=irbshkdVFao" target="_blank">here</a>. This tutorial will help the reader to understand how the event-driven minor cpu model is implemented in gem5 and will not go much into details of how to compile and build gem5, how to add tracing and what are ports and how do they work. This information can be found in <a href="http://learning.gem5.org/book/index.html" target="_blank">Learning Gem5</a>. OK!! So lets get started.</p>
-
-<p>
-      
-    </div>
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
   </div>
-  
-  <div>
-    <h2><a href="https://nitish2112.github.io/post/adding-instruction-riscv/">Adding custom instruction to RISCV ISA and running it on gem5</a></h2>
-    <div class="article-style">
-      
-      This is a tutorial on how to add an instruction to the RISCV ISA, how to write program with the special instruction. I will also talk about how to add the new instruction to RISCV assembler and how to execute it on gem5.</p>
-
-<p>
-      
-    </div>
-  </div>
-  
-  <div>
-    <h2><a href="https://nitish2112.github.io/post/event-driven-simulation/">Computer Architectural Simulation Techniques</a></h2>
-    <div class="article-style">
-      
-      This is an introduction tutorial on different types of simulation techniques and a brief overview of event driven simulators.
-
-      
-    </div>
-  </div>
-  
-
-  
+</section>
 
 
 </div>
+
 <footer class="site-footer">
   <div class="container">
     <p class="powered-by">
