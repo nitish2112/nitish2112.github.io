@@ -215,7 +215,7 @@
 
 &lt;h2 id=&#34;pipeline&#34;&gt;Pipeline&lt;/h2&gt;
 
-&lt;p&gt;It is a 4 stage pipelined processor. The four stages being fetch1, fetch2, decode and execute. As opposed to 5-stage DLX pipeline that every computer architecture student is familiar with this is somewhat different. The ITLB access, and fetch of the instruction from the main memory are done in fetch1. fetch2 is responsible for decoding the instruction, decode is responsible for just some book-keeping ( why this is a stage I am not sure at this point ) and execute implements the logic for issue, execute, memory, writeback and commit. All of these stages are defined as SimObjects in the class Pipeline which implements the entire pipeline. The different pipeline stages are connected via Latches ( we will talk about their implementation later in this tutorial ).&lt;/p&gt;
+&lt;p&gt;It is a 4 stage pipelined processor. The four stages being fetch1, fetch2, decode and execute. As opposed to 5-stage DLX pipeline that every computer architecture student is familiar with, this is somewhat different. The ITLB access, and fetch of the instruction from the main memory are done in fetch1. fetch2 is responsible for decoding the instruction, decode is responsible for just some book-keeping ( why this is a stage I am not sure at this point ) and execute implements the logic for issue, execute, memory, writeback and commit. All of these stages are defined as SimObjects in the class Pipeline which implements the entire pipeline. The different pipeline stages are connected via Latches ( we will talk about their implementation later in this tutorial ).&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;class Pipeline {
     /* Latches to connect the stages */
@@ -238,7 +238,7 @@
 
 &lt;h2 id=&#34;execute&#34;&gt;Execute&lt;/h2&gt;
 
-&lt;p&gt;The way to think about an object/class is in terms of its data members as they correspond to the physical data-structures that you will build in your hardware. The methods tell how these objects interact which somewhat represents the wiring and the control. The main objects in the Execute stage are shown below:&lt;/p&gt;
+&lt;p&gt;The way to think about an object/class is in terms of its data members, as they correspond to the physical data-structures that you will build in your hardware. The methods tell how these objects interact, which somewhat represents the wiring and the control. The main objects in the Execute stage are shown below:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;class Execute {
     Latch&amp;lt;ForwardInstData&amp;gt;::Output inp; // connected to dToE Latch
@@ -252,7 +252,7 @@
 }
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;and then there is an evaluate() method which is the actiopn this stage has to perform at each CPU tick. As it can be seen from the implementation of Execute class that there are two wires one for input and one for output. The one named &amp;ldquo;inp&amp;rdquo; is connected to the output of dTE Latch and the one named &amp;ldquo;out&amp;rdquo; is connected to eToF1 Latch by the constructor of Pipeline class. The dToE Latch carries the instructions from decode to execute and eToF1 carries branch updates (the branch outcome is known only in execute) to the fetch1 stage. There is vector of objects of the class Scoreboard. Each element in the vector corresponds to a scoreboard for a thread. As the processor can be multithreaded this is necessary to seperate the scoreboards of different threads. In the rest of this tutorial I will assume a single threaded processor, so only scoreboard[0] will be a valid entry. Same is the case for the funcUnits which is a vector of functional unit pipelines for different threads and inputBuffer. The figure below gives a pictorial representation of how the execute stage looks like.&lt;/p&gt;
+&lt;p&gt;Apart from the data-members, there is an evaluate() method which is the actiopn this stage has to perform at each CPU tick. As it can be seen from the implementation of Execute class that there are two wires one for input and one for output. The one named &amp;ldquo;inp&amp;rdquo; is connected to the output of dToE Latch and the one named &amp;ldquo;out&amp;rdquo; is connected to eToF1 Latch by the constructor of Pipeline class. The dToE Latch carries the instructions from decode to execute and eToF1 carries branch updates (the branch outcome is known only in execute) to the fetch1 stage. There is vector of objects of the class Scoreboard. Each element in the vector corresponds to a scoreboard for a thread. As the processor can be multithreaded this is necessary to seperate the scoreboards of different threads. In the rest of this tutorial, I will assume a single threaded processor, so only scoreboard[0] will be a valid entry. Same is the case for the funcUnits which is a vector of functional unit pipelines for different threads and inputBuffer. The figure below gives a pictorial representation of how the execute stage looks like.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&#34;execute.png&#34; alt=&#34;execute&#34; /&gt;&lt;/p&gt;
 
@@ -272,7 +272,7 @@
 }
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;Similar to execute stage, decode contains one input wire and one output wire, but this time the input wire is carrying the decoded instruction from fetch2 to decode and the output wire is carrying the output instruction from decode to execute. As decode does not determine the outcome of branches there is no wire going from decode to fetch1 as in the case of execute. decode also contains an alias ( reference ) to the inputBuffer object of the execute stage. This reference is used to reserve an entry in the inputBuffer of the execute stage. By doing this decode makes sure that whatever instruction it is inserting in the dTE latch will have a place in the input buffer of the execute from which it executes the instructions.&lt;/p&gt;
+&lt;p&gt;Similar to execute stage, decode contains one input wire and one output wire, but this time the input wire is carrying the decoded instruction from fetch2 to decode and the output wire is carrying the output instruction from decode to execute. As decode does not determine the outcome of branches there is no wire going from decode to fetch1 as in the case of execute. decode also contains an alias ( reference ) to the inputBuffer object of the execute stage. This reference is used to reserve an entry in the inputBuffer of the execute stage. By doing this decode makes sure that whatever instruction it is inserting in the dToE latch will have a place in the input buffer of the execute from which it executes the instructions.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&#34;decode.png&#34; alt=&#34;decode&#34; /&gt;&lt;/p&gt;
 
@@ -331,7 +331,7 @@
 
 &lt;h1 id=&#34;the-execution-of-the-pipeline&#34;&gt;The execution of the pipeline&lt;/h1&gt;
 
-&lt;p&gt;Now that we are aware of what are the key data-structures in each stage and how dis CPU connected to the pipeline and threads, we can look into how does the pipeline operate. Each pipeline has an event associated with it ???? which is scheduled for every clock tick. Whenever the event fires, the evaluate() function of the pipeline class is called. The evaluate method of the pipeline class calls the evaluate method on each of the pipeline stages in the reverse order. The order here is important because the updates from the later stages of the pipeline should be visible to the earlier stages of the pipeline. Think of a very simple stall logic, if the execute stage decides to stall in the current cycle, fetch1, fetch2, and decode all should stall and should not change any state in the current cycle. This would not be possible if we evaluate the fetch1, fetch2 and decode before evaluating execute stage. The converse of this is however not true, in conventional processor pipelines there are no feed-forward paths and hence the evaluation of later stages do not depend on the evaluation of earlier stages in the pipeline. Once all the stages are updated in the reverse order, the latches are advanced, which means in the two element buffer, the tail is pushed to the head and a space for new entry is made at the tail. The code looks somewhat like this:&lt;/p&gt;
+&lt;p&gt;Now that we are aware of what are the key data-structures in each stage and how the CPU is connected to the pipeline and threads, we can look into how does the pipeline operate. Each pipeline has an event associated with it called &amp;ldquo;event&amp;rdquo; which is scheduled for every clock tick. Whenever the event fires, the evaluate() function of the pipeline class is called. The evaluate method of the pipeline class calls the evaluate method on each of the pipeline stages in the reverse order. The order here is important because the updates from the later stages of the pipeline should be visible to the earlier stages of the pipeline. Think of a very simple stall logic, if the execute stage decides to stall in the current cycle, fetch1, fetch2, and decode all should stall and should not change any state in the current cycle. This would not be possible if we evaluate the fetch1, fetch2 and decode before evaluating execute stage. The converse of this is however not true, as in conventional processor pipelines there are no feed-forward paths and hence the evaluation of later stages do not depend on the evaluation of earlier stages in the pipeline. Once all the stages are updated in the reverse order, the latches are advanced, which means in the two element buffer, the tail is pushed to the head and a space for new entry is made at the tail. The code looks somewhat like this:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;void                                                                     
 Pipeline::evaluate()                                                     
@@ -639,7 +639,117 @@ fetch1::evaluate()
 
 &lt;p&gt;&lt;/p&gt;
 
-&lt;p&gt;First of all compile all the RISCV tools as mentioned [here]():Q&lt;/p&gt;</description>
+&lt;p&gt;First of all download and install the riscv-tools:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ git clone https://github.com/riscv/riscv-tools.git
+$ git submodule update --init --recursive
+$ export RISCV=/path/to/install/riscv/toolchain
+$ ./build.sh
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This will build the riscv toolchain. Now we will add a &amp;ldquo;modulo&amp;rdquo; instruction to the ISA. The isntruction and its semantics are given below:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;mod r1, r2, r3
+
+Semantics:
+R[r1] = R[r2] % R[r3]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Open the file riscv-opcodes/opcodes, here you will be able to see the various opcodes and instruction bits assigned to various instructions. Assigned an unused instruction to modulo inst. I am adding it ner the &amp;ldquo;add&amp;rdquo; instruction&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;add     rd rs1 rs2 31..25=0  14..12=0 6..2=0x0C 1..0=3                          
+sub     rd rs1 rs2 31..25=32 14..12=0 6..2=0x0C 1..0=3 
+mod     rd rs1 rs2 31..25=16 14..12=0 6..2=0x0C 1..0=3                         
+sll     rd rs1 rs2 31..25=0  14..12=1 6..2=0x0C 1..0=3                          
+slt     rd rs1 rs2 31..25=0  14..12=2 6..2=0x0C 1..0=3                          
+sltu    rd rs1 rs2 31..25=0  14..12=3 6..2=0x0C 1..0=3                          
+xor     rd rs1 rs2 31..25=0  14..12=4 6..2=0x0C 1..0=3                          
+srl     rd rs1 rs2 31..25=0  14..12=5 6..2=0x0C 1..0=3                          
+sra     rd rs1 rs2 31..25=32 14..12=5 6..2=0x0C 1..0=3                          
+or      rd rs1 rs2 31..25=0  14..12=6 6..2=0x0C 1..0=3                          
+and     rd rs1 rs2 31..25=0  14..12=7 6..2=0x0C 1..0=3 
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now run the following command:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cat opcodes-pseudo opcodes opcodes-rvc opcodes-rvc-pseudo opcodes-custom | ./parse-opcodes -c &amp;gt; ~/temp.h
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Open file temp.h and you will find the following two lines:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-C&#34;&gt;#define MATCH_MOD 0x20000033                                                    
+#define MASK_MOD  0xfe00707f
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Add these two lines in riscv-gnu-toolchain/riscv-binutils-gdb/include/opcode/riscv-opc.h&lt;/p&gt;
+
+&lt;p&gt;Now edit riscv-gnu-toolchain/riscv-binutils-gdb/opcodes/riscv-opc.c and add this line in the assignment of const struct riscv_opcode riscv_opcodes[]:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-C&#34;&gt;const struct riscv_opcode riscv_opcodes[] =                                     
+{                                                                               
+/* name,      isa,   operands, match, mask, match_func, pinfo.  */              
+{&amp;quot;unimp&amp;quot;,     &amp;quot;C&amp;quot;,   &amp;quot;&amp;quot;,  0, 0xffffU,  match_opcode, 0 },                       
+{&amp;quot;unimp&amp;quot;,     &amp;quot;I&amp;quot;,   &amp;quot;&amp;quot;,  MATCH_CSRRW | (CSR_CYCLE &amp;lt;&amp;lt; OP_SH_CSR), 0xffffffffU,  match_opcode, 0 }, /* csrw cycle, x0 */
+{&amp;quot;ebreak&amp;quot;,    &amp;quot;C&amp;quot;,   &amp;quot;&amp;quot;,  MATCH_C_EBREAK, MASK_C_EBREAK, match_opcode, INSN_ALIAS },
+{&amp;quot;ebreak&amp;quot;,    &amp;quot;I&amp;quot;,   &amp;quot;&amp;quot;,    MATCH_EBREAK, MASK_EBREAK, match_opcode, 0 },          
+{&amp;quot;sbreak&amp;quot;,    &amp;quot;C&amp;quot;,   &amp;quot;&amp;quot;,  MATCH_C_EBREAK, MASK_C_EBREAK, match_opcode, INSN_ALIAS },
+{&amp;quot;sbreak&amp;quot;,    &amp;quot;I&amp;quot;,   &amp;quot;&amp;quot;,    MATCH_EBREAK, MASK_EBREAK, match_opcode, INSN_ALIAS },
+....
+....
+....
+{&amp;quot;add&amp;quot;,       &amp;quot;I&amp;quot;,   &amp;quot;d,s,t&amp;quot;,  MATCH_ADD, MASK_ADD, match_opcode, 0 }
+{&amp;quot;mod&amp;quot;,       &amp;quot;I&amp;quot;,   &amp;quot;d,s,t&amp;quot;,  MATCH_MOD, MASK_MOD, match_opcode, 0 }
+....
+....
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now compile the riscv-gnu-toolchain again and you are done.&lt;/p&gt;
+
+&lt;p&gt;Lets write a program and see if the RISCV assembler can use the mod instruction:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-C&#34;&gt;#include &amp;lt;stdio,h&amp;gt;
+
+int a[] = {11,22,33,44,55};
+int b[] = {10,10,10,10,10};
+int c[4];
+
+int main(){
+  int i;
+  for ( i = 0; i &amp;lt; 4; i++ ){
+     asm volatile
+     (
+       &amp;quot;mod   %[z], %[x], %[y]\n\t&amp;quot;
+       : [z] &amp;quot;=r&amp;quot; (c[i])
+       : [x] &amp;quot;r&amp;quot; (a[i]), [y] &amp;quot;r&amp;quot; (b[i])
+     )  
+  }
+ 
+  for ( int i = 0; i &amp;lt; 4; i++ ){
+      if ( c[i] != i+1 ){
+         printf(&amp;quot;\n[[FAILED]]\n&amp;quot;);
+         return -1;
+      }
+  }
+  
+  printf(&amp;quot;\n[[PASSED]]\n&amp;quot;);
+
+  return 0;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Compile it using the modified RISCV compiler&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ riscv64-unknown-elf-gcc mod.c -o mod
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now do an object dump to see that the mod instruction is actually used:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ riscv64-unknown-elf-objdump -dC mod &amp;gt; mod.dump
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now open mod.dump and you will be able to see that mod instruction has been used.&lt;/p&gt;
+
+&lt;p&gt;I will later add how you can modify the ISA simulator to test the newly added instruction and how you can modify gem5 to be able to exexcute this instruction.&lt;/p&gt;</description>
     </item>
     
     <item>
