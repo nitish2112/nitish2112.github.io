@@ -52,11 +52,11 @@
   <link rel="icon" type="image/png" href="../../img/icon.png">
   <link rel="apple-touch-icon" type="image/png" href="../../img/apple-touch-icon.png">
 
-  <link rel="canonical" href="https://nitish2112.github.io/post/adding-instruction-riscv/">
+  <link rel="canonical" href="https://nitish2112.github.io/post/gem5-misc/">
 
   
 
-  <title>Adding custom instruction to RISCV ISA and running it on gem5 | Nitish Srivastava</title>
+  <title>Gem5 miscellaneous | Nitish Srivastava</title>
 
 </head>
 <body id="top" data-spy="scroll" data-target="#navbar-main" data-offset="71">
@@ -169,7 +169,7 @@
 
 
   <div class="article-container">
-    <h1 itemprop="name">Adding custom instruction to RISCV ISA and running it on gem5</h1>
+    <h1 itemprop="name">Gem5 miscellaneous</h1>
     
 
 <div class="article-metadata">
@@ -201,35 +201,35 @@
   <ul class="share">
     <li>
       <a class="facebook"
-         href="https://www.facebook.com/sharer.php?u=https%3a%2f%2fnitish2112.github.io%2fpost%2fadding-instruction-riscv%2f"
+         href="https://www.facebook.com/sharer.php?u=https%3a%2f%2fnitish2112.github.io%2fpost%2fgem5-misc%2f"
          target="_blank">
         <i class="fa fa-facebook"></i>
       </a>
     </li>
     <li>
       <a class="twitter"
-         href="https://twitter.com/intent/tweet?text=Adding%20custom%20instruction%20to%20RISCV%20ISA%20and%20running%20it%20on%20gem5&amp;url=https%3a%2f%2fnitish2112.github.io%2fpost%2fadding-instruction-riscv%2f"
+         href="https://twitter.com/intent/tweet?text=Gem5%20miscellaneous&amp;url=https%3a%2f%2fnitish2112.github.io%2fpost%2fgem5-misc%2f"
          target="_blank">
         <i class="fa fa-twitter"></i>
       </a>
     </li>
     <li>
       <a class="linkedin"
-         href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fnitish2112.github.io%2fpost%2fadding-instruction-riscv%2f&amp;title=Adding%20custom%20instruction%20to%20RISCV%20ISA%20and%20running%20it%20on%20gem5"
+         href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fnitish2112.github.io%2fpost%2fgem5-misc%2f&amp;title=Gem5%20miscellaneous"
          target="_blank">
         <i class="fa fa-linkedin"></i>
       </a>
     </li>
     <li>
       <a class="weibo"
-         href="http://service.weibo.com/share/share.php?url=https%3a%2f%2fnitish2112.github.io%2fpost%2fadding-instruction-riscv%2f&amp;title=Adding%20custom%20instruction%20to%20RISCV%20ISA%20and%20running%20it%20on%20gem5"
+         href="http://service.weibo.com/share/share.php?url=https%3a%2f%2fnitish2112.github.io%2fpost%2fgem5-misc%2f&amp;title=Gem5%20miscellaneous"
          target="_blank">
         <i class="fa fa-weibo"></i>
       </a>
     </li>
     <li>
       <a class="email"
-         href="mailto:?subject=Adding%20custom%20instruction%20to%20RISCV%20ISA%20and%20running%20it%20on%20gem5&amp;body=https%3a%2f%2fnitish2112.github.io%2fpost%2fadding-instruction-riscv%2f">
+         href="mailto:?subject=Gem5%20miscellaneous&amp;body=https%3a%2f%2fnitish2112.github.io%2fpost%2fgem5-misc%2f">
         <i class="fa fa-envelope"></i>
       </a>
     </li>
@@ -242,145 +242,45 @@
 </div>
 
     <div class="article-style" itemprop="articleBody">
-      <p>This is a tutorial on how to add an instruction to the RISCV ISA, how to write program with the special instruction. I will also talk about how to add the new instruction to RISCV assembler and how to execute it on gem5.</p>
+      <p>Here I will talk about miscellaneous things that you can use with gem5.
+</p>
 
-<p></p>
+<h1 id="adding-an-option-to-gem5">Adding an option to gem5</h1>
 
-<p>First of all download and install the riscv-tools:</p>
+<p>Say we want to add option &ldquo;xyz&rdquo; to our simulator</p>
 
-<pre><code class="language-bash">$ git clone https://github.com/riscv/riscv-tools.git
-$ git submodule update --init --recursive
-$ export RISCV=/path/to/install/riscv/toolchain
-$ ./build.sh
-</code></pre>
+<p>1) Add it to configs/common/Options.py: In addCommonOptions() function add
+   parser.add_option(&ldquo;&ndash;xyz&rdquo;, action=&ldquo;store_true&rdquo;)</p>
 
-<p>This will build the riscv toolchain. Now we will add a &ldquo;modulo&rdquo; instruction to the ISA. The isntruction and its semantics are given below:</p>
+<p>2) Add this option as a parameter in base cpu class. In src/cpu/BaseCPU.py
+   add this to the class BaseCPU:</p>
 
-<pre><code class="language-bash">mod r1, r2, r3
+<p>xyz = Param.Bool(False, &ldquo;Enable line trace&rdquo;)</p>
 
-Semantics:
-R[r1] = R[r2] % R[r3]
-</code></pre>
+<p>3) Add xyz as a public class member in base class of cpu in src/cpu/base.hh</p>
 
-<p>Open the file riscv-opcodes/opcodes, here you will be able to see the various opcodes and instruction bits assigned to various instructions. Assigned an unused instruction to modulo inst. I am adding it ner the &ldquo;add&rdquo; instruction</p>
+<p>bool xyz;</p>
 
-<pre><code class="language-bash">add     rd rs1 rs2 31..25=0  14..12=0 6..2=0x0C 1..0=3                          
-sub     rd rs1 rs2 31..25=32 14..12=0 6..2=0x0C 1..0=3 
-mod     rd rs1 rs2 31..25=16 14..12=0 6..2=0x0C 1..0=3                         
-sll     rd rs1 rs2 31..25=0  14..12=1 6..2=0x0C 1..0=3                          
-slt     rd rs1 rs2 31..25=0  14..12=2 6..2=0x0C 1..0=3                          
-sltu    rd rs1 rs2 31..25=0  14..12=3 6..2=0x0C 1..0=3                          
-xor     rd rs1 rs2 31..25=0  14..12=4 6..2=0x0C 1..0=3                          
-srl     rd rs1 rs2 31..25=0  14..12=5 6..2=0x0C 1..0=3                          
-sra     rd rs1 rs2 31..25=32 14..12=5 6..2=0x0C 1..0=3                          
-or      rd rs1 rs2 31..25=0  14..12=6 6..2=0x0C 1..0=3                          
-and     rd rs1 rs2 31..25=0  14..12=7 6..2=0x0C 1..0=3 
-</code></pre>
+<p>4) Add support for xyz in constructor of base class for cpu in src/cpu/base.cc</p>
 
-<p>Now run the following command:</p>
+<p>xyz               =  params()-&gt;xyz;</p>
 
-<pre><code class="language-bash">cat opcodes-pseudo opcodes opcodes-rvc opcodes-rvc-pseudo opcodes-custom | ./parse-opcodes -c &gt; ~/temp.h
-</code></pre>
+<p>5) Pass the option from the config script to the cpu class. After instantiating
+   cpus i.e.</p>
 
-<p>Open file temp.h and you will find the following two lines:</p>
+<p>system = System(cpu = [CPUClass(cpu_id=i, num_cores=np)
+                          for i in xrange(np)] &hellip;. )</p>
 
-<pre><code class="language-C">#define MATCH_MOD 0x20000033                                                    
-#define MASK_MOD  0xfe00707f
-</code></pre>
+<p>etc, do</p>
 
-<p>Add these two lines in riscv-gnu-toolchain/riscv-binutils-gdb/include/opcode/riscv-opc.h</p>
+<p>system.cpu[0].xyz = options.xyz</p>
 
-<p>Now edit riscv-gnu-toolchain/riscv-binutils-gdb/opcodes/riscv-opc.c and add this line in the assignment of const struct riscv_opcode riscv_opcodes[]:</p>
+<p>6) Now you can use the true/false boolean xyz to do conditional operation in
+   you cpu member functions as:</p>
 
-<pre><code class="language-C">const struct riscv_opcode riscv_opcodes[] =                                     
-{                                                                               
-/* name,      isa,   operands, match, mask, match_func, pinfo.  */              
-{&quot;unimp&quot;,     &quot;C&quot;,   &quot;&quot;,  0, 0xffffU,  match_opcode, 0 },                       
-{&quot;unimp&quot;,     &quot;I&quot;,   &quot;&quot;,  MATCH_CSRRW | (CSR_CYCLE &lt;&lt; OP_SH_CSR), 0xffffffffU,  match_opcode, 0 }, /* csrw cycle, x0 */
-{&quot;ebreak&quot;,    &quot;C&quot;,   &quot;&quot;,  MATCH_C_EBREAK, MASK_C_EBREAK, match_opcode, INSN_ALIAS },
-{&quot;ebreak&quot;,    &quot;I&quot;,   &quot;&quot;,    MATCH_EBREAK, MASK_EBREAK, match_opcode, 0 },          
-{&quot;sbreak&quot;,    &quot;C&quot;,   &quot;&quot;,  MATCH_C_EBREAK, MASK_C_EBREAK, match_opcode, INSN_ALIAS },
-{&quot;sbreak&quot;,    &quot;I&quot;,   &quot;&quot;,    MATCH_EBREAK, MASK_EBREAK, match_opcode, INSN_ALIAS },
-....
-....
-....
-{&quot;add&quot;,       &quot;I&quot;,   &quot;d,s,t&quot;,  MATCH_ADD, MASK_ADD, match_opcode, 0 }
-{&quot;mod&quot;,       &quot;I&quot;,   &quot;d,s,t&quot;,  MATCH_MOD, MASK_MOD, match_opcode, 0 }
-....
-....
-</code></pre>
+<p>if ( xyz ) {  &hellip;. } else { &hellip; }</p>
 
-<p>Now compile the riscv-gnu-toolchain again and you are done.</p>
-
-<p>Lets write a program and see if the RISCV assembler can use the mod instruction:</p>
-
-<pre><code class="language-C">#include &lt;stdio,h&gt;
-
-int a[] = {11,22,33,44,55};
-int b[] = {10,10,10,10,10};
-int c[4];
-
-int main(){
-  int i;
-  for ( i = 0; i &lt; 4; i++ ){
-     asm volatile
-     (
-       &quot;mod   %[z], %[x], %[y]\n\t&quot;
-       : [z] &quot;=r&quot; (c[i])
-       : [x] &quot;r&quot; (a[i]), [y] &quot;r&quot; (b[i])
-     )  
-  }
- 
-  for ( int i = 0; i &lt; 4; i++ ){
-      if ( c[i] != i+1 ){
-         printf(&quot;\n[[FAILED]]\n&quot;);
-         return -1;
-      }
-  }
-  
-  printf(&quot;\n[[PASSED]]\n&quot;);
-
-  return 0;
-}
-</code></pre>
-
-<p>Compile it using the modified RISCV compiler</p>
-
-<pre><code class="language-bash">$ riscv64-unknown-elf-gcc mod.c -o mod
-</code></pre>
-
-<p>Now do an object dump to see that the mod instruction is actually used:</p>
-
-<pre><code class="language-bash">$ riscv64-unknown-elf-objdump -dC mod &gt; mod.dump
-</code></pre>
-
-<p>Now open mod.dump and you will be able to see that mod instruction has been used.</p>
-
-<p>I will later add how you can modify the ISA simulator to test the newly added instruction and how you can modify gem5 to be able to exexcute this instruction.</p>
-
-<h1 id="adding-the-new-instruction-to-gem5">Adding the new instruction to gem5</h1>
-
-<p>To add the instruction gem5 we need to modify arch/riscv/decoder.isa like this:</p>
-
-<pre><code class="language-C">    0x33: decode FUNCT3 {
-        format ROp {
-            0x0: decode FUNCT7 {
-                0x0: add({{
-                    Rd = Rs1_sd + Rs2_sd;
-                }});
-                0x1: mul({{
-                    Rd = Rs1_sd*Rs2_sd;
-                }}, IntMultOp);
-                0x10: mod({{
-                    Rd = Rs1_sd + Rs2_sd;
-                }});
-                0x20: sub({{
-                    Rd = Rs1_sd - Rs2_sd;
-                }});
-            }
-</code></pre>
-
-<p>Here 0x33 is the opcode and 0x10 is the the funct7. The details about different fields in the RISC-V ISA can be seen from page no. 50 of the manual <a href="https://www2.eecs.berkeley.edu/Pubs/TechRpts/2014/EECS-2014-54.pdf" target="_blank">here</a>.</p>
+<p>Hurray! we added a new option to gem5.</p>
     </div>
   </div>
 
@@ -390,12 +290,9 @@ int main(){
   <nav>
   <ul class="pager">
     
-    <li class="previous"><a href="https://nitish2112.github.io/post/statistics-gem5/"><span
-      aria-hidden="true">&larr;</span> Adding custom statistics to gem5</a></li>
-    
 
     
-    <li class="next"><a href="https://nitish2112.github.io/post/gem5-minor-cpu/">A Tutorial on the Gem5 Minor CPU Model <span
+    <li class="next"><a href="https://nitish2112.github.io/post/event-driven-simulation/">Computer Architectural Simulation Techniques <span
       aria-hidden="true">&rarr;</span></a></li>
     
   </ul>

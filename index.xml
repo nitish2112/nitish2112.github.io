@@ -624,9 +624,128 @@ fetch1::evaluate()
 
 &lt;h1 id=&#34;squashing-in-minor-cpu&#34;&gt;Squashing in minor cpu&lt;/h1&gt;
 
+&lt;h1 id=&#34;load-store-queue-lsq&#34;&gt;Load-Store queue (LSQ)&lt;/h1&gt;
+
+&lt;p&gt;Load store queue is used for performing load/store operations. It has three major hardware FIFOs: requests queue, transfers queue, and store buffer. Requests queue holds the memory requests which have been sent to the TLB but haven&amp;rsquo;t received the response for. Transfers queue holds the memory requests which have been issued to the memory system and are waiting for a response. Store buffer has all the stores that have been committed but haven&amp;rsquo;t been written to memory yet. Before trying to issue a load from requests queue to memory, store buffer is checked to see if the previous store contains the data. The main top level function for LSQ is step()  which is called in the evaluate() method of the execute unit.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;LSQ::step() {
+  tryToSendToTransfers(requests.front());
+  storeBuffer.step()
+}
+
+LSQ::tryToSendToTransfers(LSQRequest* request) {
+   // note that LSQRequest is not of type Request but a derived class 
+  // from BaseTLB::Translation and Packet::SenderState
+  LSQRequest request = requests.front();
+  
+  if (request-&amp;gt;isComplete()) {
+    // LSQ::moveFromRequestsToTransfers(LSQRequestPtr request)
+    requests.pop();
+    transfers.push(request);
+  }
+  
+  if (!(request-&amp;gt;isLoad &amp;amp;&amp;amp; storeBuffer.canForwardData())) {
+    if (tryToSend(request)) {
+      requests.pop();
+      transfers.push(request);
+    }
+  }
+}
+
+LSQ::tryToSend(LSQRequest* request) {
+  dacachePort.sendTimingRequest(request-&amp;gt;packet);
+  // Set the state of the request appropriately depending on success or failure.
+}
+
+LSQ::StoreBuffer::step() {
+  LSQRequest** i = slots.begin();
+  while (issued &amp;amp;&amp;amp; issue_count &amp;lt; StoreLimit &amp;amp;&amp;amp; i!=slots.end()) {
+    LSQRequest* request = *i;
+    lsq.tryToSend(request);
+  }
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Other important functions are pushRequest(): called by the exec_context.hh in initiateMemRead() function. pushRequest() calls&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;LSQ::pushRequest() {
+  if (!isLoad)
+    request_data = new uint8_t[size];
+  
+  LSQrequest* request = new SingleDataRequest();
+  request-&amp;gt;request.setContext();
+  request-&amp;gt;request.setVirt();
+  requests.push(request);
+  // request-&amp;gt;startAddrTranslation(); 
+  thread-&amp;gt;getDTBPtr()-&amp;gt;translateTiming(request-&amp;gt;request);
+  // TranslateTiming calls the finish() method when done with translation
+}
+
+LSQ::SingleDataRequest::finish() {
+  makePacket();
+  port.tryToSendToTransfers();
+}
+
+LSQ::LSQRequest::makePacket() {
+  // packet = makePacketForRequest(request, data);
+  Packet* packet = isLoad ? Packet::createRead(&amp;amp;request)
+                          : Packet::createWrite(&amp;amp;request);
+
+  packet-&amp;gt;pushSenderState(this);
+  if (isLoad) packet-&amp;gt;allocate();
+  else        packet-&amp;gt;dataDynamic(data);
+
+  data = NULL;
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+
 &lt;h1 id=&#34;caches-in-gem5&#34;&gt;Caches in gem5&lt;/h1&gt;
 
-&lt;p&gt;L1Cache, L1_ICache, L1_DCache, L2Cache, IOCache and  PageTableWalkerCache all are derived from class Cache by ovewriting the latency and size configurations. class Cache is defined in src/mem/cache/cache.hh and is the child class of BaseCache in src/mem/cache/base.hh.&lt;/p&gt;</description>
+&lt;p&gt;L1Cache, L1_ICache, L1_DCache, L2Cache, IOCache and  PageTableWalkerCache all are derived from class Cache by ovewriting the latency and size configurations. class Cache is defined in src/mem/cache/cache.hh and is the child class of BaseCache in src/mem/cache/base.hh.&lt;/p&gt;
+
+&lt;p&gt;The recvTimingReq() method for the non-blocking cache looks like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;Cache::recvTimingReq() {
+  CacheBlk* blk = NULL; 
+  PacketList writebacks;
+  bool satisfied = access(pkt, blk, writebacks);
+  doWritebacks(writebacks);
+  if (satisfied) {
+    if (pkt-&amp;gt;needsResponse()) {
+      pkt-&amp;gt;makeTimingResponse();
+      cpuSidePort-&amp;gt;schedTimingResp(pkt, request_time);
+    }
+  }
+}
+
+Cache::access(pkt, blk, writebacks) {
+  blk = tag-&amp;gt;accessBlock(pkt);
+  
+}
+
+LRU::accessBlock(pkt, &amp;amp;lat) { 
+  // LRU class is derived from BaseSetAssoc class
+  CacheBlk * blk = BaseSetAssoc::accessBlock(pkt-&amp;gt;getAddr(), &amp;amp;lat);
+  // move the block to the head of MRU
+  sets[blk-&amp;gt;set].moveToHead(blk); 
+  return blk;
+}
+
+BaseSetAssoc::accessBlock(addr, &amp;amp;lat) {
+  Addr tag = extractTag(addr);
+  int set = extractSet(addr);
+  blk = sets[set].findBlk(tag);
+  lat = accessLatency;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;function-units&#34;&gt;Function Units&lt;/h1&gt;
+
+&lt;p&gt;The function units and what operations they can perform is described in MinorCPU.py by setting the variable &amp;ldquo;executeFuncUnits&amp;rdquo;. It by default uses MinorDefaultFUPool class which is defined in MinorCPU.py as well and creates a pool of function units (2: Int, 1: Int-mul, 1: int-div, 1: float-simd, 1: mem, 1: misc)&lt;/p&gt;
+
+&lt;p&gt;Functional unit pipelines can be of variable depth, so this is modelled by the class FUPipeline which is derived from FUPipelineBase which is basically SelfStallingPipeline derived from TimeBuffer. The depth the FUPipelines are set in the Python file MinorCPU.py. The opLat parameter in MinorDefaultIntFU etc are the pipeline depths that get assigned to the depth of the SelfStalling pipelines.&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -749,7 +868,77 @@ int main(){
 
 &lt;p&gt;Now open mod.dump and you will be able to see that mod instruction has been used.&lt;/p&gt;
 
-&lt;p&gt;I will later add how you can modify the ISA simulator to test the newly added instruction and how you can modify gem5 to be able to exexcute this instruction.&lt;/p&gt;</description>
+&lt;p&gt;I will later add how you can modify the ISA simulator to test the newly added instruction and how you can modify gem5 to be able to exexcute this instruction.&lt;/p&gt;
+
+&lt;h1 id=&#34;adding-the-new-instruction-to-gem5&#34;&gt;Adding the new instruction to gem5&lt;/h1&gt;
+
+&lt;p&gt;To add the instruction gem5 we need to modify arch/riscv/decoder.isa like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-C&#34;&gt;    0x33: decode FUNCT3 {
+        format ROp {
+            0x0: decode FUNCT7 {
+                0x0: add({{
+                    Rd = Rs1_sd + Rs2_sd;
+                }});
+                0x1: mul({{
+                    Rd = Rs1_sd*Rs2_sd;
+                }}, IntMultOp);
+                0x10: mod({{
+                    Rd = Rs1_sd + Rs2_sd;
+                }});
+                0x20: sub({{
+                    Rd = Rs1_sd - Rs2_sd;
+                }});
+            }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Here 0x33 is the opcode and 0x10 is the the funct7. The details about different fields in the RISC-V ISA can be seen from page no. 50 of the manual &lt;a href=&#34;https://www2.eecs.berkeley.edu/Pubs/TechRpts/2014/EECS-2014-54.pdf&#34; target=&#34;_blank&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Adding custom statistics to gem5</title>
+      <link>https://nitish2112.github.io/post/statistics-gem5/</link>
+      <pubDate>Mon, 10 Jul 2017 10:09:32 -0400</pubDate>
+      
+      <guid>https://nitish2112.github.io/post/statistics-gem5/</guid>
+      <description>&lt;p&gt;This is a tutorial on how to add statistics in gem5.&lt;/p&gt;
+
+&lt;p&gt;
+&amp;ndash; All the stats are defined in the namespace Stats. namespace Stats
+   is spread across the following files:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;   -- src/base/statistics.hh
+   -- src/sim/stat\_control.hh
+   -- src/base/stats/info.hh
+   -- src/base/stats/output.hh
+   -- src/base/stats/text.hh
+   -- src/base/stats/type.hh
+   -- src/python/pybind11/stats.cc
+   -- sim/power/mathexpr\_powermodel.hh
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The schedStatEvent() function is used to dump statistics either all at once or
+periodically. This is defined in src/sim/stat_control.cc. schedStatEvent()
+creates a new StatEvent. The default values for when is curTick and repeat is
+0, so the StatEvent created by schedStatEvent executes in the same cycle and
+does not push itself to the event queue again when processed. The process()
+function of StatEvent calls Stats::dump() and Stats::reset() both of which
+are defined in base/statistics.hh. The dump() calls the constructor of
+dumpHandler() which is a variable &amp;ldquo;Handler dumpHandler&amp;rdquo; in the Stats namespace
+in the same file initialized to NULL. Same for reset and resetHandler(). The
+dumpHandler and resetHandler variables are set using the call to registerHanlders()
+also defined in the same file.&lt;/p&gt;
+
+&lt;p&gt;When the gem5 system initantiates the objects by calling instantiate() method
+in src/python/m5/simulate.py, in instantiate() method it calls stats.initSimStats()
+which is defined in /src/python/m5/stats/&lt;strong&gt;init&lt;/strong&gt;.py and calls
+_m5.stats.registerPythonStatsHandlers() which in turn is defined in
+src/sim/stat_register.cc and calls registerHandlers(pythonReset, pythonDump);
+to regisetr the handlers we were talking about in the previous paragraph.&lt;/p&gt;
+
+&lt;!--more--&gt;
+
+&lt;h1 id=&#34;minor-cpu&#34;&gt;Minor CPU&lt;/h1&gt;</description>
     </item>
     
     <item>
@@ -803,60 +992,50 @@ int main(){
     </item>
     
     <item>
-      <title>Computer Architectural Simulation Techniques</title>
-      <link>https://nitish2112.github.io/post/loop-optimizations-llvm/</link>
+      <title>Gem5 miscellaneous</title>
+      <link>https://nitish2112.github.io/post/gem5-misc/</link>
       <pubDate>Mon, 10 Jul 2017 10:09:32 -0400</pubDate>
       
-      <guid>https://nitish2112.github.io/post/loop-optimizations-llvm/</guid>
-      <description>&lt;p&gt;This is an introduction tutorial on Loop Analysis Passes in LLVM
+      <guid>https://nitish2112.github.io/post/gem5-misc/</guid>
+      <description>&lt;p&gt;Here I will talk about miscellaneous things that you can use with gem5.
 &lt;/p&gt;
 
-&lt;p&gt;class Loop is defined in Analysis/LoopInfo.h. The main data members of Loop class are :
-1) ParentLoop: parent loop
-2) SubLoops: List of loops contained within this loop
-3) Blocks: List of basic blocks in the loop&lt;/p&gt;
+&lt;h1 id=&#34;adding-an-option-to-gem5&#34;&gt;Adding an option to gem5&lt;/h1&gt;
 
-&lt;p&gt;class BasicBlock is defined in IR/BasicBlock.h has following data-members:
-1) InstList: List of instructions
-2) Parent: Function in which this basic blocks resides&lt;/p&gt;
+&lt;p&gt;Say we want to add option &amp;ldquo;xyz&amp;rdquo; to our simulator&lt;/p&gt;
 
-&lt;p&gt;Each Pass also has its own class and whatever new information the passes extract are stored in
-the object of that pass only. For example DominatorTreeWrapperPass has following members:
-1) DominatorTree DT;&lt;/p&gt;
+&lt;p&gt;1) Add it to configs/common/Options.py: In addCommonOptions() function add
+   parser.add_option(&amp;ldquo;&amp;ndash;xyz&amp;rdquo;, action=&amp;ldquo;store_true&amp;rdquo;)&lt;/p&gt;
 
-&lt;p&gt;Now, if we see the class DominatorTree it has following members:
-1) DomTreeNodeMapType DomTreeNodes;
-2) DomTreeNodeBase&lt;NodeT&gt; * RootNode;
-3) std::vector&lt;NodeT *&gt; Vertex;
-4) DenseMap&lt;NodeT *, NodeT *&gt; IDoms;&lt;/p&gt;
+&lt;p&gt;2) Add this option as a parameter in base cpu class. In src/cpu/BaseCPU.py
+   add this to the class BaseCPU:&lt;/p&gt;
 
-&lt;p&gt;Similarly LoopInfoWrapperPass (Analysis/LoopInfo.h) has following data members:
-1) LoopInfo LI&lt;/p&gt;
+&lt;p&gt;xyz = Param.Bool(False, &amp;ldquo;Enable line trace&amp;rdquo;)&lt;/p&gt;
 
-&lt;p&gt;ScalarEvolutionWrapperPass (Analysis/ScalarEvolutionWrapperPass.h) has following members:
-1) ScalarEvolution * SE;&lt;/p&gt;
+&lt;p&gt;3) Add xyz as a public class member in base class of cpu in src/cpu/base.hh&lt;/p&gt;
 
-&lt;p&gt;ScalarEvolution (Analysis/ScalarEvolution.h) has following members:
-1) Function
-2) TargetLibraryInfo &amp;TLI;
-3) AssumptionCache &amp;AC;
-4) DominatorTree &amp;DT;
-5) LoopInfo &amp;LI;
-6) &amp;hellip; and others&lt;/p&gt;
+&lt;p&gt;bool xyz;&lt;/p&gt;
 
-&lt;p&gt;Any pass is derived from class Pass (include/llvm/Pass.h) and has at least these data members inherited from Pass:
-1) AnalysisResolver * Resolver;  // Used to resolve analysis
-2) const void * PassID;
-3) PassKind Kind;&lt;/p&gt;
+&lt;p&gt;4) Add support for xyz in constructor of base class for cpu in src/cpu/base.cc&lt;/p&gt;
 
-&lt;p&gt;Neither of FunctionPass, BasicBlockPass or ModulePass add any extra data-members.&lt;/p&gt;
+&lt;p&gt;xyz               =  params()-&amp;gt;xyz;&lt;/p&gt;
 
-&lt;p&gt;LLVMContext is the class in IR/LLVMContext.h which has following data members:
-1) LLVMContextImpl * const pImpl;&lt;/p&gt;
+&lt;p&gt;5) Pass the option from the config script to the cpu class. After instantiating
+   cpus i.e.&lt;/p&gt;
 
-&lt;p&gt;LLVMContextImpl is defined in lib/IR/LLVMContextImpl.h and has following data members:
-1) OwnedModules: modules in the context
-2)&lt;/p&gt;</description>
+&lt;p&gt;system = System(cpu = [CPUClass(cpu_id=i, num_cores=np)
+                          for i in xrange(np)] &amp;hellip;. )&lt;/p&gt;
+
+&lt;p&gt;etc, do&lt;/p&gt;
+
+&lt;p&gt;system.cpu[0].xyz = options.xyz&lt;/p&gt;
+
+&lt;p&gt;6) Now you can use the true/false boolean xyz to do conditional operation in
+   you cpu member functions as:&lt;/p&gt;
+
+&lt;p&gt;if ( xyz ) {  &amp;hellip;. } else { &amp;hellip; }&lt;/p&gt;
+
+&lt;p&gt;Hurray! we added a new option to gem5.&lt;/p&gt;</description>
     </item>
     
     <item>

@@ -175,7 +175,7 @@
 <div class="article-metadata">
 
   <span class="article-date">
-    <time datetime="2017-07-10 10:09:32 -0400 -0400" itemprop="datePublished">
+    <time datetime="2017-07-10 10:09:32 -0400 DST" itemprop="datePublished">
       Mon, Jul 10, 2017
     </time>
   </span>
@@ -661,9 +661,128 @@ fetch1::evaluate()
 
 <h1 id="squashing-in-minor-cpu">Squashing in minor cpu</h1>
 
+<h1 id="load-store-queue-lsq">Load-Store queue (LSQ)</h1>
+
+<p>Load store queue is used for performing load/store operations. It has three major hardware FIFOs: requests queue, transfers queue, and store buffer. Requests queue holds the memory requests which have been sent to the TLB but haven&rsquo;t received the response for. Transfers queue holds the memory requests which have been issued to the memory system and are waiting for a response. Store buffer has all the stores that have been committed but haven&rsquo;t been written to memory yet. Before trying to issue a load from requests queue to memory, store buffer is checked to see if the previous store contains the data. The main top level function for LSQ is step()  which is called in the evaluate() method of the execute unit.</p>
+
+<pre><code class="language-c++">LSQ::step() {
+  tryToSendToTransfers(requests.front());
+  storeBuffer.step()
+}
+
+LSQ::tryToSendToTransfers(LSQRequest* request) {
+   // note that LSQRequest is not of type Request but a derived class 
+  // from BaseTLB::Translation and Packet::SenderState
+  LSQRequest request = requests.front();
+  
+  if (request-&gt;isComplete()) {
+    // LSQ::moveFromRequestsToTransfers(LSQRequestPtr request)
+    requests.pop();
+    transfers.push(request);
+  }
+  
+  if (!(request-&gt;isLoad &amp;&amp; storeBuffer.canForwardData())) {
+    if (tryToSend(request)) {
+      requests.pop();
+      transfers.push(request);
+    }
+  }
+}
+
+LSQ::tryToSend(LSQRequest* request) {
+  dacachePort.sendTimingRequest(request-&gt;packet);
+  // Set the state of the request appropriately depending on success or failure.
+}
+
+LSQ::StoreBuffer::step() {
+  LSQRequest** i = slots.begin();
+  while (issued &amp;&amp; issue_count &lt; StoreLimit &amp;&amp; i!=slots.end()) {
+    LSQRequest* request = *i;
+    lsq.tryToSend(request);
+  }
+}
+
+</code></pre>
+
+<p>Other important functions are pushRequest(): called by the exec_context.hh in initiateMemRead() function. pushRequest() calls</p>
+
+<pre><code class="language-c++">LSQ::pushRequest() {
+  if (!isLoad)
+    request_data = new uint8_t[size];
+  
+  LSQrequest* request = new SingleDataRequest();
+  request-&gt;request.setContext();
+  request-&gt;request.setVirt();
+  requests.push(request);
+  // request-&gt;startAddrTranslation(); 
+  thread-&gt;getDTBPtr()-&gt;translateTiming(request-&gt;request);
+  // TranslateTiming calls the finish() method when done with translation
+}
+
+LSQ::SingleDataRequest::finish() {
+  makePacket();
+  port.tryToSendToTransfers();
+}
+
+LSQ::LSQRequest::makePacket() {
+  // packet = makePacketForRequest(request, data);
+  Packet* packet = isLoad ? Packet::createRead(&amp;request)
+                          : Packet::createWrite(&amp;request);
+
+  packet-&gt;pushSenderState(this);
+  if (isLoad) packet-&gt;allocate();
+  else        packet-&gt;dataDynamic(data);
+
+  data = NULL;
+}
+
+</code></pre>
+
 <h1 id="caches-in-gem5">Caches in gem5</h1>
 
 <p>L1Cache, L1_ICache, L1_DCache, L2Cache, IOCache and  PageTableWalkerCache all are derived from class Cache by ovewriting the latency and size configurations. class Cache is defined in src/mem/cache/cache.hh and is the child class of BaseCache in src/mem/cache/base.hh.</p>
+
+<p>The recvTimingReq() method for the non-blocking cache looks like this:</p>
+
+<pre><code class="language-c++">Cache::recvTimingReq() {
+  CacheBlk* blk = NULL; 
+  PacketList writebacks;
+  bool satisfied = access(pkt, blk, writebacks);
+  doWritebacks(writebacks);
+  if (satisfied) {
+    if (pkt-&gt;needsResponse()) {
+      pkt-&gt;makeTimingResponse();
+      cpuSidePort-&gt;schedTimingResp(pkt, request_time);
+    }
+  }
+}
+
+Cache::access(pkt, blk, writebacks) {
+  blk = tag-&gt;accessBlock(pkt);
+  
+}
+
+LRU::accessBlock(pkt, &amp;lat) { 
+  // LRU class is derived from BaseSetAssoc class
+  CacheBlk * blk = BaseSetAssoc::accessBlock(pkt-&gt;getAddr(), &amp;lat);
+  // move the block to the head of MRU
+  sets[blk-&gt;set].moveToHead(blk); 
+  return blk;
+}
+
+BaseSetAssoc::accessBlock(addr, &amp;lat) {
+  Addr tag = extractTag(addr);
+  int set = extractSet(addr);
+  blk = sets[set].findBlk(tag);
+  lat = accessLatency;
+}
+</code></pre>
+
+<h1 id="function-units">Function Units</h1>
+
+<p>The function units and what operations they can perform is described in MinorCPU.py by setting the variable &ldquo;executeFuncUnits&rdquo;. It by default uses MinorDefaultFUPool class which is defined in MinorCPU.py as well and creates a pool of function units (2: Int, 1: Int-mul, 1: int-div, 1: float-simd, 1: mem, 1: misc)</p>
+
+<p>Functional unit pipelines can be of variable depth, so this is modelled by the class FUPipeline which is derived from FUPipelineBase which is basically SelfStallingPipeline derived from TimeBuffer. The depth the FUPipelines are set in the Python file MinorCPU.py. The opLat parameter in MinorDefaultIntFU etc are the pipeline depths that get assigned to the depth of the SelfStalling pipelines.</p>
     </div>
   </div>
 
