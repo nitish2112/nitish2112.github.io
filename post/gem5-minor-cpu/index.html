@@ -661,6 +661,106 @@ fetch1::evaluate()
 
 <h1 id="squashing-in-minor-cpu">Squashing in minor cpu</h1>
 
+<h1 id="function-units">Function Units</h1>
+
+<pre><code class="language-c++">// Here QeueuedInst is just a wrapper around MinorDynInst
+typedef SelfStallingPipeline&lt; QueuedInst, ReportTraitsAdaptor&lt;QueuedInst&gt; &gt; FUPipelineBase;
+
+class FUPipeline : public FUPipelineBase, public FuncUnit {
+  LaneFU &amp;description; 
+  std::bitset&lt;Num_OpClasses&gt; capabilityList;  
+}
+
+clas LaneFU : public SimObject {
+  Cycles opLat; // Latency
+  Cycles issueLat; // Delay after issuing an operation before next is issued.
+                   // normally 1 due to pipelining, but for divide unit as it 
+                   // is not pipelined it is &gt; 1
+
+  std::vector&lt;LaneFUTiming *&gt; timings;  
+}
+
+class LaneFUTiming : public SimObject {
+  Cycles extraCommitLat;
+  Cycles extraAssumedLat; // extra delay to show in scoreboard after inst leaving
+                          // the pipeline. Normally 0 but for mult it is 2
+
+   
+   /* for each of this instruction's source registers (in srcRegs
+   *  order). The offsets are subtracted from scoreboard returnCycle times.
+   *  For example, for an instruction type with 3 source registers,
+   *  [2, 1, 2] will allow the instruction to issue upto 2 cycles early
+   *  for dependencies on the 1st and 3rd register and upto 1 cycle
+   *  early on the 2nd. */
+
+  // ?? not so sure but if the list has a single number then latencies for
+  // all the src regs is the same?? eg. for LaneDefaultIntFU it is [2]
+  // and LaneDefaultIntMulFU it is [0]
+  std::vector&lt;Cycles&gt; srcRegsRelativeLats; 
+  
+}
+</code></pre>
+
+<h1 id="scoreboard">ScoreBoard</h1>
+
+<pre><code class="language-c++">class Scoreborad : public Named {
+  std::vector&lt;int&gt; fuIndices; 
+
+  // number of results which are not predictable ( memory loads in general )
+  std::vector&lt;Index&gt; numUnpredictableResults;
+
+  // estimated cycle number that the result will be presented.
+  std::vector&lt;Cycles&gt; returnCycle;
+}
+
+// Called before issuing an instruction
+void Scoreboard::markupInstDests(Cycles retire_time, bool mark_unpredictable ) {
+  for ( dest_index = 0; dest_index &lt; num_dests; dest_index++ ) {
+    reg = flattenRegIndex(staticInst-&gt;destRegIdx(dest_index));
+    numResults[reg]++;
+    if (mark_unpredictable)
+      numUnpredictableResults[reg]++;
+    returnCycle[reg] = retire_time; // retire_time is curCycle() + inst-&gt;fu-&gt;opLat
+    fuIndices[reg] = inst-&gt;fuIndex; // save the function unit id for this dest reg
+  }
+} 
+
+bool Scoreboard::canInstIssue( std::vector&lt;Cycles&gt; *src_reg_relative_latencies,
+                               // srcRegsRelativeLats for the inst that is being 
+                               // issued right now. see LaneFUTiming above
+			       std::vector&lt;bool&gt; *cant_forward_from_fu_indices ) {
+
+   for ( src_index = 0; src_index &lt; inst-&gt;numSrcRegs(); src_index++ ) {
+     reg = flattenRegIndex(staticInst-&gt;srcRegIdx(src_index));
+     Cycles relative_latency = src_index &gt;= src_reg_relative_latencies-&gt;size()-1 ?
+			         src_reg_relative_latencies-&gt;back() // last element
+			       : *(src_reg_relative_latencies)[src_index];
+
+     if ( returnCycle[reg] &gt; curCycle() + relativeLatency )
+       return false;     
+   }
+
+   return true;
+}
+			      
+void Scoreboard::clearInstDests(inst, bool clear_unpredictable) {
+
+  for ( dest_index = 0; dest_index &lt; num_dests; dest_index++ ) {
+    RegIndex reg = inst-&gt;flatDestRegIdx[dest_index];
+    if ( clear_unpredictable )
+      numUnpredictableResults[reg]--;
+
+    numResults[reg]--;
+
+    if (numResults[reg] == 0) {
+      returnCycle[reg] = Cycles(0);
+      writingInst[reg] = 0;
+      fuIndices[reg] = -1;
+    }
+  }
+} 
+</code></pre>
+
 <h1 id="load-store-queue-lsq">Load-Store queue (LSQ)</h1>
 
 <p>Load store queue is used for performing load/store operations. It has three major hardware FIFOs: requests queue, transfers queue, and store buffer. Requests queue holds the memory requests which have been sent to the TLB but haven&rsquo;t received the response for. Transfers queue holds the memory requests which have been issued to the memory system and are waiting for a response. Store buffer has all the stores that have been committed but haven&rsquo;t been written to memory yet. Before trying to issue a load from requests queue to memory, store buffer is checked to see if the previous store contains the data. The main top level function for LSQ is step()  which is called in the evaluate() method of the execute unit.</p>
@@ -778,7 +878,7 @@ BaseSetAssoc::accessBlock(addr, &amp;lat) {
 }
 </code></pre>
 
-<h1 id="function-units">Function Units</h1>
+<h1 id="function-units-1">Function Units</h1>
 
 <p>The function units and what operations they can perform is described in MinorCPU.py by setting the variable &ldquo;executeFuncUnits&rdquo;. It by default uses MinorDefaultFUPool class which is defined in MinorCPU.py as well and creates a pool of function units (2: Int, 1: Int-mul, 1: int-div, 1: float-simd, 1: mem, 1: misc)</p>
 

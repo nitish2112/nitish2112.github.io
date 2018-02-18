@@ -624,6 +624,106 @@ fetch1::evaluate()
 
 &lt;h1 id=&#34;squashing-in-minor-cpu&#34;&gt;Squashing in minor cpu&lt;/h1&gt;
 
+&lt;h1 id=&#34;function-units&#34;&gt;Function Units&lt;/h1&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;// Here QeueuedInst is just a wrapper around MinorDynInst
+typedef SelfStallingPipeline&amp;lt; QueuedInst, ReportTraitsAdaptor&amp;lt;QueuedInst&amp;gt; &amp;gt; FUPipelineBase;
+
+class FUPipeline : public FUPipelineBase, public FuncUnit {
+  LaneFU &amp;amp;description; 
+  std::bitset&amp;lt;Num_OpClasses&amp;gt; capabilityList;  
+}
+
+clas LaneFU : public SimObject {
+  Cycles opLat; // Latency
+  Cycles issueLat; // Delay after issuing an operation before next is issued.
+                   // normally 1 due to pipelining, but for divide unit as it 
+                   // is not pipelined it is &amp;gt; 1
+
+  std::vector&amp;lt;LaneFUTiming *&amp;gt; timings;  
+}
+
+class LaneFUTiming : public SimObject {
+  Cycles extraCommitLat;
+  Cycles extraAssumedLat; // extra delay to show in scoreboard after inst leaving
+                          // the pipeline. Normally 0 but for mult it is 2
+
+   
+   /* for each of this instruction&#39;s source registers (in srcRegs
+   *  order). The offsets are subtracted from scoreboard returnCycle times.
+   *  For example, for an instruction type with 3 source registers,
+   *  [2, 1, 2] will allow the instruction to issue upto 2 cycles early
+   *  for dependencies on the 1st and 3rd register and upto 1 cycle
+   *  early on the 2nd. */
+
+  // ?? not so sure but if the list has a single number then latencies for
+  // all the src regs is the same?? eg. for LaneDefaultIntFU it is [2]
+  // and LaneDefaultIntMulFU it is [0]
+  std::vector&amp;lt;Cycles&amp;gt; srcRegsRelativeLats; 
+  
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;scoreboard&#34;&gt;ScoreBoard&lt;/h1&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;class Scoreborad : public Named {
+  std::vector&amp;lt;int&amp;gt; fuIndices; 
+
+  // number of results which are not predictable ( memory loads in general )
+  std::vector&amp;lt;Index&amp;gt; numUnpredictableResults;
+
+  // estimated cycle number that the result will be presented.
+  std::vector&amp;lt;Cycles&amp;gt; returnCycle;
+}
+
+// Called before issuing an instruction
+void Scoreboard::markupInstDests(Cycles retire_time, bool mark_unpredictable ) {
+  for ( dest_index = 0; dest_index &amp;lt; num_dests; dest_index++ ) {
+    reg = flattenRegIndex(staticInst-&amp;gt;destRegIdx(dest_index));
+    numResults[reg]++;
+    if (mark_unpredictable)
+      numUnpredictableResults[reg]++;
+    returnCycle[reg] = retire_time; // retire_time is curCycle() + inst-&amp;gt;fu-&amp;gt;opLat
+    fuIndices[reg] = inst-&amp;gt;fuIndex; // save the function unit id for this dest reg
+  }
+} 
+
+bool Scoreboard::canInstIssue( std::vector&amp;lt;Cycles&amp;gt; *src_reg_relative_latencies,
+                               // srcRegsRelativeLats for the inst that is being 
+                               // issued right now. see LaneFUTiming above
+			       std::vector&amp;lt;bool&amp;gt; *cant_forward_from_fu_indices ) {
+
+   for ( src_index = 0; src_index &amp;lt; inst-&amp;gt;numSrcRegs(); src_index++ ) {
+     reg = flattenRegIndex(staticInst-&amp;gt;srcRegIdx(src_index));
+     Cycles relative_latency = src_index &amp;gt;= src_reg_relative_latencies-&amp;gt;size()-1 ?
+			         src_reg_relative_latencies-&amp;gt;back() // last element
+			       : *(src_reg_relative_latencies)[src_index];
+
+     if ( returnCycle[reg] &amp;gt; curCycle() + relativeLatency )
+       return false;     
+   }
+
+   return true;
+}
+			      
+void Scoreboard::clearInstDests(inst, bool clear_unpredictable) {
+
+  for ( dest_index = 0; dest_index &amp;lt; num_dests; dest_index++ ) {
+    RegIndex reg = inst-&amp;gt;flatDestRegIdx[dest_index];
+    if ( clear_unpredictable )
+      numUnpredictableResults[reg]--;
+
+    numResults[reg]--;
+
+    if (numResults[reg] == 0) {
+      returnCycle[reg] = Cycles(0);
+      writingInst[reg] = 0;
+      fuIndices[reg] = -1;
+    }
+  }
+} 
+&lt;/code&gt;&lt;/pre&gt;
+
 &lt;h1 id=&#34;load-store-queue-lsq&#34;&gt;Load-Store queue (LSQ)&lt;/h1&gt;
 
 &lt;p&gt;Load store queue is used for performing load/store operations. It has three major hardware FIFOs: requests queue, transfers queue, and store buffer. Requests queue holds the memory requests which have been sent to the TLB but haven&amp;rsquo;t received the response for. Transfers queue holds the memory requests which have been issued to the memory system and are waiting for a response. Store buffer has all the stores that have been committed but haven&amp;rsquo;t been written to memory yet. Before trying to issue a load from requests queue to memory, store buffer is checked to see if the previous store contains the data. The main top level function for LSQ is step()  which is called in the evaluate() method of the execute unit.&lt;/p&gt;
@@ -741,7 +841,7 @@ BaseSetAssoc::accessBlock(addr, &amp;amp;lat) {
 }
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;h1 id=&#34;function-units&#34;&gt;Function Units&lt;/h1&gt;
+&lt;h1 id=&#34;function-units-1&#34;&gt;Function Units&lt;/h1&gt;
 
 &lt;p&gt;The function units and what operations they can perform is described in MinorCPU.py by setting the variable &amp;ldquo;executeFuncUnits&amp;rdquo;. It by default uses MinorDefaultFUPool class which is defined in MinorCPU.py as well and creates a pool of function units (2: Int, 1: Int-mul, 1: int-div, 1: float-simd, 1: mem, 1: misc)&lt;/p&gt;
 
@@ -774,19 +874,18 @@ Semantics:
 R[r1] = R[r2] % R[r3]
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;Open the file riscv-opcodes/opcodes, here you will be able to see the various opcodes and instruction bits assigned to various instructions. Assigned an unused instruction to modulo inst. I am adding it ner the &amp;ldquo;add&amp;rdquo; instruction&lt;/p&gt;
+&lt;p&gt;Open the file riscv-opcodes/opcodes, here you will be able to see the various opcodes and instruction bits assigned to various instructions. Assigned an unused instruction to modulo inst.&lt;/p&gt;
 
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;add     rd rs1 rs2 31..25=0  14..12=0 6..2=0x0C 1..0=3                          
-sub     rd rs1 rs2 31..25=32 14..12=0 6..2=0x0C 1..0=3 
-mod     rd rs1 rs2 31..25=16 14..12=0 6..2=0x0C 1..0=3                         
-sll     rd rs1 rs2 31..25=0  14..12=1 6..2=0x0C 1..0=3                          
-slt     rd rs1 rs2 31..25=0  14..12=2 6..2=0x0C 1..0=3                          
-sltu    rd rs1 rs2 31..25=0  14..12=3 6..2=0x0C 1..0=3                          
-xor     rd rs1 rs2 31..25=0  14..12=4 6..2=0x0C 1..0=3                          
-srl     rd rs1 rs2 31..25=0  14..12=5 6..2=0x0C 1..0=3                          
-sra     rd rs1 rs2 31..25=32 14..12=5 6..2=0x0C 1..0=3                          
-or      rd rs1 rs2 31..25=0  14..12=6 6..2=0x0C 1..0=3                          
-and     rd rs1 rs2 31..25=0  14..12=7 6..2=0x0C 1..0=3 
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sra     rd rs1 rs2 31..25=32 14..12=5 6..2=0x0C 1..0=3
+or      rd rs1 rs2 31..25=0  14..12=6 6..2=0x0C 1..0=3
+and     rd rs1 rs2 31..25=0  14..12=7 6..2=0x0C 1..0=3
+
+mod     rd rs1 rs2 31..25=1  14..12=0 6..2=0x1A 1..0=3
+
+addiw   rd rs1 imm12            14..12=0 6..2=0x06 1..0=3
+slliw   rd rs1 31..25=0  shamtw 14..12=1 6..2=0x06 1..0=3
+srliw   rd rs1 31..25=0  shamtw 14..12=5 6..2=0x06 1..0=3
+sraiw   rd rs1 31..25=32 shamtw 14..12=5 6..2=0x06 1..0=3
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;Now run the following command:&lt;/p&gt;
@@ -796,8 +895,8 @@ and     rd rs1 rs2 31..25=0  14..12=7 6..2=0x0C 1..0=3
 
 &lt;p&gt;Open file temp.h and you will find the following two lines:&lt;/p&gt;
 
-&lt;pre&gt;&lt;code class=&#34;language-C&#34;&gt;#define MATCH_MOD 0x20000033                                                    
-#define MASK_MOD  0xfe00707f
+&lt;pre&gt;&lt;code class=&#34;language-C&#34;&gt;#define MATCH_MOD 0x200006b                                                    
+#define MASK_MOD 0xfe00707f
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;Add these two lines in riscv-gnu-toolchain/riscv-binutils-gdb/include/opcode/riscv-opc.h&lt;/p&gt;
@@ -816,7 +915,6 @@ and     rd rs1 rs2 31..25=0  14..12=7 6..2=0x0C 1..0=3
 ....
 ....
 ....
-{&amp;quot;add&amp;quot;,       &amp;quot;I&amp;quot;,   &amp;quot;d,s,t&amp;quot;,  MATCH_ADD, MASK_ADD, match_opcode, 0 }
 {&amp;quot;mod&amp;quot;,       &amp;quot;I&amp;quot;,   &amp;quot;d,s,t&amp;quot;,  MATCH_MOD, MASK_MOD, match_opcode, 0 }
 ....
 ....
@@ -828,26 +926,20 @@ and     rd rs1 rs2 31..25=0  14..12=7 6..2=0x0C 1..0=3
 
 &lt;pre&gt;&lt;code class=&#34;language-C&#34;&gt;#include &amp;lt;stdio,h&amp;gt;
 
-int a[] = {11,22,33,44,55};
-int b[] = {10,10,10,10,10};
-int c[4];
-
 int main(){
-  int i;
-  for ( i = 0; i &amp;lt; 4; i++ ){
-     asm volatile
-     (
-       &amp;quot;mod   %[z], %[x], %[y]\n\t&amp;quot;
-       : [z] &amp;quot;=r&amp;quot; (c[i])
-       : [x] &amp;quot;r&amp;quot; (a[i]), [y] &amp;quot;r&amp;quot; (b[i])
-     )  
-  }
+  int a,b,c;
+  a = 5;
+  b = 2;
+  asm volatile
+  (
+    &amp;quot;mod   %[z], %[x], %[y]\n\t&amp;quot;
+    : [z] &amp;quot;=r&amp;quot; (c)
+    : [x] &amp;quot;r&amp;quot; (a), [y] &amp;quot;r&amp;quot; (b)
+  )  
  
-  for ( int i = 0; i &amp;lt; 4; i++ ){
-      if ( c[i] != i+1 ){
-         printf(&amp;quot;\n[[FAILED]]\n&amp;quot;);
-         return -1;
-      }
+  if ( c != 1 ){
+     printf(&amp;quot;\n[[FAILED]]\n&amp;quot;);
+     return -1;
   }
   
   printf(&amp;quot;\n[[PASSED]]\n&amp;quot;);
@@ -868,31 +960,35 @@ int main(){
 
 &lt;p&gt;Now open mod.dump and you will be able to see that mod instruction has been used.&lt;/p&gt;
 
+&lt;p&gt;Note the instruction matching in the assembler is done something like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-C&#34;&gt;((insn ^ op-&amp;gt;match) &amp;amp; op-&amp;gt;mask) == 0;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;See match_opcode() fucntion in riscv-gnu-toolchain/riscv-binutils-gdb/opcodes/riscv-opc.c&lt;/p&gt;
+
+&lt;p&gt;op-&amp;gt;match and op-&amp;gt;mask are the MATCH and MASK macros that we defined.&lt;/p&gt;
+
+&lt;p&gt;This means if you just see the 1 bits in the MATCH in the instruction and flip them,
+and then see the mask bits then everything should be 0. MASK tells which bits are
+of interest and MATCH tells what is the configuration required.&lt;/p&gt;
+
 &lt;p&gt;I will later add how you can modify the ISA simulator to test the newly added instruction and how you can modify gem5 to be able to exexcute this instruction.&lt;/p&gt;
 
 &lt;h1 id=&#34;adding-the-new-instruction-to-gem5&#34;&gt;Adding the new instruction to gem5&lt;/h1&gt;
 
-&lt;p&gt;To add the instruction gem5 we need to modify arch/riscv/decoder.isa like this:&lt;/p&gt;
+&lt;p&gt;To add the instruction gem5 we need to modify arch/riscv/isa/decoder.isa like this:&lt;/p&gt;
 
-&lt;pre&gt;&lt;code class=&#34;language-C&#34;&gt;    0x33: decode FUNCT3 {
+&lt;pre&gt;&lt;code class=&#34;language-C&#34;&gt;    0x6b: decode FUNCT3 {
         format ROp {
-            0x0: decode FUNCT7 {
                 0x0: add({{
-                    Rd = Rs1_sd + Rs2_sd;
-                }});
-                0x1: mul({{
-                    Rd = Rs1_sd*Rs2_sd;
-                }}, IntMultOp);
-                0x10: mod({{
                     Rd = Rs1_sd % Rs2_sd;
                 }});
-                0x20: sub({{
-                    Rd = Rs1_sd - Rs2_sd;
-                }});
-            }
+        }
+    }
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;Here 0x33 is the opcode and 0x10 is the the funct7. The details about different fields in the RISC-V ISA can be seen from page no. 50 of the manual &lt;a href=&#34;https://www2.eecs.berkeley.edu/Pubs/TechRpts/2014/EECS-2014-54.pdf&#34; target=&#34;_blank&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;</description>
+&lt;p&gt;Here 0x6b is the opcode and 0x0 is the the funct3. The details about different fields in the RISC-V ISA can be seen from page no. 50 of the manual &lt;a href=&#34;https://www2.eecs.berkeley.edu/Pubs/TechRpts/2014/EECS-2014-54.pdf&#34; target=&#34;_blank&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;</description>
     </item>
     
     <item>
