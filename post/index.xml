@@ -596,8 +596,7 @@ void Scoreboard::markupInstDests(Cycles retire_time, bool mark_unpredictable ) {
 } 
 
 bool Scoreboard::canInstIssue( std::vector&amp;lt;Cycles&amp;gt; *src_reg_relative_latencies,
-                               // srcRegsRelativeLats for the inst that is being 
-                               // issued right now. see LaneFUTiming above
+                               // srcRegRelativeLats for that inst. see LaneFUTiming above
 			       std::vector&amp;lt;bool&amp;gt; *cant_forward_from_fu_indices ) {
 
    for ( src_index = 0; src_index &amp;lt; inst-&amp;gt;numSrcRegs(); src_index++ ) {
@@ -867,6 +866,32 @@ int main(){
 
 &lt;p&gt;Now open mod.dump and you will be able to see that mod instruction has been used.&lt;/p&gt;
 
+&lt;p&gt;I will later add how you can modify the ISA simulator to test the newly added instruction and how you can modify gem5 to be able to exexcute this instruction.&lt;/p&gt;
+
+&lt;h1 id=&#34;adding-the-new-instruction-to-gem5&#34;&gt;Adding the new instruction to gem5&lt;/h1&gt;
+
+&lt;p&gt;To add the instruction gem5 we need to modify arch/riscv/decoder.isa like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-C&#34;&gt;    0x33: decode FUNCT3 {
+        format ROp {
+            0x0: decode FUNCT7 {
+                0x0: add({{
+                    Rd = Rs1_sd + Rs2_sd;
+                }});
+                0x1: mul({{
+                    Rd = Rs1_sd*Rs2_sd;
+                }}, IntMultOp);
+                0x10: mod({{
+                    Rd = Rs1_sd % Rs2_sd;
+                }});
+                0x20: sub({{
+                    Rd = Rs1_sd - Rs2_sd;
+                }});
+            }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Here 0x33 is the opcode and 0x10 is the the funct7. The details about different fields in the RISC-V ISA can be seen from page no. 50 of the manual &lt;a href=&#34;https://www2.eecs.berkeley.edu/Pubs/TechRpts/2014/EECS-2014-54.pdf&#34; target=&#34;_blank&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
 &lt;p&gt;Note the instruction matching in the assembler is done something like this:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-C&#34;&gt;((insn ^ op-&amp;gt;match) &amp;amp; op-&amp;gt;mask) == 0;
@@ -880,22 +905,36 @@ int main(){
 and then see the mask bits then everything should be 0. MASK tells which bits are
 of interest and MATCH tells what is the configuration required.&lt;/p&gt;
 
-&lt;p&gt;I will later add how you can modify the ISA simulator to test the newly added instruction and how you can modify gem5 to be able to exexcute this instruction.&lt;/p&gt;
+&lt;h1 id=&#34;adding-the-custom-instruction-to-spike-isa-simulator&#34;&gt;Adding the custom instruction to spike ISA simulator&lt;/h1&gt;
 
-&lt;h1 id=&#34;adding-the-new-instruction-to-gem5&#34;&gt;Adding the new instruction to gem5&lt;/h1&gt;
+&lt;p&gt;In the riscv-isa-sim/riscv/encoding.h add the following lines:&lt;/p&gt;
 
-&lt;p&gt;To add the instruction gem5 we need to modify arch/riscv/isa/decoder.isa like this:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-C&#34;&gt;    0x6b: decode FUNCT3 {
-        format ROp {
-                0x0: add({{
-                    Rd = Rs1_sd % Rs2_sd;
-                }});
-        }
-    }
+&lt;pre&gt;&lt;code&gt;#define MATCH_MOD 0x200006b                                                    
+#define MASK_MOD 0xfe00707f
+...
+DECLARE_INSN(add, MATCH_MOD, MASK_MOD)
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;Here 0x6b is the opcode and 0x0 is the the funct3. The details about different fields in the RISC-V ISA can be seen from page no. 50 of the manual &lt;a href=&#34;https://www2.eecs.berkeley.edu/Pubs/TechRpts/2014/EECS-2014-54.pdf&#34; target=&#34;_blank&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;</description>
+&lt;p&gt;Create a file riscv-isa-sim/riscv/insns/mod.h and add these lines:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;WRITE_RD(sext_xlen(RS1 % RS2));
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Add this file to riscv-isa-sim/riscv/riscv.mk.in&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;riscv_insn_list = \
+      ...
+      mod \
+      ...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In riscv-isa-sim/spike_main/disasm.cc add the following lines:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;DEFINE_RTYPE(mod);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;And now build riscv-tools again. The &amp;ldquo;mod&amp;rdquo; instruction has been added to spike
+simulator&lt;/p&gt;</description>
     </item>
     
     <item>

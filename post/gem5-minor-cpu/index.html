@@ -175,7 +175,7 @@
 <div class="article-metadata">
 
   <span class="article-date">
-    <time datetime="2017-07-10 10:09:32 -0400 DST" itemprop="datePublished">
+    <time datetime="2017-07-10 10:09:32 -0400 -0400" itemprop="datePublished">
       Mon, Jul 10, 2017
     </time>
   </span>
@@ -726,8 +726,7 @@ void Scoreboard::markupInstDests(Cycles retire_time, bool mark_unpredictable ) {
 } 
 
 bool Scoreboard::canInstIssue( std::vector&lt;Cycles&gt; *src_reg_relative_latencies,
-                               // srcRegsRelativeLats for the inst that is being 
-                               // issued right now. see LaneFUTiming above
+                               // srcRegRelativeLats for that inst. see LaneFUTiming above
 			       std::vector&lt;bool&gt; *cant_forward_from_fu_indices ) {
 
    for ( src_index = 0; src_index &lt; inst-&gt;numSrcRegs(); src_index++ ) {
