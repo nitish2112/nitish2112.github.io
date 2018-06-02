@@ -674,7 +674,7 @@ BaseSetAssoc::accessBlock(addr, &amp;amp;lat) {
     </item>
     
     <item>
-      <title>Adding custom instruction to RISCV ISA and running it on gem5</title>
+      <title>Adding custom instruction to RISCV ISA and running it on gem5 and spike</title>
       <link>https://nitish2112.github.io/post/adding-instruction-riscv/</link>
       <pubDate>Mon, 10 Jul 2017 10:09:32 -0400</pubDate>
       
