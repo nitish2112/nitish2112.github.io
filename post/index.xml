@@ -16,9 +16,8 @@
       <pubDate>Mon, 10 Jul 2017 10:09:32 -0400</pubDate>
       
       <guid>https://nitish2112.github.io/post/gem5-simulation/</guid>
-      <description>&lt;p&gt;This is an introduction tutorial to gem5 simulation framework&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;
+      <description>&lt;p&gt;
+This is an introduction tutorial to gem5 simulation framework&lt;/p&gt;
 
 &lt;h1 id=&#34;simulation-using-gem5&#34;&gt;Simulation using gem5&lt;/h1&gt;
 
@@ -31,11 +30,11 @@
       <pubDate>Mon, 10 Jul 2017 10:09:32 -0400</pubDate>
       
       <guid>https://nitish2112.github.io/post/gem5-minor-cpu/</guid>
-      <description>&lt;p&gt;This is an introduction tutorial on gem5 minor cpu model.&lt;/p&gt;
+      <description>&lt;p&gt;&lt;/p&gt;
 
-&lt;p&gt;Many a times it gets difficult for the computer architects to get started with event-driven simulators. This document is written to target that audience and provide an overview of the minor cpu model in gem5 which implements an in-order pipelined processor. If you have never worked on event-driven simulators and don&amp;rsquo;t know what they are, there is a cool video &lt;a href=&#34;https://www.youtube.com/watch?v=irbshkdVFao&#34; target=&#34;_blank&#34;&gt;here&lt;/a&gt;. This tutorial will help the reader to understand how the event-driven minor cpu model is implemented in gem5 and will not go much into details of how to compile and build gem5, how to add tracing and what are ports and how do they work. This information can be found in &lt;a href=&#34;http://learning.gem5.org/book/index.html&#34; target=&#34;_blank&#34;&gt;Learning Gem5&lt;/a&gt;. OK!! So lets get started.&lt;/p&gt;
+&lt;p&gt;This is an introduction tutorial on gem5 minor cpu model.&lt;/p&gt;
 
-&lt;p&gt;&lt;/p&gt;
+&lt;p&gt;Many a times it gets difficult for the computer architects to get started with event-driven simulators. This document is written to target that audience and provide an overview of the minor cpu model in gem5 which implements an in-order pipelined processor. If you have never worked on event-driven simulators and don&amp;rsquo;t know what they are, there is a video &lt;a href=&#34;https://www.youtube.com/watch?v=irbshkdVFao&#34; target=&#34;_blank&#34;&gt;here&lt;/a&gt;. This tutorial will help the reader to understand how the event-driven minor cpu model is implemented in gem5 and will not go much into details of how to compile and build gem5, how to add tracing and what are ports and how do they work. This information can be found in &lt;a href=&#34;http://learning.gem5.org/book/index.html&#34; target=&#34;_blank&#34;&gt;Learning Gem5&lt;/a&gt;.&lt;/p&gt;
 
 &lt;h1 id=&#34;minor-cpu&#34;&gt;Minor CPU&lt;/h1&gt;
 
@@ -221,7 +220,7 @@ Execute::commit(){
                                      lsq.findResponse() : NULL;
 
         if (mem_response)
-            handleMemResponse(inst,...);
+            handleMemResponse(inst, mem_response, ...);
         else {
 	    // If there is a load/store inflight try to commit it before the
 	    // the head of the inflight inst
@@ -262,8 +261,28 @@ Execute::commit(){
                 scoreboard[tid].clearInstDests(inst);
             }             
         }
+    }                 
+}
+
+LSQ::findResponse(inst) {
+  if (!transfers.empty()) {
+    LSQRequest* req = transfers.front();
+    if ((req-&amp;gt;inst-&amp;gt;id == inst-&amp;gt;id) &amp;amp;&amp;amp; // same instruction
+        (req-&amp;gt;isComplete()) ) { // request must be complete
+       return req;
     }
-                 
+  }
+  return NULL;
+}
+
+Execute::handleMemResponse (inst, LSQRequest mem_response, ...) {
+  inst-&amp;gt;staticInst-&amp;gt;completeAcc(...);
+  lsq.popResponse();
+  ...
+}
+
+LSQ::popResponse(...){
+  transfers.pop();
 }
 &lt;/code&gt;&lt;/pre&gt;
 
@@ -551,7 +570,7 @@ void Scoreboard::clearInstDests(inst, bool clear_unpredictable) {
 
 &lt;h1 id=&#34;load-store-queue-lsq&#34;&gt;Load-Store queue (LSQ)&lt;/h1&gt;
 
-&lt;p&gt;Load store queue is used for performing load/store operations. It has three major hardware FIFOs: requests queue, transfers queue, and store buffer. Requests queue holds the memory requests which have been sent to the TLB but haven&amp;rsquo;t received the response for. Transfers queue holds the memory requests which have been issued to the memory system and are waiting for a response. Store buffer has all the stores that have been committed but haven&amp;rsquo;t been written to memory yet. Before trying to issue a load from requests queue to memory, store buffer is checked to see if the previous store contains the data. The main top level function for LSQ is step()  which is called in the evaluate() method of the execute unit.&lt;/p&gt;
+&lt;p&gt;Load store queue is used for performing load/store operations. It has three major hardware FIFOs: requests queue, transfers queue, and store buffer. Requests queue holds the memory requests which have been sent to the TLB but haven&amp;rsquo;t received the response for. Transfers queue holds the memory requests which have been issued to the memory system and are waiting for a response. When the responses arrive, the corresponding request is searched in the transfers queue (CAM like search) and its status is set to be Completed. These requests still remain in the transfers queue until the execute unit actually tries to commit the load/store instruction. When execute unit tries to commit load/store, it looks at the front of the transfers queue and pops out the element if the memory access was completed (see the execute unit description above). Store buffer has all the stores that have been committed but haven&amp;rsquo;t been written to memory yet. Before trying to issue a load from requests queue to memory, store buffer is checked to see if the previous store contains the data. The main top level function for LSQ is step()  which is called in the evaluate() method of the execute unit.&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;LSQ::step() {
   tryToSendToTransfers(requests.front());
@@ -559,7 +578,7 @@ void Scoreboard::clearInstDests(inst, bool clear_unpredictable) {
 }
 
 LSQ::tryToSendToTransfers(LSQRequest* request) {
-   // note that LSQRequest is not of type Request but a derived class 
+  // note that LSQRequest is not of type Request but a derived class 
   // from BaseTLB::Translation and Packet::SenderState
   LSQRequest request = requests.front();
   
@@ -580,6 +599,17 @@ LSQ::tryToSendToTransfers(LSQRequest* request) {
 LSQ::tryToSend(LSQRequest* request) {
   dacachePort.sendTimingRequest(request-&amp;gt;packet);
   // Set the state of the request appropriately depending on success or failure.
+}
+
+LSQ::recvTimingResp(Packet* response) {
+  // the packet for memory requests contain LSQRequest pointers (can think of 
+  // ids associated to each request that has been sent so far).
+  // These LSQRequests are stored in transfers queue. When a memory response
+  // is received the corresponding entry is searched in transfers queue and
+  // its status is set to Complete. In real hardware this process should be
+  // to search for the corresponding id location and then flip the status bit.
+  // Search in a queue can be done using CAM based approach.
+  response-&amp;gt;popSenderState()-&amp;gt;setStatus(Complete);
 }
 
 LSQ::StoreBuffer::step() {
@@ -630,11 +660,83 @@ LSQ::LSQRequest::makePacket() {
 
 &lt;p&gt;L1Cache, L1_ICache, L1_DCache, L2Cache, IOCache and  PageTableWalkerCache all are derived from class Cache by ovewriting the latency and size configurations. class Cache is defined in src/mem/cache/cache.hh and is the child class of BaseCache in src/mem/cache/base.hh.&lt;/p&gt;
 
+&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;class BaseCache {
+  // internal data structures
+  MSHRQueue mshrQueue;
+  WriteQueue writeBuffer;
+
+  // parameters
+  int blkSize;
+  Cycles lookupLatency;
+  Cycles dataLatency;
+  Cycles forwardLatency;
+  Cycles fillLatency;
+  Cycles responseLatency;
+  int numTargets;
+};
+
+class Cache : public BaseCache {
+  // internal data structures
+  BaseTags *tags;
+  BasePrefetcher *prefetcher;
+};
+
+class BaseTags {
+  int blkSize; // cache line size
+               // since cache line size should be same for all cache levels
+               // blkSize is a property of &amp;quot;system&amp;quot; and not just a cache.
+               // hence this is set in config by &amp;quot;system.cache_line_size = ..&amp;quot;
+               // and Tags.py copies that parameter into blkSkize variable 
+  int size; // size of cache
+  ...
+};
+
+/* There are many types of tag stores derived from BbaseTags
+ * BaseTags -&amp;gt; BaseSetAssoc  ------&amp;gt; LRU
+ *            (set associative |---&amp;gt; RandomRepl
+ *                 caches)
+ * BaseTags -&amp;gt; FALRU -&amp;gt; 
+ *           (fully assoc.
+ *               LRU)
+ */
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Which cache parameters we actually use is set in configs/common/Caches.py.
+The specific tag store can either be set in common/caches/Caches.py. The
+default tag store can be seen in src/mem/caches/Caches.py as LRU mostly.
+Now, since LRU is most common, let&amp;rsquo;s understand LRU tag store&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;class BaseSetAssoc : public BaseTags {
+  // data structures
+  CacheSet&amp;lt;CacheBlk&amp;gt;* sets; // cache sets
+  CacheBlk* blks; // cache blocks
+  uint8_t* dataBlks; // data blocks (1 per cache block)
+
+  // parameters
+  int assoc; // associativity
+  itn numSets;
+};
+
+class CacheBlk  {
+  enum CacheBlkStatusBits {..., BlkDirty, ....};
+
+  Addr tag; // data block tag value
+  unit8_t* data; // contains copy of data for easy access
+  int set, way; // set and ay this block belongs to
+};
+
+template &amp;lt;class BlkType&amp;gt;
+class CacheSet {
+  int assoc; // associativity of this set
+  BlkType **blks; // cache blocks in this set
+};
+&lt;/code&gt;&lt;/pre&gt;
+
 &lt;p&gt;The recvTimingReq() method for the non-blocking cache looks like this:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;Cache::recvTimingReq() {
   CacheBlk* blk = NULL; 
-  PacketList writebacks;
+  std::list&amp;lt;PacketPtr&amp;gt; writebacks;
   bool satisfied = access(pkt, blk, writebacks);
   doWritebacks(writebacks);
   if (satisfied) {
@@ -647,22 +749,33 @@ LSQ::LSQRequest::makePacket() {
 
 Cache::access(pkt, blk, writebacks) {
   blk = tag-&amp;gt;accessBlock(pkt);
-  
 }
 
-LRU::accessBlock(pkt, &amp;amp;lat) { 
+LRU::accessBlock(pkt, is_secure, &amp;amp;lat) { 
   // LRU class is derived from BaseSetAssoc class
-  CacheBlk * blk = BaseSetAssoc::accessBlock(pkt-&amp;gt;getAddr(), &amp;amp;lat);
+  CacheBlk * blk = BaseSetAssoc::accessBlock(pkt-&amp;gt;getAddr(), is_secure, &amp;amp;lat);
   // move the block to the head of MRU
   sets[blk-&amp;gt;set].moveToHead(blk); 
   return blk;
 }
 
-BaseSetAssoc::accessBlock(addr, &amp;amp;lat) {
+BaseSetAssoc::accessBlock(addr, is_secure, &amp;amp;lat) {
   Addr tag = extractTag(addr);
   int set = extractSet(addr);
   blk = sets[set].findBlk(tag);
   lat = accessLatency;
+}
+
+template &amp;lt;class Blktype&amp;gt;
+CacheSet&amp;lt;Blktype&amp;gt;::findBlk(tag, is_secure) {
+  for (int i = 0; i &amp;lt; assoc; ++i) {
+    if (blks[i]-&amp;gt;tag == tag &amp;amp;&amp;amp; blks[i]-&amp;gt;isValid() &amp;amp;&amp;amp;
+      blks[i]-&amp;gt;isSecure() == is_secure) {
+      way_id = i;
+      return blks[i];
+    }
+  }
+  return nullptr;
 }
 &lt;/code&gt;&lt;/pre&gt;
 
@@ -674,14 +787,71 @@ BaseSetAssoc::accessBlock(addr, &amp;amp;lat) {
     </item>
     
     <item>
+      <title>A brief overview of Halide</title>
+      <link>https://nitish2112.github.io/post/halide/</link>
+      <pubDate>Mon, 10 Jul 2017 10:09:32 -0400</pubDate>
+      
+      <guid>https://nitish2112.github.io/post/halide/</guid>
+      <description>&lt;p&gt;
+&lt;em&gt;THIS PAGE IS UNDER CONSTRUCTION&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;Here I will talk about Halide&lt;/p&gt;
+
+&lt;p&gt;In order to learn Halide, let&amp;rsquo;s start with a simple example and see how Halide
+will produce the code for that example&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-C++&#34;&gt;Var x,y
+Func grad;
+Target target = get_host_target();
+grad(x,y) = x + y;
+Halide::Image&amp;lt;int32_t&amp;gt; output = gradient.realize(100, 200);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now let&amp;rsquo;s see how the Halide will interpret this code. The first three lines
+are nothing but defining Var and Funcs and the target where we will generate the
+code. On line number 3, the update for the Func grad is written. This is where Halide
+creates and initializes the data-structures for the functional specification to
+be later compiled into a C/C++ code. Note that the program that you are writing
+is in itself in C++, and that is the beauty of Domain Specific Languages. You can
+crate an language from say C++ and then use that to generate efficient C++ code. So, as
+we all know the operator () has a highest precedence than = operator and both () and =
+operators of class Func have been overloaded. That means first the () operators on
+both LHS and RHS will be called and then the = operator will be called for the datatype
+returned by grad(x,y). As () operator with arguments as std::vector of Vars is overladed
+in Func.cpp and creates a FuncRef, the call to grad(x,y) returns a FuncRef object. As + has
+higher predence than =, so + will be evaluated on x and y, both of which are Vars and hence
++ operator. Now, if you search Var.cpp you will not find the overloaded operator + for Vars
+and the reason is there is a cast operator &amp;ldquo;operator Expr()&amp;rdquo; which automatically casts Var
+into object of type Expr and class Expr has overloaded + operator IROperator.h. This creates
+an Add IRNode. We will talk about IRNodes later, but the important thing is Add IRNode is also
+of derived from Expr and hence + on two Vars casted to Expr will return an Expr. Hence now,
+= operator will be called on FuncRef object with the argument as an Expr. The overloaded =
+operator for call FuncRef in Func.cpp which then calls func.define() or func.define_update() which is basically
+but creating a Defintion for the current functional expression. Each functional expression
+like the one line 4 has an associated definition with it. The first definition is called
+&amp;ldquo;initial definition&amp;rdquo; and the rest are &amp;ldquo;update definitions&amp;rdquo;. For example:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;C(x,y) = 0.0f;  // initial definition
+C(x,y) = A(x,y) + B(x,y) // update definition
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Also each Func object has a Function func data member, which is used for book keeping and is
+used in most of the places. Basically it is the internal representation of a Func.
+Hence func.define() in Function.cpp creates a Definition object for that particular function
+expression and copies it into the contents data member of the Function object. Then the call to
+= returns and we can execute the statement line 5 in our Halide code. At this point the
+the Halide program is in the memory and have not been compiled yet. realize() method will
+compile this program into a Halide IR which will then be lowered to LLVM IR or C.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
       <title>Adding custom instruction to RISCV ISA and running it on gem5 and spike</title>
       <link>https://nitish2112.github.io/post/adding-instruction-riscv/</link>
       <pubDate>Mon, 10 Jul 2017 10:09:32 -0400</pubDate>
       
       <guid>https://nitish2112.github.io/post/adding-instruction-riscv/</guid>
-      <description>&lt;p&gt;This is a tutorial on how to add an instruction to the RISCV ISA, how to write program with the special instruction. I will also talk about how to add the new instruction to RISCV assembler and how to execute it on gem5.&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;
+      <description>&lt;p&gt;
+This is a tutorial on how to add an instruction to the RISCV ISA, how to write program with the special instruction. I will also talk about how to add the new instruction to RISCV assembler and how to execute it on gem5.&lt;/p&gt;
 
 &lt;p&gt;First of all download and install the riscv-tools:&lt;/p&gt;
 
@@ -691,7 +861,7 @@ $ export RISCV=/path/to/install/riscv/toolchain
 $ ./build.sh
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;This will build the riscv toolchain. Now we will add a &amp;ldquo;modulo&amp;rdquo; instruction to the ISA. The isntruction and its semantics are given below:&lt;/p&gt;
+&lt;p&gt;This will build the riscv toolchain. Now we will add a &amp;ldquo;modulo&amp;rdquo; instruction to the ISA. The instruction and its semantics are given below:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;mod r1, r2, r3
 
@@ -749,7 +919,7 @@ sraiw   rd rs1 31..25=32 shamtw 14..12=5 6..2=0x06 1..0=3
 
 &lt;p&gt;Lets write a program and see if the RISCV assembler can use the mod instruction:&lt;/p&gt;
 
-&lt;pre&gt;&lt;code class=&#34;language-C&#34;&gt;#include &amp;lt;stdio,h&amp;gt;
+&lt;pre&gt;&lt;code class=&#34;language-C&#34;&gt;#include &amp;lt;stdio.h&amp;gt;
 
 int main(){
   int a,b,c;
@@ -862,10 +1032,10 @@ simulator&lt;/p&gt;</description>
       <pubDate>Mon, 10 Jul 2017 10:09:32 -0400</pubDate>
       
       <guid>https://nitish2112.github.io/post/statistics-gem5/</guid>
-      <description>&lt;p&gt;This is a tutorial on how to add statistics in gem5.&lt;/p&gt;
+      <description>&lt;p&gt;
+This is a tutorial on how to add statistics in gem5.&lt;/p&gt;
 
-&lt;p&gt;
-&amp;ndash; All the stats are defined in the namespace Stats. namespace Stats
+&lt;p&gt;&amp;ndash; All the stats are defined in the namespace Stats. namespace Stats
    is spread across the following files:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;   -- src/base/statistics.hh
@@ -908,8 +1078,9 @@ to regisetr the handlers we were talking about in the previous paragraph.&lt;/p&
       <pubDate>Mon, 10 Jul 2017 10:09:32 -0400</pubDate>
       
       <guid>https://nitish2112.github.io/post/event-driven-simulation/</guid>
-      <description>&lt;p&gt;This is an introduction tutorial on different types of simulation techniques and a brief overview of event driven simulators.
-&lt;/p&gt;
+      <description>&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;This is an introduction tutorial on different types of simulation techniques and a brief overview of event driven simulators.&lt;/p&gt;
 
 &lt;h1 id=&#34;simulators&#34;&gt;&lt;strong&gt;Simulators&lt;/strong&gt;&lt;/h1&gt;
 
@@ -958,8 +1129,8 @@ to regisetr the handlers we were talking about in the previous paragraph.&lt;/p&
       <pubDate>Mon, 10 Jul 2017 10:09:32 -0400</pubDate>
       
       <guid>https://nitish2112.github.io/post/gem5-misc/</guid>
-      <description>&lt;p&gt;Here I will talk about miscellaneous things that you can use with gem5.
-&lt;/p&gt;
+      <description>&lt;p&gt;
+Here I will talk about miscellaneous things that you can use with gem5.&lt;/p&gt;
 
 &lt;h1 id=&#34;adding-an-option-to-gem5&#34;&gt;Adding an option to gem5&lt;/h1&gt;
 

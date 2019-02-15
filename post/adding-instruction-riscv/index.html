@@ -8,7 +8,7 @@
   <meta name="theme" content="hugo-academic">
   <meta name="generator" content="Hugo 0.27.1" />
   <meta name="author" content="Nitish">
-  <meta name="description" content="PhD student at Computer System Laboratory">
+  <meta name="description" content="PhD candidate at Computer System Laboratory">
 
   
   
@@ -175,7 +175,7 @@
 <div class="article-metadata">
 
   <span class="article-date">
-    <time datetime="2017-07-10 10:09:32 -0400 -0400" itemprop="datePublished">
+    <time datetime="2017-07-10 10:09:32 -0400 DST" itemprop="datePublished">
       Mon, Jul 10, 2017
     </time>
   </span>
@@ -242,9 +242,8 @@
 </div>
 
     <div class="article-style" itemprop="articleBody">
-      <p>This is a tutorial on how to add an instruction to the RISCV ISA, how to write program with the special instruction. I will also talk about how to add the new instruction to RISCV assembler and how to execute it on gem5.</p>
-
-<p></p>
+      <p>
+This is a tutorial on how to add an instruction to the RISCV ISA, how to write program with the special instruction. I will also talk about how to add the new instruction to RISCV assembler and how to execute it on gem5.</p>
 
 <p>First of all download and install the riscv-tools:</p>
 
@@ -254,7 +253,7 @@ $ export RISCV=/path/to/install/riscv/toolchain
 $ ./build.sh
 </code></pre>
 
-<p>This will build the riscv toolchain. Now we will add a &ldquo;modulo&rdquo; instruction to the ISA. The isntruction and its semantics are given below:</p>
+<p>This will build the riscv toolchain. Now we will add a &ldquo;modulo&rdquo; instruction to the ISA. The instruction and its semantics are given below:</p>
 
 <pre><code class="language-bash">mod r1, r2, r3
 
@@ -312,7 +311,7 @@ sraiw   rd rs1 31..25=32 shamtw 14..12=5 6..2=0x06 1..0=3
 
 <p>Lets write a program and see if the RISCV assembler can use the mod instruction:</p>
 
-<pre><code class="language-C">#include &lt;stdio,h&gt;
+<pre><code class="language-C">#include &lt;stdio.h&gt;
 
 int main(){
   int a,b,c;
@@ -431,7 +430,7 @@ simulator</p>
     
 
     
-    <li class="next"><a href="https://nitish2112.github.io/post/gem5-minor-cpu/">A Tutorial on the Gem5 Minor CPU Model <span
+    <li class="next"><a href="https://nitish2112.github.io/post/halide/">A brief overview of Halide <span
       aria-hidden="true">&rarr;</span></a></li>
     
   </ul>

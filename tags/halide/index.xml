@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Halide on Nitish Srivastava</title>
+    <link>https://nitish2112.github.io/tags/halide/</link>
+    <description>Recent content in Halide on Nitish Srivastava</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; 2016 Nitish Srivastava</copyright>
+    <lastBuildDate>Mon, 10 Jul 2017 10:09:32 -0400</lastBuildDate>
+    <atom:link href="/tags/halide/" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>A brief overview of Halide</title>
+      <link>https://nitish2112.github.io/post/halide/</link>
+      <pubDate>Mon, 10 Jul 2017 10:09:32 -0400</pubDate>
+      
+      <guid>https://nitish2112.github.io/post/halide/</guid>
+      <description>&lt;p&gt;
+&lt;em&gt;THIS PAGE IS UNDER CONSTRUCTION&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;Here I will talk about Halide&lt;/p&gt;
+
+&lt;p&gt;In order to learn Halide, let&amp;rsquo;s start with a simple example and see how Halide
+will produce the code for that example&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-C++&#34;&gt;Var x,y
+Func grad;
+Target target = get_host_target();
+grad(x,y) = x + y;
+Halide::Image&amp;lt;int32_t&amp;gt; output = gradient.realize(100, 200);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now let&amp;rsquo;s see how the Halide will interpret this code. The first three lines
+are nothing but defining Var and Funcs and the target where we will generate the
+code. On line number 3, the update for the Func grad is written. This is where Halide
+creates and initializes the data-structures for the functional specification to
+be later compiled into a C/C++ code. Note that the program that you are writing
+is in itself in C++, and that is the beauty of Domain Specific Languages. You can
+crate an language from say C++ and then use that to generate efficient C++ code. So, as
+we all know the operator () has a highest precedence than = operator and both () and =
+operators of class Func have been overloaded. That means first the () operators on
+both LHS and RHS will be called and then the = operator will be called for the datatype
+returned by grad(x,y). As () operator with arguments as std::vector of Vars is overladed
+in Func.cpp and creates a FuncRef, the call to grad(x,y) returns a FuncRef object. As + has
+higher predence than =, so + will be evaluated on x and y, both of which are Vars and hence
++ operator. Now, if you search Var.cpp you will not find the overloaded operator + for Vars
+and the reason is there is a cast operator &amp;ldquo;operator Expr()&amp;rdquo; which automatically casts Var
+into object of type Expr and class Expr has overloaded + operator IROperator.h. This creates
+an Add IRNode. We will talk about IRNodes later, but the important thing is Add IRNode is also
+of derived from Expr and hence + on two Vars casted to Expr will return an Expr. Hence now,
+= operator will be called on FuncRef object with the argument as an Expr. The overloaded =
+operator for call FuncRef in Func.cpp which then calls func.define() or func.define_update() which is basically
+but creating a Defintion for the current functional expression. Each functional expression
+like the one line 4 has an associated definition with it. The first definition is called
+&amp;ldquo;initial definition&amp;rdquo; and the rest are &amp;ldquo;update definitions&amp;rdquo;. For example:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;C(x,y) = 0.0f;  // initial definition
+C(x,y) = A(x,y) + B(x,y) // update definition
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Also each Func object has a Function func data member, which is used for book keeping and is
+used in most of the places. Basically it is the internal representation of a Func.
+Hence func.define() in Function.cpp creates a Definition object for that particular function
+expression and copies it into the contents data member of the Function object. Then the call to
+= returns and we can execute the statement line 5 in our Halide code. At this point the
+the Halide program is in the memory and have not been compiled yet. realize() method will
+compile this program into a Halide IR which will then be lowered to LLVM IR or C.&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

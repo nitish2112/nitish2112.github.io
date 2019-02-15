@@ -11,13 +11,21 @@
     <atom:link href="/publication/" rel="self" type="application/rss+xml" />
     
     <item>
+      <title>Operation Dependent Frequency Scaling Using Desynchronization</title>
+      <link>https://nitish2112.github.io/publication/desynchronization/</link>
+      <pubDate>Sun, 10 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://nitish2112.github.io/publication/desynchronization/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Rosetta: A Realistic High-Level Synthesis Benchmark Suite for Software Programmable FPGAs</title>
       <link>https://nitish2112.github.io/publication/rosetta/</link>
       <pubDate>Thu, 10 May 2018 00:00:00 +0000</pubDate>
       
       <guid>https://nitish2112.github.io/publication/rosetta/</guid>
-      <description>&lt;p&gt;More detail can easily be written here using &lt;em&gt;Markdown&lt;/em&gt; and $\rm \LaTeX$ math code.&lt;/p&gt;
-</description>
+      <description></description>
     </item>
     
     <item>
@@ -26,8 +34,7 @@
       <pubDate>Fri, 10 Mar 2017 00:00:00 +0000</pubDate>
       
       <guid>https://nitish2112.github.io/publication/face-detect/</guid>
-      <description>&lt;p&gt;More detail can easily be written here using &lt;em&gt;Markdown&lt;/em&gt; and $\rm \LaTeX$ math code.&lt;/p&gt;
-</description>
+      <description></description>
     </item>
     
     <item>
@@ -36,8 +43,7 @@
       <pubDate>Fri, 10 Mar 2017 00:00:00 +0000</pubDate>
       
       <guid>https://nitish2112.github.io/publication/dynamic-power-satellite/</guid>
-      <description>&lt;p&gt;More detail can easily be written here using &lt;em&gt;Markdown&lt;/em&gt; and $\rm \LaTeX$ math code.&lt;/p&gt;
-</description>
+      <description></description>
     </item>
     
   </channel>
