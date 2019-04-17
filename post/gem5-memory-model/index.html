@@ -52,11 +52,11 @@
   <link rel="icon" type="image/png" href="../../img/icon.png">
   <link rel="apple-touch-icon" type="image/png" href="../../img/apple-touch-icon.png">
 
-  <link rel="canonical" href="https://nitish2112.github.io/post/statistics-gem5/">
+  <link rel="canonical" href="https://nitish2112.github.io/post/gem5-memory-model/">
 
   
 
-  <title>Adding custom statistics to gem5 | Nitish Srivastava</title>
+  <title>A Tutorial on the Gem5 Memory Model | Nitish Srivastava</title>
 
 </head>
 <body id="top" data-spy="scroll" data-target="#navbar-main" data-offset="71">
@@ -169,7 +169,7 @@
 
 
   <div class="article-container">
-    <h1 itemprop="name">Adding custom statistics to gem5</h1>
+    <h1 itemprop="name">A Tutorial on the Gem5 Memory Model</h1>
     
 
 <div class="article-metadata">
@@ -201,35 +201,35 @@
   <ul class="share">
     <li>
       <a class="facebook"
-         href="https://www.facebook.com/sharer.php?u=https%3a%2f%2fnitish2112.github.io%2fpost%2fstatistics-gem5%2f"
+         href="https://www.facebook.com/sharer.php?u=https%3a%2f%2fnitish2112.github.io%2fpost%2fgem5-memory-model%2f"
          target="_blank">
         <i class="fa fa-facebook"></i>
       </a>
     </li>
     <li>
       <a class="twitter"
-         href="https://twitter.com/intent/tweet?text=Adding%20custom%20statistics%20to%20gem5&amp;url=https%3a%2f%2fnitish2112.github.io%2fpost%2fstatistics-gem5%2f"
+         href="https://twitter.com/intent/tweet?text=A%20Tutorial%20on%20the%20Gem5%20Memory%20Model&amp;url=https%3a%2f%2fnitish2112.github.io%2fpost%2fgem5-memory-model%2f"
          target="_blank">
         <i class="fa fa-twitter"></i>
       </a>
     </li>
     <li>
       <a class="linkedin"
-         href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fnitish2112.github.io%2fpost%2fstatistics-gem5%2f&amp;title=Adding%20custom%20statistics%20to%20gem5"
+         href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fnitish2112.github.io%2fpost%2fgem5-memory-model%2f&amp;title=A%20Tutorial%20on%20the%20Gem5%20Memory%20Model"
          target="_blank">
         <i class="fa fa-linkedin"></i>
       </a>
     </li>
     <li>
       <a class="weibo"
-         href="http://service.weibo.com/share/share.php?url=https%3a%2f%2fnitish2112.github.io%2fpost%2fstatistics-gem5%2f&amp;title=Adding%20custom%20statistics%20to%20gem5"
+         href="http://service.weibo.com/share/share.php?url=https%3a%2f%2fnitish2112.github.io%2fpost%2fgem5-memory-model%2f&amp;title=A%20Tutorial%20on%20the%20Gem5%20Memory%20Model"
          target="_blank">
         <i class="fa fa-weibo"></i>
       </a>
     </li>
     <li>
       <a class="email"
-         href="mailto:?subject=Adding%20custom%20statistics%20to%20gem5&amp;body=https%3a%2f%2fnitish2112.github.io%2fpost%2fstatistics-gem5%2f">
+         href="mailto:?subject=A%20Tutorial%20on%20the%20Gem5%20Memory%20Model&amp;body=https%3a%2f%2fnitish2112.github.io%2fpost%2fgem5-memory-model%2f">
         <i class="fa fa-envelope"></i>
       </a>
     </li>
@@ -242,44 +242,194 @@
 </div>
 
     <div class="article-style" itemprop="articleBody">
-      <p>
-This is a tutorial on how to add statistics in gem5.</p>
+      <p></p>
 
-<p>&ndash; All the stats are defined in the namespace Stats. namespace Stats
-   is spread across the following files:</p>
+<p>Gem5 has following memory models (see src/mem/DRAMCtrl.py):</p>
 
-<pre><code class="language-bash">   -- src/base/statistics.hh
-   -- src/sim/stat\_control.hh
-   -- src/base/stats/info.hh
-   -- src/base/stats/output.hh
-   -- src/base/stats/text.hh
-   -- src/base/stats/type.hh
-   -- src/python/pybind11/stats.cc
-   -- sim/power/mathexpr\_powermodel.hh
+<p>1)   DDR3_1600_8x8        : (1.6   x 8  x <sup>8</sup>&frasl;<sub>8</sub>   = 12.8 GBps)<br />
+2)   HMC_2500_1x32        : (2.5   x 1  x <sup>32</sup>&frasl;<sub>8</sub>  = 10.0 GBps)<br />
+3)   DDR3_2133_8x8        : (2.133 x 8  x <sup>8</sup>&frasl;<sub>8</sub>   = 17.0 GBps)<br />
+4)   DDR4_2400_16x4       : (2.4   x 16 x <sup>4</sup>&frasl;<sub>8</sub>   = 19.2 GBps)<br />
+5)   DDR4_2400_8x8        : (2.4   x 8  x <sup>8</sup>&frasl;<sub>8</sub>   = 19.2 GBps)<br />
+6)   DDR4_2400_4x16       : (2.4   x 4  x <sup>16</sup>&frasl;<sub>8</sub>  = 19.2 GBps)<br />
+7)   LPDDR2_S4_1066_1x32  : (1.066 x 1  x <sup>32</sup>&frasl;<sub>8</sub>  =  4.3 GBps)<br />
+8)   LPDDR3_1600_1x32     : (1.6   x 1  x <sup>32</sup>&frasl;<sub>8</sub>  =  6.4 GBps)<br />
+9)   GDDR5_4000_2x32      : (4.0   x 2  x <sup>32</sup>&frasl;<sub>8</sub>  = 32.0 GBps)<br />
+10)  HBM_1000_4H_1x128    : (1.0   x 1  x <sup>128</sup>&frasl;<sub>8</sub> = 16.0 GBps)<br />
+11)  HBM_1000_4H_1x64     : (1.0   x 1  x <sup>64</sup>&frasl;<sub>8</sub>  =  8.0 GBps)</p>
+
+<p>Each of these memories are derived from class DRAMCtrl in DRAMCtrl.py which
+in turn is dervied from class AbstractMemory in AbstractMemory.py. DRAMCtrl is
+a class for dram controller, but is being used to model the DRAM as well &ndash; weird
+but true.</p>
+
+<p>class DRAMCtrl in dram_ctrl.hh has the following</p>
+
+<pre><code>class DRAMCtrl : public AbstractMemory {
+  QueuedSlavePort port;
+
+  class Bank {
+    int openRow;
+    int bank;
+  }
+
+  class Rank {
+    int rank; // rank id
+    vector&lt;Command&gt; cmdList; // List of commands issued
+    vector&lt;Bank&gt; banks;
+  }
+
+  std::vector&lt;Rank*&gt; ranks;
+
+  class DRAMPacket {
+    Tick entryTime; // time when request entered the controller
+    Tick readyTime; // time when request will leave the controller
+    Packet* pkt;
+    int rank, bank, row; // populated by row decoder
+    int bankID;
+    int size; // always less than or equal to DRAM bust size
+  }
+
+  std::deque&lt;DRAMPacket*&gt; readQueue;
+  std::deque&lt;DRAMPacket*&gt; writeQueue;
+  std::deque&lt;DRAMPacket*&gt; respQueue;
+
+  // Actually do the DRAM access - figure out the latency it
+  // will take to service the req based on bank state, channel state etc
+  // and then update those states to account for this request.\ Based
+  // on this, update the packet's &quot;readyTime&quot; and move it to the
+  // response q from where it will eventually go back to the outside world.
+  void doDRAMAccess();
+
+  // When a packet reaches its &quot;readyTime&quot; in the response Q,
+  // use the &quot;access()&quot; method in AbstractMemory to actually
+  // create the response packet, and send it back to the outside world.
+  void accessAndRespond();
+
+  DRAMPacket* decodeAddr();
+
+  // The memory schduler/arbiter - picks which request needs to
+  // go next, based on the specified policy such as FCFS or FR-FCFS
+  // and moves it to the head of the queue.
+  bool chooseNext(std::deque&lt;DRAMPacket*&gt;&amp; queue);
+
+  // For FR-FCFS policy reorder the read/write queue depending on row buffer
+  // hits and earliest bursts available in DRAM
+  bool reorderQueue(std::deque&lt;DRAMPacket*&gt;&amp; queue, ...);
+
+  // Max column accesses (read and write) per row, before forefully closing it
+  int maxAccessesPerRow;
+
+  bool recvTimingReq(Packet* pkt);
+  
+  // Bunch of things requires to setup &quot;events&quot; in gem5
+  // When event &quot;respondEvent&quot; occurs for example, the method
+  // processRespondEvent is called;
+  void processNextReqEvent();
+  EventFunctionWrapper nextReqEvent;
+
+  void processRespondEvent();
+  EventFunctionWrapper respondEvent;
+}
 </code></pre>
 
-<p>The schedStatEvent() function is used to dump statistics either all at once or
-periodically. This is defined in src/sim/stat_control.cc. schedStatEvent()
-creates a new StatEvent. The default values for when is curTick and repeat is
-0, so the StatEvent created by schedStatEvent executes in the same cycle and
-does not push itself to the event queue again when processed. The process()
-function of StatEvent calls Stats::dump() and Stats::reset() both of which
-are defined in base/statistics.hh. The dump() calls the constructor of
-dumpHandler() which is a variable &ldquo;Handler dumpHandler&rdquo; in the Stats namespace
-in the same file initialized to NULL. Same for reset and resetHandler(). The
-dumpHandler and resetHandler variables are set using the call to registerHanlders()
-also defined in the same file.</p>
+<pre><code>bool recvTimingReq (Packet* pkt) {
+  int dram_pkt_count = ....; // calculate number of DRAM bursts a packet translates to
+  if (pkt-&gt;isRead())
+    Addr addr = pkt-&gt;getAddr();
+    for i = 0...dram_pkt_count
+      DRAMPacket* dram_pkt = decodeAddr(pkt);
+      readQueue.push_back(dram_pkt);
+      addr = (addr | (burstSize - 1)) + 1;
+    schedule(nextReqEvent, curTick());
+  else
+    Addr addr = pkt-&gt;getAddr();
+    for i = 0...dram_pkt_count
+      DRAMPacket* dram_pkt = decodeAddr(pkt);
+      writeQueue.push_back(dram_pkt);
+      addr = (addr | (burstSize - 1)) + 1;
+    accessAndRespond(pkt, frontendLatency);
+    schedule(nextReqEvent, curTick());
+}
+</code></pre>
 
-<p>When the gem5 system initantiates the objects by calling instantiate() method
-in src/python/m5/simulate.py, in instantiate() method it calls stats.initSimStats()
-which is defined in /src/python/m5/stats/<strong>init</strong>.py and calls
-_m5.stats.registerPythonStatsHandlers() which in turn is defined in
-src/sim/stat_register.cc and calls registerHandlers(pythonReset, pythonDump);
-to regisetr the handlers we were talking about in the previous paragraph.</p>
+<pre><code>void processNextReqEvent () {
+  if (busState == READ) {
+    if (!readQueue.empty()) {
+      if (memSchedPolicy == Enums::frfcfs) // this is the default policy
+        // reorderQueue will put the packt to be scheduled at the head of the queue
+        bool found_read = reorderQueue(queue, switched_cmd_type ? tCS : 0);
+      if (!found_read) return;
+      DRAMPacket* dram_pkt = readQueue.front();
+      doDRAMAccess(dram_pkt);
+      readQueue.pop_front();
+      respQueue.push_back(dram_pkt);
+    }
+  }
+  else {
+    if (memSchedPolicy == Enums::frfcfs) // this is the default policy
+      bool found_write = reorderQueue(queue, switched_cmd_type ? tCS : 0);
+    if (!found_write) return;
+    DRAMPacket* dram_pkt = writeQueue.front();
+    doDRAMAccess(dram_pkt);
+    writeQueue.pop_front();
+  }
+}
+</code></pre>
 
-<!--more-->
+<pre><code>PrIS Algorithm:
 
-<h1 id="minor-cpu">Minor CPU</h1>
+A seamless row buffer hit request: a request that can issue a column access
+to an already activated row in the bank, without any further delay. 
+
+A hidden bank prep request : a request that can overlap the current operation in 
+other banks (in the same rank) and issue a request to activate or precharge a row 
+in the requested bank. Among the hidden bank prep requests an FCFS policy is followed. 
+
+A prepped row request : a request that needs to wait for the current column access 
+to complete to the currently active row in a bank. Thus choosing a prepped row 
+leads to a bubble in the pipeline of the scheduler where the request has to wait 
+for the row to become available for a column access command.
+
+Additionally, the PrIS algorithm picks a request in the priority order of
+CPU seamless row buffer hit &gt; CPU hidden bank prep &gt; CPU prepped row
+
+bool reorderQueue(std::deque&lt;DRAMPacket*&gt;&amp; queue, Tick extra_col_delay) {
+
+  Tick min_col_at = std::max(busBusyUntil - tCL + extra_col_delay, curTick());
+
+  for (auto i = queue.begin(); i != queue.end(); i++) {
+    DRAMPacket* dram_pkt = *i;
+    if (dram_pkt-&gt;rankRef.isAvailable()) { // Rank is available
+      // dram pkt row same as the open row
+      if (dram_pkt-&gt;bankRef.openRow == dram_pkt-&gt;row) {
+        // This a seamless request as this rquest can be handled before the next col event??
+        if (dram_pkt-&gt;bankRef.colAllowedAt &lt;= min_col_at) {
+          selected_pkt = i; break;
+        }
+        else if (!found_hidden_bank &amp;&amp; !found_prepped_pkt) {
+          selected_pkt = i; found_prepped_pkt = true;
+        }
+      }
+      // open row is not same as dram pkt row
+      else if (!found_earliest_pkt) {
+        hidden_bank_prep = ...
+        if (...) found_hidden_bank = true
+        if (hidden_bank_prep || !found_prepped_pkt)
+          selected_pkt = i;
+      }
+    }
+  }
+
+  if (selected_pkt != queue.end()) {
+    queue.erase(selected_pkt);
+    queue.push_front(selected_pkt);
+    return true;
+  }
+}
+</code></pre>
+
+<p>-&gt; l1 cache [master]&mdash;-&gt;[slave] SystemXbar() [master] &mdash;&ndash;&gt; mem_ctrls[i].port</p>
     </div>
   </div>
 
@@ -289,12 +439,12 @@ to regisetr the handlers we were talking about in the previous paragraph.</p>
   <nav>
   <ul class="pager">
     
-    <li class="previous"><a href="https://nitish2112.github.io/post/technical-writing/"><span
-      aria-hidden="true">&larr;</span> Common tips for technical writing</a></li>
+    <li class="previous"><a href="https://nitish2112.github.io/post/gem5-minor-cpu/"><span
+      aria-hidden="true">&larr;</span> A Tutorial on the Gem5 Minor CPU Model</a></li>
     
 
     
-    <li class="next"><a href="https://nitish2112.github.io/post/adding-instruction-riscv/">Adding custom instruction to RISCV ISA and running it on gem5 and spike <span
+    <li class="next"><a href="https://nitish2112.github.io/post/gem5-simulation/">A Tutorial on Gem5 Simulation Framework <span
       aria-hidden="true">&rarr;</span></a></li>
     
   </ul>

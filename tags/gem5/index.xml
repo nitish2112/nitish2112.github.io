@@ -34,17 +34,17 @@ This is an introduction tutorial to gem5 simulation framework&lt;/p&gt;
 
 &lt;p&gt;Gem5 has following memory models (see src/mem/DRAMCtrl.py):&lt;/p&gt;
 
-&lt;p&gt;1)   DDR3_1600_8x8        : (1.6   x 8  x &lt;sup&gt;8&lt;/sup&gt;&amp;frasl;&lt;sub&gt;8&lt;/sub&gt;  = 12.8 GBps)
-2)   HMC_2500_1x32        : (2.5   x 1  x &lt;sup&gt;32&lt;/sup&gt;&amp;frasl;&lt;sub&gt;8&lt;/sub&gt; = 10.0 GBps)
-3)   DDR3_2133_8x8        : (2.133 x 8  x &lt;sup&gt;8&lt;/sup&gt;&amp;frasl;&lt;sub&gt;8&lt;/sub&gt;  = 17.0 GBps)
-4)   DDR4_2400_16x4       : (2.4   x 16 x &lt;sup&gt;4&lt;/sup&gt;&amp;frasl;&lt;sub&gt;8&lt;/sub&gt;  = 19.2 GBps)
-5)   DDR4_2400_8x8        : (2.4   x 8  x &lt;sup&gt;8&lt;/sup&gt;&amp;frasl;&lt;sub&gt;8&lt;/sub&gt;  = 19.2 GBps)
-6)   DDR4_2400_4x16       : (2.4   x 4  x &lt;sup&gt;16&lt;/sup&gt;&amp;frasl;&lt;sub&gt;8&lt;/sub&gt; = 19.2 GBps)
-7)   LPDDR2_S4_1066_1x32  : (1.066 x 1  x &lt;sup&gt;32&lt;/sup&gt;&amp;frasl;&lt;sub&gt;8&lt;/sub&gt; =  4.3 GBps)
-8)   LPDDR3_1600_1x32     : (1.6   x 1  x &lt;sup&gt;32&lt;/sup&gt;&amp;frasl;&lt;sub&gt;8&lt;/sub&gt; =  6.4 GBps)
-9)   GDDR5_4000_2x32      : (4.0   x 2  x &lt;sup&gt;32&lt;/sup&gt;&amp;frasl;&lt;sub&gt;8&lt;/sub&gt; = 32.0 GBps)
-10)  HBM_1000_4H_1x128    : (1.0   x ??)
-11)  HBM_1000_4H_1x64&lt;/p&gt;
+&lt;p&gt;1)   DDR3_1600_8x8        : (1.6   x 8  x &lt;sup&gt;8&lt;/sup&gt;&amp;frasl;&lt;sub&gt;8&lt;/sub&gt;   = 12.8 GBps)&lt;br /&gt;
+2)   HMC_2500_1x32        : (2.5   x 1  x &lt;sup&gt;32&lt;/sup&gt;&amp;frasl;&lt;sub&gt;8&lt;/sub&gt;  = 10.0 GBps)&lt;br /&gt;
+3)   DDR3_2133_8x8        : (2.133 x 8  x &lt;sup&gt;8&lt;/sup&gt;&amp;frasl;&lt;sub&gt;8&lt;/sub&gt;   = 17.0 GBps)&lt;br /&gt;
+4)   DDR4_2400_16x4       : (2.4   x 16 x &lt;sup&gt;4&lt;/sup&gt;&amp;frasl;&lt;sub&gt;8&lt;/sub&gt;   = 19.2 GBps)&lt;br /&gt;
+5)   DDR4_2400_8x8        : (2.4   x 8  x &lt;sup&gt;8&lt;/sup&gt;&amp;frasl;&lt;sub&gt;8&lt;/sub&gt;   = 19.2 GBps)&lt;br /&gt;
+6)   DDR4_2400_4x16       : (2.4   x 4  x &lt;sup&gt;16&lt;/sup&gt;&amp;frasl;&lt;sub&gt;8&lt;/sub&gt;  = 19.2 GBps)&lt;br /&gt;
+7)   LPDDR2_S4_1066_1x32  : (1.066 x 1  x &lt;sup&gt;32&lt;/sup&gt;&amp;frasl;&lt;sub&gt;8&lt;/sub&gt;  =  4.3 GBps)&lt;br /&gt;
+8)   LPDDR3_1600_1x32     : (1.6   x 1  x &lt;sup&gt;32&lt;/sup&gt;&amp;frasl;&lt;sub&gt;8&lt;/sub&gt;  =  6.4 GBps)&lt;br /&gt;
+9)   GDDR5_4000_2x32      : (4.0   x 2  x &lt;sup&gt;32&lt;/sup&gt;&amp;frasl;&lt;sub&gt;8&lt;/sub&gt;  = 32.0 GBps)&lt;br /&gt;
+10)  HBM_1000_4H_1x128    : (1.0   x 1  x &lt;sup&gt;128&lt;/sup&gt;&amp;frasl;&lt;sub&gt;8&lt;/sub&gt; = 16.0 GBps)&lt;br /&gt;
+11)  HBM_1000_4H_1x64     : (1.0   x 1  x &lt;sup&gt;64&lt;/sup&gt;&amp;frasl;&lt;sub&gt;8&lt;/sub&gt;  =  8.0 GBps)&lt;/p&gt;
 
 &lt;p&gt;Each of these memories are derived from class DRAMCtrl in DRAMCtrl.py which
 in turn is dervied from class AbstractMemory in AbstractMemory.py. DRAMCtrl is
@@ -215,7 +215,9 @@ bool reorderQueue(std::deque&amp;lt;DRAMPacket*&amp;gt;&amp;amp; queue, Tick ext
     return true;
   }
 }
-&lt;/code&gt;&lt;/pre&gt;</description>
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;-&amp;gt; l1 cache [master]&amp;mdash;-&amp;gt;[slave] SystemXbar() [master] &amp;mdash;&amp;ndash;&amp;gt; mem_ctrls[i].port&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -1206,6 +1208,272 @@ to regisetr the handlers we were talking about in the previous paragraph.&lt;/p&
 &lt;!--more--&gt;
 
 &lt;h1 id=&#34;minor-cpu&#34;&gt;Minor CPU&lt;/h1&gt;</description>
+    </item>
+    
+    <item>
+      <title>Common tips for technical writing</title>
+      <link>https://nitish2112.github.io/post/technical-writing/</link>
+      <pubDate>Mon, 10 Jul 2017 10:09:32 -0400</pubDate>
+      
+      <guid>https://nitish2112.github.io/post/technical-writing/</guid>
+      <description>&lt;p&gt;&lt;/p&gt;
+
+&lt;h1 id=&#34;comma-splice&#34;&gt;&lt;strong&gt;Comma Splice&lt;/strong&gt;&lt;/h1&gt;
+
+&lt;p&gt;A comma splice is a grammatical error in which two independent clauses are joined by only a comma.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;INCORRECT&lt;/strong&gt;: It was 500 miles to the facility, we arranged to fly.&lt;/p&gt;
+
+&lt;p&gt;A comma splice can be corrected in several ways.&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Substitute a semicolon, a semicolon and a conjunctive adverb, or a comma and a coordinating conjunction.&lt;br /&gt;
+&amp;ndash; It was 500 miles to the facility; we arranged to fly.&lt;br /&gt;
+&amp;ndash; It was 500 miles to the facility; therefore, we arranged to fly.&lt;br /&gt;
+&amp;ndash; It was 500 miles to the facility, so we arranged to fly.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Create two sentences.&lt;br /&gt;
+&amp;ndash; It was 500 miles to the facility. We arranged to fly.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Subordinate one clause to the other.&lt;br /&gt;
+&amp;ndash; Because it was 500 miles to the facility, we arranged to fly.&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&#34;a-linking-independent-clauses&#34;&gt;A. Linking Independent Clauses&lt;/h2&gt;
+
+&lt;p&gt;Use a comma before a coordinating conjunction (and, but, or, nor, and sometimes so, yet, and for) that links independent clauses.&lt;/p&gt;
+
+&lt;p&gt;E.g. The new microwave disinfection system was delivered, but the installation will require an additional week.&lt;/p&gt;
+
+&lt;p&gt;However, if two independent clauses are short and closely related—and there is no danger of confusing the reader—the comma may be omitted.
+Both of the following examples are correct.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;CORRECT&lt;/strong&gt;: The cable snapped and the power failed.&lt;br /&gt;
+&lt;strong&gt;CORRECT&lt;/strong&gt;: The cable snapped, and the power failed.&lt;/p&gt;
+
+&lt;h2 id=&#34;b-enclosing-elements&#34;&gt;B. Enclosing Elements&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;1) Commas are used to enclose nonessential information (parenthetical elements)&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;CORRECT&lt;/strong&gt;: Our new factory, which began operations last month, should add
+25 percent to total output.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;CORRECT&lt;/strong&gt;: The technician, working quickly and efficiently, finished early.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;CORRECT&lt;/strong&gt;: We can, of course, expect their lawyer to call us.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;2) Yes and no are set off by commas in such uses as the following:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;CORRECT&lt;/strong&gt;: No, I do not think we can finish by the deadline.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;3) A direct address should be enclosed in commas.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;CORRECT&lt;/strong&gt;: You will note, Jeff, that the surface of the brake shoe complies
+with the specification.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;4) An appositive phrase (which re-identifies another expression in the sentence) is enclosed in commas.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;CORRECT:&lt;/strong&gt; Our company, Envirex Medical Systems, won several awards last year.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;5) Interrupting parenthetical and transitional words or phrases are usually set off with commas.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;CORRECT:&lt;/strong&gt; The report, therefore, needs to be revised.&lt;/p&gt;
+
+&lt;p&gt;Commas are omitted when the word or phrase does not interrupt the continuity of thought.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;CORRECT:&lt;/strong&gt; I therefore suggest that we begin construction.&lt;/p&gt;
+
+&lt;h2 id=&#34;c-introducing-elements&#34;&gt;C. Introducing Elements&lt;/h2&gt;
+
+&lt;h3 id=&#34;c-0-clauses-and-phrases&#34;&gt;C.0 Clauses and Phrases.&lt;/h3&gt;
+
+&lt;p&gt;Generally, place a comma after an introductory clause or phrase, especially if it is long,
+to identify where the introductory element ends and the main part of the sentence begins.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;CORRECT:&lt;/strong&gt; Because we have not yet contained the new strain of influenza, we recommend vaccination for high-risk patients.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;1) A long modifying phrase that precedes the main clause should always be followed by a comma.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;During the first series of field-performance tests at our Colorado proving ground, the new engine failed to meet our expectations.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;2) When an introductory phrase is short and closely related to the main clause, the comma may be omitted.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;In two seconds a 5F temperature rise occurs in the test tube.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;3) A comma should always follow an absolute phrase, which modifies the whole sentence.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;The tests completed, we organized the data for the final report.&lt;/p&gt;
+
+&lt;h3 id=&#34;c-1-words-and-quotations&#34;&gt;C.1 Words and Quotations.&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;1) Certain types of introductory words are followed by a comma. One example is a transitional word or phrase
+(however, in addition) that connects the preceding clause or sentence with the thought that follows.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Furthermore, steel can withstand a humidity of 99 percent, provided that there is no chloride or sulfur dioxide in the atmosphere.&lt;/p&gt;
+
+&lt;p&gt;For example, this change will make us more competitive in the global marketplace.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;2) When an adverb closely modifies the verb or the entire sentence, it should not be followed by a comma.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Perhaps we can still solve the turnover problem. Certainly we should try. [Perhaps and certainly closely modify each statement.]&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;3) A proper noun used in an introductory direct address is followed by a comma, as is an interjection (such as oh, well, why, indeed, yes, and no).&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Nancy, enclosed is the article you asked me to review. [direct address]&lt;/p&gt;
+
+&lt;p&gt;Indeed, I will ensure that your request is forwarded. [interjection]&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;4) Use a comma to separate a direct quotation from its introduction.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Morton and Lucia White said, &amp;ldquo;People live in cities but dream of the countryside.&amp;rdquo;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;5) Do not use a comma when giving an indirect quotation.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Morton and Lucia White said that people dream of the countryside, even though they live in cities.&lt;/p&gt;
+
+&lt;h2 id=&#34;d-separating-items-in-a-series&#34;&gt;D. Separating Items in a Series&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;1) Although the comma before the last item in a series is sometimes omitted, it is generally clearer to include it.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Random House, Bantam, Doubleday, and Dell were individual publishing companies.
+[Without the final comma, “Doubleday and Dell” might refer to one company or two.]&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;2) Phrases and clauses in coordinate series are also punctuated with commas.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Plants absorb noxious gases, act as receptors of dirt particles, and cleanse the air of other impurities.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;3) When phrases or clauses in a series contain commas, use semicolons rather than commas to separate the items.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Our new products include amitriptyline, which has sold very well; and cholestyramine, which was just introduced.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;4) When adjectives modifying the same noun can be reversed and make sense, or when they can be separated by and or or, they should be separated
+by commas.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;The aircraft featured a modern, sleek, swept-wing design.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;5) When an adjective modifies a phrase, no comma is required.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;She was investigating the damaged inventory-control system. [The adjective damaged modifies the phrase inventory-control
+system.]&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;6) Never separate a final adjective from its noun.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;He is a conscientious, honest, reliable[, not needed here] worker.&lt;/p&gt;
+
+&lt;h2 id=&#34;e-clarifying-and-contrasting&#34;&gt;E. Clarifying and Contrasting&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;1) Use a comma to separate two contrasting thoughts or ideas.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;The project was finished on time, but not within the budget.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;2) Use a comma after an independent clause that is only loosely related to the dependent clause that follows it or that could be misread without the comma.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;I should be able to finish the plan by July, even though I lost time because of illness.&lt;/p&gt;
+
+&lt;h2 id=&#34;f-showing-omissions&#34;&gt;F. Showing Omissions&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;1) A comma sometimes replaces a verb in certain elliptical constructions.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Some were punctual; others, late. [The comma replaces were.]&lt;br /&gt;
+It is better, however, to avoid such constructions in technical writing.&lt;/p&gt;
+
+&lt;h2 id=&#34;e-using-with-numbers-and-names&#34;&gt;E. Using with Numbers and Names&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;1)  Commas are conventionally used to separate distinct items. Use commas between the elements of an address written on the same line (but not between the state and the ZIP Code).&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Kristen James, 4119 Mill Road, Dayton, Ohio 45401&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;2) A full date that is written in month-day-year format uses a comma preceding and following the year.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;November 30, 2020, is the payoff date.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;3) Do not use commas for dates in the day-month-year format, which is used in many parts of the world and by the U.S. military. See also international
+correspondence.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Note that 30 November 2020 is the payoff date.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;4) No commas are used when showing only the month and year or month and day in a date.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;The target date of May 2012 is optimistic, so I would like to meet on March 4 to discuss our options.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;5) Use commas to separate the elements of Arabic numbers.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;1,528,200 feet&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;6) Use commas to separate the elements of geographical names.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Toronto, Ontario, Canada&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;7) Use a comma to separate names that are reversed (Smith, Alvin) and commas with professional abbreviations.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Jim Rogers Jr., M.D., chaired the conference.
+[ Jr. or Sr. does not require a comma.]&lt;/p&gt;
+
+&lt;h2 id=&#34;f-using-with-other-punctuation&#34;&gt;F. Using with Other Punctuation&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;1) Conjunctive adverbs (however, nevertheless, consequently, for example, on the other hand) that join independent clauses are preceded by a semicolon and followed by a comma. Such adverbs function both as modifiers and as connectives.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;The idea is good; however, our budget is not sufficient.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;2) When a comma should follow a phrase or clause that ends with words in parentheses, the comma always appears outside the closing parenthesis.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Although we left late (at 7:30 p.m.), we arrived in time for the keynote address.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;3) Commas always go inside quotation marks.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;The operator placed the discharge bypass switch at “normal,” which triggered a second discharge.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;4) Except with abbreviations, a comma should not be used with a dash, an exclamation mark, a period, or a question mark.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;“Have you finished the project?[no , here]” she asked.&lt;/p&gt;
+
+&lt;h2 id=&#34;g-avoiding-unnecessary-commas&#34;&gt;G. Avoiding Unnecessary Commas&lt;/h2&gt;
+
+&lt;p&gt;A number of common writing errors involve placing commas where
+they do not belong. As stated earlier, such errors often occur because
+writers assume that a pause in a sentence should be indicated by a
+comma.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;1) Do not place a comma between a subject and verb or between a verb and its object.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;The conditions at the test site in the Arctic[no , here] made accurate readings
+difficult.&lt;/p&gt;
+
+&lt;p&gt;She has often said[no , here] that one company’s failure is another’s
+opportunity.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;2) Do not use a comma between the elements of a compound subject or compound predicate consisting of only two elements.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;The director of the design department[no , here] and the supervisor of the quality-control section were opposed to the new schedules.&lt;/p&gt;
+
+&lt;p&gt;The design director listed five major objections[no , here] and asked that the new schedule be reconsidered.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;3) Do not include a comma after a coordinating conjunction such as and or but.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;The chairperson formally adjourned the meeting, but[no , here] the members of the committee continued to argue.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;4) Do not place a comma before the first item or after the last item of a series.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;The new products we are considering include[no , here] calculators, scanners, and cameras.&lt;/p&gt;
+
+&lt;p&gt;It was a fast, simple, inexpensive[no , here] process.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;5) Do not use a comma to separate a prepositional phrase from the rest of the sentence unnecessarily.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;We discussed the final report[no , here] on the new project.&lt;/p&gt;
+
+&lt;h1 id=&#34;hyphen&#34;&gt;Hyphen&lt;/h1&gt;
+
+&lt;p&gt;The hyphen (-) is used primarily for linking and separating words and parts of words. The hyphen often improves the clarity of writing. The
+hyphen is sometimes confused with the dash, which may be indicated with two consecutive hyphens.&lt;/p&gt;
+
+&lt;h2 id=&#34;hyphens-with-compound-words&#34;&gt;Hyphens with Compound Words&lt;/h2&gt;
+
+&lt;p&gt;Some compound words are formed with hyphens (able-bodied, over-thecounter). Hyphens are also used with multiword numbers from twentyone
+through ninety-nine and fractions when they are written out (threequarters). Most current dictionaries indicate whether compound words
+are hyphenated, written as one word, or written as separate words.&lt;/p&gt;
+
+&lt;p&gt;NOTE: These are the notes taken from Alred, Gerald J., Charles T. Brusaw, and Walter E. Oliu. Handbook of technical writing. Macmillan, 2009.&lt;/p&gt;</description>
     </item>
     
     <item>
