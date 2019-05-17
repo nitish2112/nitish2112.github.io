@@ -56,7 +56,7 @@
 
   
 
-  <title>Statistics in gem5 | Nitish Srivastava</title>
+  <title>Adding custom statistics to gem5 | Nitish Srivastava</title>
 
 </head>
 <body id="top" data-spy="scroll" data-target="#navbar-main" data-offset="71">
@@ -110,9 +110,9 @@
         
 
         <li class="nav-item">
-          <a href="../../#projects">
+          <a href="../../#talks">
             
-            <span>Projects</span>
+            <span>Talks</span>
           </a>
         </li>
 
@@ -125,6 +125,18 @@
           <a href="../../#posts">
             
             <span>Posts</span>
+          </a>
+        </li>
+
+        
+        
+
+        
+
+        <li class="nav-item">
+          <a href="../../#projects">
+            
+            <span>Projects</span>
           </a>
         </li>
 
@@ -169,7 +181,7 @@
 
 
   <div class="article-container">
-    <h1 itemprop="name">Statistics in gem5</h1>
+    <h1 itemprop="name">Adding custom statistics to gem5</h1>
     
 
 <div class="article-metadata">
@@ -208,28 +220,28 @@
     </li>
     <li>
       <a class="twitter"
-         href="https://twitter.com/intent/tweet?text=Statistics%20in%20gem5&amp;url=https%3a%2f%2fnitish2112.github.io%2fpost%2fstatistics-gem5%2f"
+         href="https://twitter.com/intent/tweet?text=Adding%20custom%20statistics%20to%20gem5&amp;url=https%3a%2f%2fnitish2112.github.io%2fpost%2fstatistics-gem5%2f"
          target="_blank">
         <i class="fa fa-twitter"></i>
       </a>
     </li>
     <li>
       <a class="linkedin"
-         href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fnitish2112.github.io%2fpost%2fstatistics-gem5%2f&amp;title=Statistics%20in%20gem5"
+         href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fnitish2112.github.io%2fpost%2fstatistics-gem5%2f&amp;title=Adding%20custom%20statistics%20to%20gem5"
          target="_blank">
         <i class="fa fa-linkedin"></i>
       </a>
     </li>
     <li>
       <a class="weibo"
-         href="http://service.weibo.com/share/share.php?url=https%3a%2f%2fnitish2112.github.io%2fpost%2fstatistics-gem5%2f&amp;title=Statistics%20in%20gem5"
+         href="http://service.weibo.com/share/share.php?url=https%3a%2f%2fnitish2112.github.io%2fpost%2fstatistics-gem5%2f&amp;title=Adding%20custom%20statistics%20to%20gem5"
          target="_blank">
         <i class="fa fa-weibo"></i>
       </a>
     </li>
     <li>
       <a class="email"
-         href="mailto:?subject=Statistics%20in%20gem5&amp;body=https%3a%2f%2fnitish2112.github.io%2fpost%2fstatistics-gem5%2f">
+         href="mailto:?subject=Adding%20custom%20statistics%20to%20gem5&amp;body=https%3a%2f%2fnitish2112.github.io%2fpost%2fstatistics-gem5%2f">
         <i class="fa fa-envelope"></i>
       </a>
     </li>
@@ -243,7 +255,9 @@
 
     <div class="article-style" itemprop="articleBody">
       <p>
-&ndash; All the stats are defined in the namespace Stats. namespace Stats
+This is a tutorial on how to add statistics in gem5.</p>
+
+<p>&ndash; All the stats are defined in the namespace Stats. namespace Stats
    is spread across the following files:</p>
 
 <pre><code class="language-bash">   -- src/base/statistics.hh
@@ -274,6 +288,10 @@ which is defined in /src/python/m5/stats/<strong>init</strong>.py and calls
 _m5.stats.registerPythonStatsHandlers() which in turn is defined in
 src/sim/stat_register.cc and calls registerHandlers(pythonReset, pythonDump);
 to regisetr the handlers we were talking about in the previous paragraph.</p>
+
+<!--more-->
+
+<h1 id="minor-cpu">Minor CPU</h1>
     </div>
   </div>
 
@@ -283,12 +301,12 @@ to regisetr the handlers we were talking about in the previous paragraph.</p>
   <nav>
   <ul class="pager">
     
-    <li class="previous"><a href="https://nitish2112.github.io/post/gem5-simulation/"><span
-      aria-hidden="true">&larr;</span> A Tutorial on Gem5 Simulation Framework</a></li>
+    <li class="previous"><a href="https://nitish2112.github.io/post/technical-writing/"><span
+      aria-hidden="true">&larr;</span> Common tips for technical writing</a></li>
     
 
     
-    <li class="next"><a href="https://nitish2112.github.io/post/gem5-misc/">Gem5 miscellaneous <span
+    <li class="next"><a href="https://nitish2112.github.io/post/adding-instruction-riscv/">Adding custom instruction to RISCV ISA and running it on gem5 and spike <span
       aria-hidden="true">&rarr;</span></a></li>
     
   </ul>

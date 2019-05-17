@@ -20,272 +20,6 @@
     </item>
     
     <item>
-      <title>Common tips for technical writing</title>
-      <link>https://nitish2112.github.io/post/technical-writing/</link>
-      <pubDate>Tue, 02 Apr 2019 10:09:32 -0400</pubDate>
-      
-      <guid>https://nitish2112.github.io/post/technical-writing/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;
-
-&lt;h1 id=&#34;comma-splice&#34;&gt;&lt;strong&gt;Comma Splice&lt;/strong&gt;&lt;/h1&gt;
-
-&lt;p&gt;A comma splice is a grammatical error in which two independent clauses are joined by only a comma.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;INCORRECT&lt;/strong&gt;: It was 500 miles to the facility, we arranged to fly.&lt;/p&gt;
-
-&lt;p&gt;A comma splice can be corrected in several ways.&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;&lt;p&gt;Substitute a semicolon, a semicolon and a conjunctive adverb, or a comma and a coordinating conjunction.&lt;br /&gt;
-&amp;ndash; It was 500 miles to the facility; we arranged to fly.&lt;br /&gt;
-&amp;ndash; It was 500 miles to the facility; therefore, we arranged to fly.&lt;br /&gt;
-&amp;ndash; It was 500 miles to the facility, so we arranged to fly.&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;Create two sentences.&lt;br /&gt;
-&amp;ndash; It was 500 miles to the facility. We arranged to fly.&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;Subordinate one clause to the other.&lt;br /&gt;
-&amp;ndash; Because it was 500 miles to the facility, we arranged to fly.&lt;/p&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h2 id=&#34;a-linking-independent-clauses&#34;&gt;A. Linking Independent Clauses&lt;/h2&gt;
-
-&lt;p&gt;Use a comma before a coordinating conjunction (and, but, or, nor, and sometimes so, yet, and for) that links independent clauses.&lt;/p&gt;
-
-&lt;p&gt;E.g. The new microwave disinfection system was delivered, but the installation will require an additional week.&lt;/p&gt;
-
-&lt;p&gt;However, if two independent clauses are short and closely related—and there is no danger of confusing the reader—the comma may be omitted.
-Both of the following examples are correct.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;CORRECT&lt;/strong&gt;: The cable snapped and the power failed.&lt;br /&gt;
-&lt;strong&gt;CORRECT&lt;/strong&gt;: The cable snapped, and the power failed.&lt;/p&gt;
-
-&lt;h2 id=&#34;b-enclosing-elements&#34;&gt;B. Enclosing Elements&lt;/h2&gt;
-
-&lt;p&gt;&lt;strong&gt;1) Commas are used to enclose nonessential information (parenthetical elements)&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;CORRECT&lt;/strong&gt;: Our new factory, which began operations last month, should add
-25 percent to total output.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;CORRECT&lt;/strong&gt;: The technician, working quickly and efficiently, finished early.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;CORRECT&lt;/strong&gt;: We can, of course, expect their lawyer to call us.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;2) Yes and no are set off by commas in such uses as the following:&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;CORRECT&lt;/strong&gt;: No, I do not think we can finish by the deadline.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;3) A direct address should be enclosed in commas.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;CORRECT&lt;/strong&gt;: You will note, Jeff, that the surface of the brake shoe complies
-with the specification.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;4) An appositive phrase (which re-identifies another expression in the sentence) is enclosed in commas.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;CORRECT:&lt;/strong&gt; Our company, Envirex Medical Systems, won several awards last year.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;5) Interrupting parenthetical and transitional words or phrases are usually set off with commas.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;CORRECT:&lt;/strong&gt; The report, therefore, needs to be revised.&lt;/p&gt;
-
-&lt;p&gt;Commas are omitted when the word or phrase does not interrupt the continuity of thought.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;CORRECT:&lt;/strong&gt; I therefore suggest that we begin construction.&lt;/p&gt;
-
-&lt;h2 id=&#34;c-introducing-elements&#34;&gt;C. Introducing Elements&lt;/h2&gt;
-
-&lt;h3 id=&#34;c-0-clauses-and-phrases&#34;&gt;C.0 Clauses and Phrases.&lt;/h3&gt;
-
-&lt;p&gt;Generally, place a comma after an introductory clause or phrase, especially if it is long,
-to identify where the introductory element ends and the main part of the sentence begins.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;CORRECT:&lt;/strong&gt; Because we have not yet contained the new strain of influenza, we recommend vaccination for high-risk patients.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;1) A long modifying phrase that precedes the main clause should always be followed by a comma.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;During the first series of field-performance tests at our Colorado proving ground, the new engine failed to meet our expectations.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;2) When an introductory phrase is short and closely related to the main clause, the comma may be omitted.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;In two seconds a 5F temperature rise occurs in the test tube.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;3) A comma should always follow an absolute phrase, which modifies the whole sentence.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;The tests completed, we organized the data for the final report.&lt;/p&gt;
-
-&lt;h3 id=&#34;c-1-words-and-quotations&#34;&gt;C.1 Words and Quotations.&lt;/h3&gt;
-
-&lt;p&gt;&lt;strong&gt;1) Certain types of introductory words are followed by a comma. One example is a transitional word or phrase
-(however, in addition) that connects the preceding clause or sentence with the thought that follows.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;Furthermore, steel can withstand a humidity of 99 percent, provided that there is no chloride or sulfur dioxide in the atmosphere.&lt;/p&gt;
-
-&lt;p&gt;For example, this change will make us more competitive in the global marketplace.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;2) When an adverb closely modifies the verb or the entire sentence, it should not be followed by a comma.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;Perhaps we can still solve the turnover problem. Certainly we should try. [Perhaps and certainly closely modify each statement.]&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;3) A proper noun used in an introductory direct address is followed by a comma, as is an interjection (such as oh, well, why, indeed, yes, and no).&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;Nancy, enclosed is the article you asked me to review. [direct address]&lt;/p&gt;
-
-&lt;p&gt;Indeed, I will ensure that your request is forwarded. [interjection]&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;4) Use a comma to separate a direct quotation from its introduction.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;Morton and Lucia White said, &amp;ldquo;People live in cities but dream of the countryside.&amp;rdquo;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;5) Do not use a comma when giving an indirect quotation.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;Morton and Lucia White said that people dream of the countryside, even though they live in cities.&lt;/p&gt;
-
-&lt;h2 id=&#34;d-separating-items-in-a-series&#34;&gt;D. Separating Items in a Series&lt;/h2&gt;
-
-&lt;p&gt;&lt;strong&gt;1) Although the comma before the last item in a series is sometimes omitted, it is generally clearer to include it.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;Random House, Bantam, Doubleday, and Dell were individual publishing companies.
-[Without the final comma, “Doubleday and Dell” might refer to one company or two.]&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;2) Phrases and clauses in coordinate series are also punctuated with commas.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;Plants absorb noxious gases, act as receptors of dirt particles, and cleanse the air of other impurities.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;3) When phrases or clauses in a series contain commas, use semicolons rather than commas to separate the items.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;Our new products include amitriptyline, which has sold very well; and cholestyramine, which was just introduced.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;4) When adjectives modifying the same noun can be reversed and make sense, or when they can be separated by and or or, they should be separated
-by commas.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;The aircraft featured a modern, sleek, swept-wing design.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;5) When an adjective modifies a phrase, no comma is required.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;She was investigating the damaged inventory-control system. [The adjective damaged modifies the phrase inventory-control
-system.]&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;6) Never separate a final adjective from its noun.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;He is a conscientious, honest, reliable[, not needed here] worker.&lt;/p&gt;
-
-&lt;h2 id=&#34;e-clarifying-and-contrasting&#34;&gt;E. Clarifying and Contrasting&lt;/h2&gt;
-
-&lt;p&gt;&lt;strong&gt;1) Use a comma to separate two contrasting thoughts or ideas.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;The project was finished on time, but not within the budget.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;2) Use a comma after an independent clause that is only loosely related to the dependent clause that follows it or that could be misread without the comma.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;I should be able to finish the plan by July, even though I lost time because of illness.&lt;/p&gt;
-
-&lt;h2 id=&#34;f-showing-omissions&#34;&gt;F. Showing Omissions&lt;/h2&gt;
-
-&lt;p&gt;&lt;strong&gt;1) A comma sometimes replaces a verb in certain elliptical constructions.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;Some were punctual; others, late. [The comma replaces were.]&lt;br /&gt;
-It is better, however, to avoid such constructions in technical writing.&lt;/p&gt;
-
-&lt;h2 id=&#34;e-using-with-numbers-and-names&#34;&gt;E. Using with Numbers and Names&lt;/h2&gt;
-
-&lt;p&gt;&lt;strong&gt;1)  Commas are conventionally used to separate distinct items. Use commas between the elements of an address written on the same line (but not between the state and the ZIP Code).&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;Kristen James, 4119 Mill Road, Dayton, Ohio 45401&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;2) A full date that is written in month-day-year format uses a comma preceding and following the year.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;November 30, 2020, is the payoff date.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;3) Do not use commas for dates in the day-month-year format, which is used in many parts of the world and by the U.S. military. See also international
-correspondence.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;Note that 30 November 2020 is the payoff date.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;4) No commas are used when showing only the month and year or month and day in a date.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;The target date of May 2012 is optimistic, so I would like to meet on March 4 to discuss our options.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;5) Use commas to separate the elements of Arabic numbers.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;1,528,200 feet&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;6) Use commas to separate the elements of geographical names.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;Toronto, Ontario, Canada&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;7) Use a comma to separate names that are reversed (Smith, Alvin) and commas with professional abbreviations.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;Jim Rogers Jr., M.D., chaired the conference.
-[ Jr. or Sr. does not require a comma.]&lt;/p&gt;
-
-&lt;h2 id=&#34;f-using-with-other-punctuation&#34;&gt;F. Using with Other Punctuation&lt;/h2&gt;
-
-&lt;p&gt;&lt;strong&gt;1) Conjunctive adverbs (however, nevertheless, consequently, for example, on the other hand) that join independent clauses are preceded by a semicolon and followed by a comma. Such adverbs function both as modifiers and as connectives.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;The idea is good; however, our budget is not sufficient.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;2) When a comma should follow a phrase or clause that ends with words in parentheses, the comma always appears outside the closing parenthesis.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;Although we left late (at 7:30 p.m.), we arrived in time for the keynote address.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;3) Commas always go inside quotation marks.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;The operator placed the discharge bypass switch at “normal,” which triggered a second discharge.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;4) Except with abbreviations, a comma should not be used with a dash, an exclamation mark, a period, or a question mark.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;“Have you finished the project?[no , here]” she asked.&lt;/p&gt;
-
-&lt;h2 id=&#34;g-avoiding-unnecessary-commas&#34;&gt;G. Avoiding Unnecessary Commas&lt;/h2&gt;
-
-&lt;p&gt;A number of common writing errors involve placing commas where
-they do not belong. As stated earlier, such errors often occur because
-writers assume that a pause in a sentence should be indicated by a
-comma.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;1) Do not place a comma between a subject and verb or between a verb and its object.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;The conditions at the test site in the Arctic[no , here] made accurate readings
-difficult.&lt;/p&gt;
-
-&lt;p&gt;She has often said[no , here] that one company’s failure is another’s
-opportunity.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;2) Do not use a comma between the elements of a compound subject or compound predicate consisting of only two elements.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;The director of the design department[no , here] and the supervisor of the quality-control section were opposed to the new schedules.&lt;/p&gt;
-
-&lt;p&gt;The design director listed five major objections[no , here] and asked that the new schedule be reconsidered.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;3) Do not include a comma after a coordinating conjunction such as and or but.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;The chairperson formally adjourned the meeting, but[no , here] the members of the committee continued to argue.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;4) Do not place a comma before the first item or after the last item of a series.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;The new products we are considering include[no , here] calculators, scanners, and cameras.&lt;/p&gt;
-
-&lt;p&gt;It was a fast, simple, inexpensive[no , here] process.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;5) Do not use a comma to separate a prepositional phrase from the rest of the sentence unnecessarily.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;We discussed the final report[no , here] on the new project.&lt;/p&gt;
-
-&lt;h1 id=&#34;hyphen&#34;&gt;Hyphen&lt;/h1&gt;
-
-&lt;p&gt;The hyphen (-) is used primarily for linking and separating words and parts of words. The hyphen often improves the clarity of writing. The
-hyphen is sometimes confused with the dash, which may be indicated with two consecutive hyphens.&lt;/p&gt;
-
-&lt;h2 id=&#34;hyphens-with-compound-words&#34;&gt;Hyphens with Compound Words&lt;/h2&gt;
-
-&lt;p&gt;Some compound words are formed with hyphens (able-bodied, over-thecounter). Hyphens are also used with multiword numbers from twentyone
-through ninety-nine and fractions when they are written out (threequarters). Most current dictionaries indicate whether compound words
-are hyphenated, written as one word, or written as separate words.&lt;/p&gt;
-
-&lt;p&gt;NOTE: These are the notes taken from Alred, Gerald J., Charles T. Brusaw, and Walter E. Oliu. Handbook of technical writing. Macmillan, 2009.&lt;/p&gt;</description>
-    </item>
-    
-    <item>
       <title>Operation Dependent Frequency Scaling Using Desynchronization</title>
       <link>https://nitish2112.github.io/publication/desynchronization/</link>
       <pubDate>Sun, 10 Mar 2019 00:00:00 +0000</pubDate>
@@ -304,185 +38,213 @@ are hyphenated, written as one word, or written as separate words.&lt;/p&gt;
     </item>
     
     <item>
-      <title>Adding custom instruction to RISCV ISA and running it on gem5 and spike</title>
-      <link>https://nitish2112.github.io/post/adding-instruction-riscv/</link>
-      <pubDate>Fri, 21 Jul 2017 10:09:32 -0400</pubDate>
+      <title>A Tutorial on Gem5 Simulation Framework</title>
+      <link>https://nitish2112.github.io/post/gem5-simulation/</link>
+      <pubDate>Mon, 10 Jul 2017 10:09:32 -0400</pubDate>
       
-      <guid>https://nitish2112.github.io/post/adding-instruction-riscv/</guid>
+      <guid>https://nitish2112.github.io/post/gem5-simulation/</guid>
       <description>&lt;p&gt;
-This is a tutorial on how to add an instruction to the RISCV ISA, how to write program with the special instruction. I will also talk about how to add the new instruction to RISCV assembler and how to execute it on gem5.&lt;/p&gt;
+This is an introduction tutorial to gem5 simulation framework&lt;/p&gt;
 
-&lt;p&gt;First of all download and install the riscv-tools:&lt;/p&gt;
+&lt;h1 id=&#34;simulation-using-gem5&#34;&gt;Simulation using gem5&lt;/h1&gt;
 
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ git clone https://github.com/riscv/riscv-tools.git
-$ git submodule update --init --recursive
-$ export RISCV=/path/to/install/riscv/toolchain
-$ ./build.sh
-&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The configuration file se.py calls Simulation.run(). The Simulation.py in config/common/Simulation.py implements the run() method. This method calls m5.instantiate() and then calls benchCheckpoints() methods. benchCheckpoints() method calls m5.simulate(). The m5 package is located in src/python/m5. m5.initantiate() and m5.simulate() both are implemented in simulate.py. The m5.instantiate() first gets the root instance by calling objects.Root.getInstance(). The Root package is in src/sim/Root.py. m5.simulate() then calls obj.createCCObject(), obj.connectPorts(), obj.init(), obj.regStats(), obj.regProbePoints(), obj.regProbeListeners(), and obj.initState() in sequence on all the obj which are the descendants of the root ( i.e. all the objects ). Each of these methods is defined in the C++ or python version of SimObject and can be reimplemented by the class itself. The m5.simulate() calls the startup() method on all the descendants of the root. The descendants of the root are basically all the objects in the tree of hierarchies not just the ones that are specified in the config file.  These startup methods are implemented in the classes for e.g. there is a startup method in class MinorCPU, BaseCPU, SimpleThread etc. After calling the startup() methods it calls _m5.event.simulate(). Don&amp;rsquo;t know how but this simulate() method calls simulate() method in src/sim/simulate.cc. The simulate method calls a doSimLoop() method which has a while(1) loop that calls eventq-&amp;gt;serviceOne() each iteration and the serviceOne method pops an event at the head of the queue and calls process() method of that event.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>A Tutorial on the Gem5 Memory Model</title>
+      <link>https://nitish2112.github.io/post/gem5-memory-model/</link>
+      <pubDate>Mon, 10 Jul 2017 10:09:32 -0400</pubDate>
+      
+      <guid>https://nitish2112.github.io/post/gem5-memory-model/</guid>
+      <description>&lt;p&gt;&lt;/p&gt;
 
-&lt;p&gt;This will build the riscv toolchain. Now we will add a &amp;ldquo;modulo&amp;rdquo; instruction to the ISA. The instruction and its semantics are given below:&lt;/p&gt;
+&lt;p&gt;Gem5 has following memory models (see src/mem/DRAMCtrl.py):&lt;/p&gt;
 
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;mod r1, r2, r3
+&lt;p&gt;1)   DDR3_1600_8x8        : (1.6   x 8  x &lt;sup&gt;8&lt;/sup&gt;&amp;frasl;&lt;sub&gt;8&lt;/sub&gt;   = 12.8 GBps)&lt;br /&gt;
+2)   HMC_2500_1x32        : (2.5   x 1  x &lt;sup&gt;32&lt;/sup&gt;&amp;frasl;&lt;sub&gt;8&lt;/sub&gt;  = 10.0 GBps)&lt;br /&gt;
+3)   DDR3_2133_8x8        : (2.133 x 8  x &lt;sup&gt;8&lt;/sup&gt;&amp;frasl;&lt;sub&gt;8&lt;/sub&gt;   = 17.0 GBps)&lt;br /&gt;
+4)   DDR4_2400_16x4       : (2.4   x 16 x &lt;sup&gt;4&lt;/sup&gt;&amp;frasl;&lt;sub&gt;8&lt;/sub&gt;   = 19.2 GBps)&lt;br /&gt;
+5)   DDR4_2400_8x8        : (2.4   x 8  x &lt;sup&gt;8&lt;/sup&gt;&amp;frasl;&lt;sub&gt;8&lt;/sub&gt;   = 19.2 GBps)&lt;br /&gt;
+6)   DDR4_2400_4x16       : (2.4   x 4  x &lt;sup&gt;16&lt;/sup&gt;&amp;frasl;&lt;sub&gt;8&lt;/sub&gt;  = 19.2 GBps)&lt;br /&gt;
+7)   LPDDR2_S4_1066_1x32  : (1.066 x 1  x &lt;sup&gt;32&lt;/sup&gt;&amp;frasl;&lt;sub&gt;8&lt;/sub&gt;  =  4.3 GBps)&lt;br /&gt;
+8)   LPDDR3_1600_1x32     : (1.6   x 1  x &lt;sup&gt;32&lt;/sup&gt;&amp;frasl;&lt;sub&gt;8&lt;/sub&gt;  =  6.4 GBps)&lt;br /&gt;
+9)   GDDR5_4000_2x32      : (4.0   x 2  x &lt;sup&gt;32&lt;/sup&gt;&amp;frasl;&lt;sub&gt;8&lt;/sub&gt;  = 32.0 GBps)&lt;br /&gt;
+10)  HBM_1000_4H_1x128    : (1.0   x 1  x &lt;sup&gt;128&lt;/sup&gt;&amp;frasl;&lt;sub&gt;8&lt;/sub&gt; = 16.0 GBps)&lt;br /&gt;
+11)  HBM_1000_4H_1x64     : (1.0   x 1  x &lt;sup&gt;64&lt;/sup&gt;&amp;frasl;&lt;sub&gt;8&lt;/sub&gt;  =  8.0 GBps)&lt;/p&gt;
 
-Semantics:
-R[r1] = R[r2] % R[r3]
-&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Each of these memories are derived from class DRAMCtrl in DRAMCtrl.py which
+in turn is dervied from class AbstractMemory in AbstractMemory.py. DRAMCtrl is
+a class for dram controller, but is being used to model the DRAM as well &amp;ndash; weird
+but true.&lt;/p&gt;
 
-&lt;p&gt;Open the file riscv-opcodes/opcodes, here you will be able to see the various opcodes and instruction bits assigned to various instructions. Assigned an unused instruction to modulo inst.&lt;/p&gt;
+&lt;p&gt;class DRAMCtrl in dram_ctrl.hh has the following&lt;/p&gt;
 
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sra     rd rs1 rs2 31..25=32 14..12=5 6..2=0x0C 1..0=3
-or      rd rs1 rs2 31..25=0  14..12=6 6..2=0x0C 1..0=3
-and     rd rs1 rs2 31..25=0  14..12=7 6..2=0x0C 1..0=3
+&lt;pre&gt;&lt;code&gt;class DRAMCtrl : public AbstractMemory {
+  QueuedSlavePort port;
 
-mod     rd rs1 rs2 31..25=1  14..12=0 6..2=0x1A 1..0=3
-
-addiw   rd rs1 imm12            14..12=0 6..2=0x06 1..0=3
-slliw   rd rs1 31..25=0  shamtw 14..12=1 6..2=0x06 1..0=3
-srliw   rd rs1 31..25=0  shamtw 14..12=5 6..2=0x06 1..0=3
-sraiw   rd rs1 31..25=32 shamtw 14..12=5 6..2=0x06 1..0=3
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Now run the following command:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cat opcodes-pseudo opcodes opcodes-rvc opcodes-rvc-pseudo opcodes-custom | ./parse-opcodes -c &amp;gt; ~/temp.h
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Open file temp.h and you will find the following two lines:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-C&#34;&gt;#define MATCH_MOD 0x200006b                                                    
-#define MASK_MOD 0xfe00707f
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Add these two lines in riscv-gnu-toolchain/riscv-binutils-gdb/include/opcode/riscv-opc.h&lt;/p&gt;
-
-&lt;p&gt;Now edit riscv-gnu-toolchain/riscv-binutils-gdb/opcodes/riscv-opc.c and add this line in the assignment of const struct riscv_opcode riscv_opcodes[]:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-C&#34;&gt;const struct riscv_opcode riscv_opcodes[] =                                     
-{                                                                               
-/* name,      isa,   operands, match, mask, match_func, pinfo.  */              
-{&amp;quot;unimp&amp;quot;,     &amp;quot;C&amp;quot;,   &amp;quot;&amp;quot;,  0, 0xffffU,  match_opcode, 0 },                       
-{&amp;quot;unimp&amp;quot;,     &amp;quot;I&amp;quot;,   &amp;quot;&amp;quot;,  MATCH_CSRRW | (CSR_CYCLE &amp;lt;&amp;lt; OP_SH_CSR), 0xffffffffU,  match_opcode, 0 }, /* csrw cycle, x0 */
-{&amp;quot;ebreak&amp;quot;,    &amp;quot;C&amp;quot;,   &amp;quot;&amp;quot;,  MATCH_C_EBREAK, MASK_C_EBREAK, match_opcode, INSN_ALIAS },
-{&amp;quot;ebreak&amp;quot;,    &amp;quot;I&amp;quot;,   &amp;quot;&amp;quot;,    MATCH_EBREAK, MASK_EBREAK, match_opcode, 0 },          
-{&amp;quot;sbreak&amp;quot;,    &amp;quot;C&amp;quot;,   &amp;quot;&amp;quot;,  MATCH_C_EBREAK, MASK_C_EBREAK, match_opcode, INSN_ALIAS },
-{&amp;quot;sbreak&amp;quot;,    &amp;quot;I&amp;quot;,   &amp;quot;&amp;quot;,    MATCH_EBREAK, MASK_EBREAK, match_opcode, INSN_ALIAS },
-....
-....
-....
-{&amp;quot;mod&amp;quot;,       &amp;quot;I&amp;quot;,   &amp;quot;d,s,t&amp;quot;,  MATCH_MOD, MASK_MOD, match_opcode, 0 }
-....
-....
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Now compile the riscv-gnu-toolchain again and you are done.&lt;/p&gt;
-
-&lt;p&gt;Lets write a program and see if the RISCV assembler can use the mod instruction:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-C&#34;&gt;#include &amp;lt;stdio.h&amp;gt;
-
-int main(){
-  int a,b,c;
-  a = 5;
-  b = 2;
-  asm volatile
-  (
-    &amp;quot;mod   %[z], %[x], %[y]\n\t&amp;quot;
-    : [z] &amp;quot;=r&amp;quot; (c)
-    : [x] &amp;quot;r&amp;quot; (a), [y] &amp;quot;r&amp;quot; (b)
-  )  
- 
-  if ( c != 1 ){
-     printf(&amp;quot;\n[[FAILED]]\n&amp;quot;);
-     return -1;
+  class Bank {
+    int openRow;
+    int bank;
   }
-  
-  printf(&amp;quot;\n[[PASSED]]\n&amp;quot;);
 
-  return 0;
+  class Rank {
+    int rank; // rank id
+    vector&amp;lt;Command&amp;gt; cmdList; // List of commands issued
+    vector&amp;lt;Bank&amp;gt; banks;
+  }
+
+  std::vector&amp;lt;Rank*&amp;gt; ranks;
+
+  class DRAMPacket {
+    Tick entryTime; // time when request entered the controller
+    Tick readyTime; // time when request will leave the controller
+    Packet* pkt;
+    int rank, bank, row; // populated by row decoder
+    int bankID;
+    int size; // always less than or equal to DRAM bust size
+  }
+
+  std::deque&amp;lt;DRAMPacket*&amp;gt; readQueue;
+  std::deque&amp;lt;DRAMPacket*&amp;gt; writeQueue;
+  std::deque&amp;lt;DRAMPacket*&amp;gt; respQueue;
+
+  // Actually do the DRAM access - figure out the latency it
+  // will take to service the req based on bank state, channel state etc
+  // and then update those states to account for this request.\ Based
+  // on this, update the packet&#39;s &amp;quot;readyTime&amp;quot; and move it to the
+  // response q from where it will eventually go back to the outside world.
+  void doDRAMAccess();
+
+  // When a packet reaches its &amp;quot;readyTime&amp;quot; in the response Q,
+  // use the &amp;quot;access()&amp;quot; method in AbstractMemory to actually
+  // create the response packet, and send it back to the outside world.
+  void accessAndRespond();
+
+  DRAMPacket* decodeAddr();
+
+  // The memory schduler/arbiter - picks which request needs to
+  // go next, based on the specified policy such as FCFS or FR-FCFS
+  // and moves it to the head of the queue.
+  bool chooseNext(std::deque&amp;lt;DRAMPacket*&amp;gt;&amp;amp; queue);
+
+  // For FR-FCFS policy reorder the read/write queue depending on row buffer
+  // hits and earliest bursts available in DRAM
+  bool reorderQueue(std::deque&amp;lt;DRAMPacket*&amp;gt;&amp;amp; queue, ...);
+
+  // Max column accesses (read and write) per row, before forefully closing it
+  int maxAccessesPerRow;
+
+  bool recvTimingReq(Packet* pkt);
+  
+  // Bunch of things requires to setup &amp;quot;events&amp;quot; in gem5
+  // When event &amp;quot;respondEvent&amp;quot; occurs for example, the method
+  // processRespondEvent is called;
+  void processNextReqEvent();
+  EventFunctionWrapper nextReqEvent;
+
+  void processRespondEvent();
+  EventFunctionWrapper respondEvent;
 }
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;Compile it using the modified RISCV compiler&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ riscv64-unknown-elf-gcc mod.c -o mod
+&lt;pre&gt;&lt;code&gt;bool recvTimingReq (Packet* pkt) {
+  int dram_pkt_count = ....; // calculate number of DRAM bursts a packet translates to
+  if (pkt-&amp;gt;isRead())
+    Addr addr = pkt-&amp;gt;getAddr();
+    for i = 0...dram_pkt_count
+      DRAMPacket* dram_pkt = decodeAddr(pkt);
+      readQueue.push_back(dram_pkt);
+      addr = (addr | (burstSize - 1)) + 1;
+    schedule(nextReqEvent, curTick());
+  else
+    Addr addr = pkt-&amp;gt;getAddr();
+    for i = 0...dram_pkt_count
+      DRAMPacket* dram_pkt = decodeAddr(pkt);
+      writeQueue.push_back(dram_pkt);
+      addr = (addr | (burstSize - 1)) + 1;
+    accessAndRespond(pkt, frontendLatency);
+    schedule(nextReqEvent, curTick());
+}
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;Now do an object dump to see that the mod instruction is actually used:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ riscv64-unknown-elf-objdump -dC mod &amp;gt; mod.dump
+&lt;pre&gt;&lt;code&gt;void processNextReqEvent () {
+  if (busState == READ) {
+    if (!readQueue.empty()) {
+      if (memSchedPolicy == Enums::frfcfs) // this is the default policy
+        // reorderQueue will put the packt to be scheduled at the head of the queue
+        bool found_read = reorderQueue(queue, switched_cmd_type ? tCS : 0);
+      if (!found_read) return;
+      DRAMPacket* dram_pkt = readQueue.front();
+      doDRAMAccess(dram_pkt);
+      readQueue.pop_front();
+      respQueue.push_back(dram_pkt);
+    }
+  }
+  else {
+    if (memSchedPolicy == Enums::frfcfs) // this is the default policy
+      bool found_write = reorderQueue(queue, switched_cmd_type ? tCS : 0);
+    if (!found_write) return;
+    DRAMPacket* dram_pkt = writeQueue.front();
+    doDRAMAccess(dram_pkt);
+    writeQueue.pop_front();
+  }
+}
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;Now open mod.dump and you will be able to see that mod instruction has been used.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;PrIS Algorithm:
 
-&lt;p&gt;I will later add how you can modify the ISA simulator to test the newly added instruction and how you can modify gem5 to be able to exexcute this instruction.&lt;/p&gt;
+A seamless row buffer hit request: a request that can issue a column access
+to an already activated row in the bank, without any further delay. 
 
-&lt;h1 id=&#34;adding-the-new-instruction-to-gem5&#34;&gt;Adding the new instruction to gem5&lt;/h1&gt;
+A hidden bank prep request : a request that can overlap the current operation in 
+other banks (in the same rank) and issue a request to activate or precharge a row 
+in the requested bank. Among the hidden bank prep requests an FCFS policy is followed. 
 
-&lt;p&gt;To add the instruction gem5 we need to modify arch/riscv/decoder.isa like this:&lt;/p&gt;
+A prepped row request : a request that needs to wait for the current column access 
+to complete to the currently active row in a bank. Thus choosing a prepped row 
+leads to a bubble in the pipeline of the scheduler where the request has to wait 
+for the row to become available for a column access command.
 
-&lt;pre&gt;&lt;code class=&#34;language-C&#34;&gt;    0x33: decode FUNCT3 {
-        format ROp {
-            0x0: decode FUNCT7 {
-                0x0: add({{
-                    Rd = Rs1_sd + Rs2_sd;
-                }});
-                0x1: mul({{
-                    Rd = Rs1_sd*Rs2_sd;
-                }}, IntMultOp);
-                0x10: mod({{
-                    Rd = Rs1_sd % Rs2_sd;
-                }});
-                0x20: sub({{
-                    Rd = Rs1_sd - Rs2_sd;
-                }});
-            }
+Additionally, the PrIS algorithm picks a request in the priority order of
+CPU seamless row buffer hit &amp;gt; CPU hidden bank prep &amp;gt; CPU prepped row
+
+bool reorderQueue(std::deque&amp;lt;DRAMPacket*&amp;gt;&amp;amp; queue, Tick extra_col_delay) {
+
+  Tick min_col_at = std::max(busBusyUntil - tCL + extra_col_delay, curTick());
+
+  for (auto i = queue.begin(); i != queue.end(); i++) {
+    DRAMPacket* dram_pkt = *i;
+    if (dram_pkt-&amp;gt;rankRef.isAvailable()) { // Rank is available
+      // dram pkt row same as the open row
+      if (dram_pkt-&amp;gt;bankRef.openRow == dram_pkt-&amp;gt;row) {
+        // This a seamless request as this rquest can be handled before the next col event??
+        if (dram_pkt-&amp;gt;bankRef.colAllowedAt &amp;lt;= min_col_at) {
+          selected_pkt = i; break;
+        }
+        else if (!found_hidden_bank &amp;amp;&amp;amp; !found_prepped_pkt) {
+          selected_pkt = i; found_prepped_pkt = true;
+        }
+      }
+      // open row is not same as dram pkt row
+      else if (!found_earliest_pkt) {
+        hidden_bank_prep = ...
+        if (...) found_hidden_bank = true
+        if (hidden_bank_prep || !found_prepped_pkt)
+          selected_pkt = i;
+      }
+    }
+  }
+
+  if (selected_pkt != queue.end()) {
+    queue.erase(selected_pkt);
+    queue.push_front(selected_pkt);
+    return true;
+  }
+}
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;Here 0x33 is the opcode and 0x10 is the the funct7. The details about different fields in the RISC-V ISA can be seen from page no. 50 of the manual &lt;a href=&#34;https://www2.eecs.berkeley.edu/Pubs/TechRpts/2014/EECS-2014-54.pdf&#34; target=&#34;_blank&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;Note the instruction matching in the assembler is done something like this:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-C&#34;&gt;((insn ^ op-&amp;gt;match) &amp;amp; op-&amp;gt;mask) == 0;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;See match_opcode() fucntion in riscv-gnu-toolchain/riscv-binutils-gdb/opcodes/riscv-opc.c&lt;/p&gt;
-
-&lt;p&gt;op-&amp;gt;match and op-&amp;gt;mask are the MATCH and MASK macros that we defined.&lt;/p&gt;
-
-&lt;p&gt;This means if you just see the 1 bits in the MATCH in the instruction and flip them,
-and then see the mask bits then everything should be 0. MASK tells which bits are
-of interest and MATCH tells what is the configuration required.&lt;/p&gt;
-
-&lt;h1 id=&#34;adding-the-custom-instruction-to-spike-isa-simulator&#34;&gt;Adding the custom instruction to spike ISA simulator&lt;/h1&gt;
-
-&lt;p&gt;In the riscv-isa-sim/riscv/encoding.h add the following lines:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;#define MATCH_MOD 0x200006b                                                    
-#define MASK_MOD 0xfe00707f
-...
-DECLARE_INSN(add, MATCH_MOD, MASK_MOD)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Create a file riscv-isa-sim/riscv/insns/mod.h and add these lines:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;WRITE_RD(sext_xlen(RS1 % RS2));
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Add this file to riscv-isa-sim/riscv/riscv.mk.in&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;riscv_insn_list = \
-      ...
-      mod \
-      ...
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;In riscv-isa-sim/spike_main/disasm.cc add the following lines:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;DEFINE_RTYPE(mod);
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;And now build riscv-tools again. The &amp;ldquo;mod&amp;rdquo; instruction has been added to spike
-simulator&lt;/p&gt;</description>
+&lt;p&gt;-&amp;gt; l1 cache [master]&amp;mdash;-&amp;gt;[slave] SystemXbar() [master] &amp;mdash;&amp;ndash;&amp;gt; mem_ctrls[i].port&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -1248,6 +1010,609 @@ CacheSet&amp;lt;Blktype&amp;gt;::findBlk(tag, is_secure) {
     </item>
     
     <item>
+      <title>A brief overview of Halide</title>
+      <link>https://nitish2112.github.io/post/halide/</link>
+      <pubDate>Mon, 10 Jul 2017 10:09:32 -0400</pubDate>
+      
+      <guid>https://nitish2112.github.io/post/halide/</guid>
+      <description>&lt;p&gt;
+&lt;em&gt;THIS PAGE IS UNDER CONSTRUCTION&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;Here I will talk about Halide&lt;/p&gt;
+
+&lt;p&gt;In order to learn Halide, let&amp;rsquo;s start with a simple example and see how Halide
+will produce the code for that example&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-C++&#34;&gt;Var x,y
+Func grad;
+Target target = get_host_target();
+grad(x,y) = x + y;
+Halide::Image&amp;lt;int32_t&amp;gt; output = gradient.realize(100, 200);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now let&amp;rsquo;s see how the Halide will interpret this code. The first three lines
+are nothing but defining Var and Funcs and the target where we will generate the
+code. On line number 3, the update for the Func grad is written. This is where Halide
+creates and initializes the data-structures for the functional specification to
+be later compiled into a C/C++ code. Note that the program that you are writing
+is in itself in C++, and that is the beauty of Domain Specific Languages. You can
+crate an language from say C++ and then use that to generate efficient C++ code. So, as
+we all know the operator () has a highest precedence than = operator and both () and =
+operators of class Func have been overloaded. That means first the () operators on
+both LHS and RHS will be called and then the = operator will be called for the datatype
+returned by grad(x,y). As () operator with arguments as std::vector of Vars is overladed
+in Func.cpp and creates a FuncRef, the call to grad(x,y) returns a FuncRef object. As + has
+higher predence than =, so + will be evaluated on x and y, both of which are Vars and hence
++ operator. Now, if you search Var.cpp you will not find the overloaded operator + for Vars
+and the reason is there is a cast operator &amp;ldquo;operator Expr()&amp;rdquo; which automatically casts Var
+into object of type Expr and class Expr has overloaded + operator IROperator.h. This creates
+an Add IRNode. We will talk about IRNodes later, but the important thing is Add IRNode is also
+of derived from Expr and hence + on two Vars casted to Expr will return an Expr. Hence now,
+= operator will be called on FuncRef object with the argument as an Expr. The overloaded =
+operator for call FuncRef in Func.cpp which then calls func.define() or func.define_update() which is basically
+but creating a Defintion for the current functional expression. Each functional expression
+like the one line 4 has an associated definition with it. The first definition is called
+&amp;ldquo;initial definition&amp;rdquo; and the rest are &amp;ldquo;update definitions&amp;rdquo;. For example:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;C(x,y) = 0.0f;  // initial definition
+C(x,y) = A(x,y) + B(x,y) // update definition
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Also each Func object has a Function func data member, which is used for book keeping and is
+used in most of the places. Basically it is the internal representation of a Func.
+Hence func.define() in Function.cpp creates a Definition object for that particular function
+expression and copies it into the contents data member of the Function object. Then the call to
+= returns and we can execute the statement line 5 in our Halide code. At this point the
+the Halide program is in the memory and have not been compiled yet. realize() method will
+compile this program into a Halide IR which will then be lowered to LLVM IR or C.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Adding custom instruction to RISCV ISA and running it on gem5 and spike</title>
+      <link>https://nitish2112.github.io/post/adding-instruction-riscv/</link>
+      <pubDate>Mon, 10 Jul 2017 10:09:32 -0400</pubDate>
+      
+      <guid>https://nitish2112.github.io/post/adding-instruction-riscv/</guid>
+      <description>&lt;p&gt;
+This is a tutorial on how to add an instruction to the RISCV ISA, how to write program with the special instruction. I will also talk about how to add the new instruction to RISCV assembler and how to execute it on gem5.&lt;/p&gt;
+
+&lt;p&gt;First of all download and install the riscv-tools:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ git clone https://github.com/riscv/riscv-tools.git
+$ git submodule update --init --recursive
+$ export RISCV=/path/to/install/riscv/toolchain
+$ ./build.sh
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This will build the riscv toolchain. Now we will add a &amp;ldquo;modulo&amp;rdquo; instruction to the ISA. The instruction and its semantics are given below:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;mod r1, r2, r3
+
+Semantics:
+R[r1] = R[r2] % R[r3]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Open the file riscv-opcodes/opcodes, here you will be able to see the various opcodes and instruction bits assigned to various instructions. Assigned an unused instruction to modulo inst.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sra     rd rs1 rs2 31..25=32 14..12=5 6..2=0x0C 1..0=3
+or      rd rs1 rs2 31..25=0  14..12=6 6..2=0x0C 1..0=3
+and     rd rs1 rs2 31..25=0  14..12=7 6..2=0x0C 1..0=3
+
+mod     rd rs1 rs2 31..25=1  14..12=0 6..2=0x1A 1..0=3
+
+addiw   rd rs1 imm12            14..12=0 6..2=0x06 1..0=3
+slliw   rd rs1 31..25=0  shamtw 14..12=1 6..2=0x06 1..0=3
+srliw   rd rs1 31..25=0  shamtw 14..12=5 6..2=0x06 1..0=3
+sraiw   rd rs1 31..25=32 shamtw 14..12=5 6..2=0x06 1..0=3
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now run the following command:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cat opcodes-pseudo opcodes opcodes-rvc opcodes-rvc-pseudo opcodes-custom | ./parse-opcodes -c &amp;gt; ~/temp.h
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Open file temp.h and you will find the following two lines:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-C&#34;&gt;#define MATCH_MOD 0x200006b                                                    
+#define MASK_MOD 0xfe00707f
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Add these two lines in riscv-gnu-toolchain/riscv-binutils-gdb/include/opcode/riscv-opc.h&lt;/p&gt;
+
+&lt;p&gt;Now edit riscv-gnu-toolchain/riscv-binutils-gdb/opcodes/riscv-opc.c and add this line in the assignment of const struct riscv_opcode riscv_opcodes[]:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-C&#34;&gt;const struct riscv_opcode riscv_opcodes[] =                                     
+{                                                                               
+/* name,      isa,   operands, match, mask, match_func, pinfo.  */              
+{&amp;quot;unimp&amp;quot;,     &amp;quot;C&amp;quot;,   &amp;quot;&amp;quot;,  0, 0xffffU,  match_opcode, 0 },                       
+{&amp;quot;unimp&amp;quot;,     &amp;quot;I&amp;quot;,   &amp;quot;&amp;quot;,  MATCH_CSRRW | (CSR_CYCLE &amp;lt;&amp;lt; OP_SH_CSR), 0xffffffffU,  match_opcode, 0 }, /* csrw cycle, x0 */
+{&amp;quot;ebreak&amp;quot;,    &amp;quot;C&amp;quot;,   &amp;quot;&amp;quot;,  MATCH_C_EBREAK, MASK_C_EBREAK, match_opcode, INSN_ALIAS },
+{&amp;quot;ebreak&amp;quot;,    &amp;quot;I&amp;quot;,   &amp;quot;&amp;quot;,    MATCH_EBREAK, MASK_EBREAK, match_opcode, 0 },          
+{&amp;quot;sbreak&amp;quot;,    &amp;quot;C&amp;quot;,   &amp;quot;&amp;quot;,  MATCH_C_EBREAK, MASK_C_EBREAK, match_opcode, INSN_ALIAS },
+{&amp;quot;sbreak&amp;quot;,    &amp;quot;I&amp;quot;,   &amp;quot;&amp;quot;,    MATCH_EBREAK, MASK_EBREAK, match_opcode, INSN_ALIAS },
+....
+....
+....
+{&amp;quot;mod&amp;quot;,       &amp;quot;I&amp;quot;,   &amp;quot;d,s,t&amp;quot;,  MATCH_MOD, MASK_MOD, match_opcode, 0 }
+....
+....
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now compile the riscv-gnu-toolchain again and you are done.&lt;/p&gt;
+
+&lt;p&gt;Lets write a program and see if the RISCV assembler can use the mod instruction:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-C&#34;&gt;#include &amp;lt;stdio.h&amp;gt;
+
+int main(){
+  int a,b,c;
+  a = 5;
+  b = 2;
+  asm volatile
+  (
+    &amp;quot;mod   %[z], %[x], %[y]\n\t&amp;quot;
+    : [z] &amp;quot;=r&amp;quot; (c)
+    : [x] &amp;quot;r&amp;quot; (a), [y] &amp;quot;r&amp;quot; (b)
+  )  
+ 
+  if ( c != 1 ){
+     printf(&amp;quot;\n[[FAILED]]\n&amp;quot;);
+     return -1;
+  }
+  
+  printf(&amp;quot;\n[[PASSED]]\n&amp;quot;);
+
+  return 0;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Compile it using the modified RISCV compiler&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ riscv64-unknown-elf-gcc mod.c -o mod
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now do an object dump to see that the mod instruction is actually used:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ riscv64-unknown-elf-objdump -dC mod &amp;gt; mod.dump
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now open mod.dump and you will be able to see that mod instruction has been used.&lt;/p&gt;
+
+&lt;p&gt;I will later add how you can modify the ISA simulator to test the newly added instruction and how you can modify gem5 to be able to exexcute this instruction.&lt;/p&gt;
+
+&lt;h1 id=&#34;adding-the-new-instruction-to-gem5&#34;&gt;Adding the new instruction to gem5&lt;/h1&gt;
+
+&lt;p&gt;To add the instruction gem5 we need to modify arch/riscv/decoder.isa like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-C&#34;&gt;    0x33: decode FUNCT3 {
+        format ROp {
+            0x0: decode FUNCT7 {
+                0x0: add({{
+                    Rd = Rs1_sd + Rs2_sd;
+                }});
+                0x1: mul({{
+                    Rd = Rs1_sd*Rs2_sd;
+                }}, IntMultOp);
+                0x10: mod({{
+                    Rd = Rs1_sd % Rs2_sd;
+                }});
+                0x20: sub({{
+                    Rd = Rs1_sd - Rs2_sd;
+                }});
+            }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Here 0x33 is the opcode and 0x10 is the the funct7. The details about different fields in the RISC-V ISA can be seen from page no. 50 of the manual &lt;a href=&#34;https://www2.eecs.berkeley.edu/Pubs/TechRpts/2014/EECS-2014-54.pdf&#34; target=&#34;_blank&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Note the instruction matching in the assembler is done something like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-C&#34;&gt;((insn ^ op-&amp;gt;match) &amp;amp; op-&amp;gt;mask) == 0;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;See match_opcode() fucntion in riscv-gnu-toolchain/riscv-binutils-gdb/opcodes/riscv-opc.c&lt;/p&gt;
+
+&lt;p&gt;op-&amp;gt;match and op-&amp;gt;mask are the MATCH and MASK macros that we defined.&lt;/p&gt;
+
+&lt;p&gt;This means if you just see the 1 bits in the MATCH in the instruction and flip them,
+and then see the mask bits then everything should be 0. MASK tells which bits are
+of interest and MATCH tells what is the configuration required.&lt;/p&gt;
+
+&lt;h1 id=&#34;adding-the-custom-instruction-to-spike-isa-simulator&#34;&gt;Adding the custom instruction to spike ISA simulator&lt;/h1&gt;
+
+&lt;p&gt;In the riscv-isa-sim/riscv/encoding.h add the following lines:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;#define MATCH_MOD 0x200006b                                                    
+#define MASK_MOD 0xfe00707f
+...
+DECLARE_INSN(add, MATCH_MOD, MASK_MOD)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Create a file riscv-isa-sim/riscv/insns/mod.h and add these lines:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;WRITE_RD(sext_xlen(RS1 % RS2));
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Add this file to riscv-isa-sim/riscv/riscv.mk.in&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;riscv_insn_list = \
+      ...
+      mod \
+      ...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In riscv-isa-sim/spike_main/disasm.cc add the following lines:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;DEFINE_RTYPE(mod);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;And now build riscv-tools again. The &amp;ldquo;mod&amp;rdquo; instruction has been added to spike
+simulator&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Adding custom statistics to gem5</title>
+      <link>https://nitish2112.github.io/post/statistics-gem5/</link>
+      <pubDate>Mon, 10 Jul 2017 10:09:32 -0400</pubDate>
+      
+      <guid>https://nitish2112.github.io/post/statistics-gem5/</guid>
+      <description>&lt;p&gt;
+This is a tutorial on how to add statistics in gem5.&lt;/p&gt;
+
+&lt;p&gt;&amp;ndash; All the stats are defined in the namespace Stats. namespace Stats
+   is spread across the following files:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;   -- src/base/statistics.hh
+   -- src/sim/stat\_control.hh
+   -- src/base/stats/info.hh
+   -- src/base/stats/output.hh
+   -- src/base/stats/text.hh
+   -- src/base/stats/type.hh
+   -- src/python/pybind11/stats.cc
+   -- sim/power/mathexpr\_powermodel.hh
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The schedStatEvent() function is used to dump statistics either all at once or
+periodically. This is defined in src/sim/stat_control.cc. schedStatEvent()
+creates a new StatEvent. The default values for when is curTick and repeat is
+0, so the StatEvent created by schedStatEvent executes in the same cycle and
+does not push itself to the event queue again when processed. The process()
+function of StatEvent calls Stats::dump() and Stats::reset() both of which
+are defined in base/statistics.hh. The dump() calls the constructor of
+dumpHandler() which is a variable &amp;ldquo;Handler dumpHandler&amp;rdquo; in the Stats namespace
+in the same file initialized to NULL. Same for reset and resetHandler(). The
+dumpHandler and resetHandler variables are set using the call to registerHanlders()
+also defined in the same file.&lt;/p&gt;
+
+&lt;p&gt;When the gem5 system initantiates the objects by calling instantiate() method
+in src/python/m5/simulate.py, in instantiate() method it calls stats.initSimStats()
+which is defined in /src/python/m5/stats/&lt;strong&gt;init&lt;/strong&gt;.py and calls
+_m5.stats.registerPythonStatsHandlers() which in turn is defined in
+src/sim/stat_register.cc and calls registerHandlers(pythonReset, pythonDump);
+to regisetr the handlers we were talking about in the previous paragraph.&lt;/p&gt;
+
+&lt;!--more--&gt;
+
+&lt;h1 id=&#34;minor-cpu&#34;&gt;Minor CPU&lt;/h1&gt;</description>
+    </item>
+    
+    <item>
+      <title>Common tips for technical writing</title>
+      <link>https://nitish2112.github.io/post/technical-writing/</link>
+      <pubDate>Mon, 10 Jul 2017 10:09:32 -0400</pubDate>
+      
+      <guid>https://nitish2112.github.io/post/technical-writing/</guid>
+      <description>&lt;p&gt;&lt;/p&gt;
+
+&lt;h1 id=&#34;comma-splice&#34;&gt;&lt;strong&gt;Comma Splice&lt;/strong&gt;&lt;/h1&gt;
+
+&lt;p&gt;A comma splice is a grammatical error in which two independent clauses are joined by only a comma.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;INCORRECT&lt;/strong&gt;: It was 500 miles to the facility, we arranged to fly.&lt;/p&gt;
+
+&lt;p&gt;A comma splice can be corrected in several ways.&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Substitute a semicolon, a semicolon and a conjunctive adverb, or a comma and a coordinating conjunction.&lt;br /&gt;
+&amp;ndash; It was 500 miles to the facility; we arranged to fly.&lt;br /&gt;
+&amp;ndash; It was 500 miles to the facility; therefore, we arranged to fly.&lt;br /&gt;
+&amp;ndash; It was 500 miles to the facility, so we arranged to fly.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Create two sentences.&lt;br /&gt;
+&amp;ndash; It was 500 miles to the facility. We arranged to fly.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Subordinate one clause to the other.&lt;br /&gt;
+&amp;ndash; Because it was 500 miles to the facility, we arranged to fly.&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&#34;a-linking-independent-clauses&#34;&gt;A. Linking Independent Clauses&lt;/h2&gt;
+
+&lt;p&gt;Use a comma before a coordinating conjunction (and, but, or, nor, and sometimes so, yet, and for) that links independent clauses.&lt;/p&gt;
+
+&lt;p&gt;E.g. The new microwave disinfection system was delivered, but the installation will require an additional week.&lt;/p&gt;
+
+&lt;p&gt;However, if two independent clauses are short and closely related—and there is no danger of confusing the reader—the comma may be omitted.
+Both of the following examples are correct.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;CORRECT&lt;/strong&gt;: The cable snapped and the power failed.&lt;br /&gt;
+&lt;strong&gt;CORRECT&lt;/strong&gt;: The cable snapped, and the power failed.&lt;/p&gt;
+
+&lt;h2 id=&#34;b-enclosing-elements&#34;&gt;B. Enclosing Elements&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;1) Commas are used to enclose nonessential information (parenthetical elements)&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;CORRECT&lt;/strong&gt;: Our new factory, which began operations last month, should add
+25 percent to total output.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;CORRECT&lt;/strong&gt;: The technician, working quickly and efficiently, finished early.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;CORRECT&lt;/strong&gt;: We can, of course, expect their lawyer to call us.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;2) Yes and no are set off by commas in such uses as the following:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;CORRECT&lt;/strong&gt;: No, I do not think we can finish by the deadline.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;3) A direct address should be enclosed in commas.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;CORRECT&lt;/strong&gt;: You will note, Jeff, that the surface of the brake shoe complies
+with the specification.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;4) An appositive phrase (which re-identifies another expression in the sentence) is enclosed in commas.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;CORRECT:&lt;/strong&gt; Our company, Envirex Medical Systems, won several awards last year.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;5) Interrupting parenthetical and transitional words or phrases are usually set off with commas.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;CORRECT:&lt;/strong&gt; The report, therefore, needs to be revised.&lt;/p&gt;
+
+&lt;p&gt;Commas are omitted when the word or phrase does not interrupt the continuity of thought.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;CORRECT:&lt;/strong&gt; I therefore suggest that we begin construction.&lt;/p&gt;
+
+&lt;h2 id=&#34;c-introducing-elements&#34;&gt;C. Introducing Elements&lt;/h2&gt;
+
+&lt;h3 id=&#34;c-0-clauses-and-phrases&#34;&gt;C.0 Clauses and Phrases.&lt;/h3&gt;
+
+&lt;p&gt;Generally, place a comma after an introductory clause or phrase, especially if it is long,
+to identify where the introductory element ends and the main part of the sentence begins.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;CORRECT:&lt;/strong&gt; Because we have not yet contained the new strain of influenza, we recommend vaccination for high-risk patients.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;1) A long modifying phrase that precedes the main clause should always be followed by a comma.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;During the first series of field-performance tests at our Colorado proving ground, the new engine failed to meet our expectations.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;2) When an introductory phrase is short and closely related to the main clause, the comma may be omitted.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;In two seconds a 5F temperature rise occurs in the test tube.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;3) A comma should always follow an absolute phrase, which modifies the whole sentence.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;The tests completed, we organized the data for the final report.&lt;/p&gt;
+
+&lt;h3 id=&#34;c-1-words-and-quotations&#34;&gt;C.1 Words and Quotations.&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;1) Certain types of introductory words are followed by a comma. One example is a transitional word or phrase
+(however, in addition) that connects the preceding clause or sentence with the thought that follows.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Furthermore, steel can withstand a humidity of 99 percent, provided that there is no chloride or sulfur dioxide in the atmosphere.&lt;/p&gt;
+
+&lt;p&gt;For example, this change will make us more competitive in the global marketplace.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;2) When an adverb closely modifies the verb or the entire sentence, it should not be followed by a comma.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Perhaps we can still solve the turnover problem. Certainly we should try. [Perhaps and certainly closely modify each statement.]&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;3) A proper noun used in an introductory direct address is followed by a comma, as is an interjection (such as oh, well, why, indeed, yes, and no).&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Nancy, enclosed is the article you asked me to review. [direct address]&lt;/p&gt;
+
+&lt;p&gt;Indeed, I will ensure that your request is forwarded. [interjection]&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;4) Use a comma to separate a direct quotation from its introduction.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Morton and Lucia White said, &amp;ldquo;People live in cities but dream of the countryside.&amp;rdquo;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;5) Do not use a comma when giving an indirect quotation.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Morton and Lucia White said that people dream of the countryside, even though they live in cities.&lt;/p&gt;
+
+&lt;h2 id=&#34;d-separating-items-in-a-series&#34;&gt;D. Separating Items in a Series&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;1) Although the comma before the last item in a series is sometimes omitted, it is generally clearer to include it.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Random House, Bantam, Doubleday, and Dell were individual publishing companies.
+[Without the final comma, “Doubleday and Dell” might refer to one company or two.]&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;2) Phrases and clauses in coordinate series are also punctuated with commas.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Plants absorb noxious gases, act as receptors of dirt particles, and cleanse the air of other impurities.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;3) When phrases or clauses in a series contain commas, use semicolons rather than commas to separate the items.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Our new products include amitriptyline, which has sold very well; and cholestyramine, which was just introduced.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;4) When adjectives modifying the same noun can be reversed and make sense, or when they can be separated by and or or, they should be separated
+by commas.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;The aircraft featured a modern, sleek, swept-wing design.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;5) When an adjective modifies a phrase, no comma is required.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;She was investigating the damaged inventory-control system. [The adjective damaged modifies the phrase inventory-control
+system.]&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;6) Never separate a final adjective from its noun.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;He is a conscientious, honest, reliable[, not needed here] worker.&lt;/p&gt;
+
+&lt;h2 id=&#34;e-clarifying-and-contrasting&#34;&gt;E. Clarifying and Contrasting&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;1) Use a comma to separate two contrasting thoughts or ideas.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;The project was finished on time, but not within the budget.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;2) Use a comma after an independent clause that is only loosely related to the dependent clause that follows it or that could be misread without the comma.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;I should be able to finish the plan by July, even though I lost time because of illness.&lt;/p&gt;
+
+&lt;h2 id=&#34;f-showing-omissions&#34;&gt;F. Showing Omissions&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;1) A comma sometimes replaces a verb in certain elliptical constructions.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Some were punctual; others, late. [The comma replaces were.]&lt;br /&gt;
+It is better, however, to avoid such constructions in technical writing.&lt;/p&gt;
+
+&lt;h2 id=&#34;e-using-with-numbers-and-names&#34;&gt;E. Using with Numbers and Names&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;1)  Commas are conventionally used to separate distinct items. Use commas between the elements of an address written on the same line (but not between the state and the ZIP Code).&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Kristen James, 4119 Mill Road, Dayton, Ohio 45401&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;2) A full date that is written in month-day-year format uses a comma preceding and following the year.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;November 30, 2020, is the payoff date.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;3) Do not use commas for dates in the day-month-year format, which is used in many parts of the world and by the U.S. military. See also international
+correspondence.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Note that 30 November 2020 is the payoff date.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;4) No commas are used when showing only the month and year or month and day in a date.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;The target date of May 2012 is optimistic, so I would like to meet on March 4 to discuss our options.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;5) Use commas to separate the elements of Arabic numbers.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;1,528,200 feet&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;6) Use commas to separate the elements of geographical names.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Toronto, Ontario, Canada&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;7) Use a comma to separate names that are reversed (Smith, Alvin) and commas with professional abbreviations.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Jim Rogers Jr., M.D., chaired the conference.
+[ Jr. or Sr. does not require a comma.]&lt;/p&gt;
+
+&lt;h2 id=&#34;f-using-with-other-punctuation&#34;&gt;F. Using with Other Punctuation&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;1) Conjunctive adverbs (however, nevertheless, consequently, for example, on the other hand) that join independent clauses are preceded by a semicolon and followed by a comma. Such adverbs function both as modifiers and as connectives.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;The idea is good; however, our budget is not sufficient.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;2) When a comma should follow a phrase or clause that ends with words in parentheses, the comma always appears outside the closing parenthesis.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Although we left late (at 7:30 p.m.), we arrived in time for the keynote address.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;3) Commas always go inside quotation marks.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;The operator placed the discharge bypass switch at “normal,” which triggered a second discharge.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;4) Except with abbreviations, a comma should not be used with a dash, an exclamation mark, a period, or a question mark.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;“Have you finished the project?[no , here]” she asked.&lt;/p&gt;
+
+&lt;h2 id=&#34;g-avoiding-unnecessary-commas&#34;&gt;G. Avoiding Unnecessary Commas&lt;/h2&gt;
+
+&lt;p&gt;A number of common writing errors involve placing commas where
+they do not belong. As stated earlier, such errors often occur because
+writers assume that a pause in a sentence should be indicated by a
+comma.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;1) Do not place a comma between a subject and verb or between a verb and its object.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;The conditions at the test site in the Arctic[no , here] made accurate readings
+difficult.&lt;/p&gt;
+
+&lt;p&gt;She has often said[no , here] that one company’s failure is another’s
+opportunity.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;2) Do not use a comma between the elements of a compound subject or compound predicate consisting of only two elements.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;The director of the design department[no , here] and the supervisor of the quality-control section were opposed to the new schedules.&lt;/p&gt;
+
+&lt;p&gt;The design director listed five major objections[no , here] and asked that the new schedule be reconsidered.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;3) Do not include a comma after a coordinating conjunction such as and or but.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;The chairperson formally adjourned the meeting, but[no , here] the members of the committee continued to argue.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;4) Do not place a comma before the first item or after the last item of a series.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;The new products we are considering include[no , here] calculators, scanners, and cameras.&lt;/p&gt;
+
+&lt;p&gt;It was a fast, simple, inexpensive[no , here] process.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;5) Do not use a comma to separate a prepositional phrase from the rest of the sentence unnecessarily.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;We discussed the final report[no , here] on the new project.&lt;/p&gt;
+
+&lt;h1 id=&#34;hyphen&#34;&gt;Hyphen&lt;/h1&gt;
+
+&lt;p&gt;The hyphen (-) is used primarily for linking and separating words and parts of words. The hyphen often improves the clarity of writing. The
+hyphen is sometimes confused with the dash, which may be indicated with two consecutive hyphens.&lt;/p&gt;
+
+&lt;h2 id=&#34;hyphens-with-compound-words&#34;&gt;Hyphens with Compound Words&lt;/h2&gt;
+
+&lt;p&gt;Some compound words are formed with hyphens (able-bodied, over-thecounter). Hyphens are also used with multiword numbers from twentyone
+through ninety-nine and fractions when they are written out (threequarters). Most current dictionaries indicate whether compound words
+are hyphenated, written as one word, or written as separate words.&lt;/p&gt;
+
+&lt;p&gt;NOTE: These are the notes taken from Alred, Gerald J., Charles T. Brusaw, and Walter E. Oliu. Handbook of technical writing. Macmillan, 2009.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Computer Architectural Simulation Techniques</title>
+      <link>https://nitish2112.github.io/post/event-driven-simulation/</link>
+      <pubDate>Mon, 10 Jul 2017 10:09:32 -0400</pubDate>
+      
+      <guid>https://nitish2112.github.io/post/event-driven-simulation/</guid>
+      <description>&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;This is an introduction tutorial on different types of simulation techniques and a brief overview of event driven simulators.&lt;/p&gt;
+
+&lt;h1 id=&#34;simulators&#34;&gt;&lt;strong&gt;Simulators&lt;/strong&gt;&lt;/h1&gt;
+
+&lt;p&gt;A simulator is a software performance model of a processor architecture which runs on a host machine. Simulation is cheap and much more accurate than analytical models.&lt;/p&gt;
+
+&lt;h2 id=&#34;metrics-for-how-good-a-simulator-is&#34;&gt;&lt;strong&gt;Metrics for how good a simulator is&lt;/strong&gt;&lt;/h2&gt;
+
+&lt;p&gt;1) How accurate the simulation model is as compared to real hardware.&lt;/p&gt;
+
+&lt;p&gt;2) How long does it take to develop the simulator,&lt;/p&gt;
+
+&lt;p&gt;3) How much time does the simulator take to simulate the design, and&lt;/p&gt;
+
+&lt;p&gt;4) How much coverage the simulator provides&lt;/p&gt;
+
+&lt;h1 id=&#34;different-simulation-techniques&#34;&gt;&lt;strong&gt;Different Simulation Techniques&lt;/strong&gt;&lt;/h1&gt;
+
+&lt;h2 id=&#34;functional-simulation&#34;&gt;&lt;strong&gt;Functional Simulation&lt;/strong&gt;&lt;/h2&gt;
+
+&lt;p&gt;Functional simulators only model the functional characteristics of a design. The instructions are simulated one at a time more of like an interpreter. These simulators are called ISA simulators. They are used to validate the correctness of a design rather than its performance characteristics. Some examples of ISA simulators would be spike for RISCV, Pydgin, SimpleScalar&amp;rsquo;s sim-safe etc.&lt;/p&gt;
+
+&lt;h2 id=&#34;trace-driven-simulation&#34;&gt;&lt;strong&gt;Trace Driven Simulation&lt;/strong&gt;&lt;/h2&gt;
+
+&lt;p&gt;A trace driven simulator takes program instructions and address traces and supplies them to micro-architectural simulator. Trace driven simulator separates functionality from timing. They require the user to store the trace files which can grow really large. However, trace driven simulators are not good in modelling multithreaded workloads as they cannot model the interaction between multiple threads.&lt;/p&gt;
+
+&lt;h2 id=&#34;execution-driven-simulation&#34;&gt;&lt;strong&gt;Execution Driven Simulation&lt;/strong&gt;&lt;/h2&gt;
+
+&lt;p&gt;Execution driven simulators combine timing and functionality together. Depending upon the integration of functional and timing components execution driven simulators are classified as follows:&lt;/p&gt;
+
+&lt;p&gt;1) &lt;strong&gt;Integrated&lt;/strong&gt; &amp;ndash; Timing and functional components are tightly coupled.&lt;/p&gt;
+
+&lt;p&gt;2) &lt;strong&gt;Timing Directed&lt;/strong&gt; &amp;ndash; The functional model keeps track of the architectural state like register file, memory etc and timing model gets information from the functional model regarding various timing events like whether a load is a cache hit or miss and then it can account for the timing of that event.&lt;/p&gt;
+
+&lt;p&gt;3) &lt;strong&gt;Functional First Simulation&lt;/strong&gt; &amp;ndash; Functional first simulators are more like Trace driven simulators. A functional simulator produces the traces which are at the same time fed to the timing simulator. The advantage of functional first simulator over trace driven simulators is that there is no need to store traces for functional first simulators.&lt;/p&gt;
+
+&lt;p&gt;4) &lt;strong&gt;Timing First Simulation&lt;/strong&gt; &amp;ndash; In timing first simulators, the timing simulator models the architectural features ( register file, memory etc ). When the timing simulator commits an instruction the functional model checks it with the functional simulation. If there are any deviations, the functional simulator repairs the timing simulator by reloading the appropriate architectural state.&lt;/p&gt;
+
+&lt;h1 id=&#34;event-driven-simulation&#34;&gt;&lt;strong&gt;Event driven simulation&lt;/strong&gt;&lt;/h1&gt;
+
+&lt;p&gt;Event driven simulation falls more into the category of timing directed simulations. Event driven simulators consist of an event queue ( priority queue ) which is checked each clock cycle to see if any event is scheduled. Events and event queues model the timing part of the simulator. Whenever an event fires, it executes the process function that the object ( whose event fired ) has assigned to this particular event. Objects and their process methods constitute the functional part of the simulator.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
       <title>Gem5 miscellaneous</title>
       <link>https://nitish2112.github.io/post/gem5-misc/</link>
       <pubDate>Mon, 10 Jul 2017 10:09:32 -0400</pubDate>
@@ -1292,60 +1657,6 @@ Here I will talk about miscellaneous things that you can use with gem5.&lt;/p&gt
 &lt;p&gt;if ( xyz ) {  &amp;hellip;. } else { &amp;hellip; }&lt;/p&gt;
 
 &lt;p&gt;Hurray! we added a new option to gem5.&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>Statistics in gem5</title>
-      <link>https://nitish2112.github.io/post/statistics-gem5/</link>
-      <pubDate>Mon, 10 Jul 2017 10:09:32 -0400</pubDate>
-      
-      <guid>https://nitish2112.github.io/post/statistics-gem5/</guid>
-      <description>&lt;p&gt;
-&amp;ndash; All the stats are defined in the namespace Stats. namespace Stats
-   is spread across the following files:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;   -- src/base/statistics.hh
-   -- src/sim/stat\_control.hh
-   -- src/base/stats/info.hh
-   -- src/base/stats/output.hh
-   -- src/base/stats/text.hh
-   -- src/base/stats/type.hh
-   -- src/python/pybind11/stats.cc
-   -- sim/power/mathexpr\_powermodel.hh
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;The schedStatEvent() function is used to dump statistics either all at once or
-periodically. This is defined in src/sim/stat_control.cc. schedStatEvent()
-creates a new StatEvent. The default values for when is curTick and repeat is
-0, so the StatEvent created by schedStatEvent executes in the same cycle and
-does not push itself to the event queue again when processed. The process()
-function of StatEvent calls Stats::dump() and Stats::reset() both of which
-are defined in base/statistics.hh. The dump() calls the constructor of
-dumpHandler() which is a variable &amp;ldquo;Handler dumpHandler&amp;rdquo; in the Stats namespace
-in the same file initialized to NULL. Same for reset and resetHandler(). The
-dumpHandler and resetHandler variables are set using the call to registerHanlders()
-also defined in the same file.&lt;/p&gt;
-
-&lt;p&gt;When the gem5 system initantiates the objects by calling instantiate() method
-in src/python/m5/simulate.py, in instantiate() method it calls stats.initSimStats()
-which is defined in /src/python/m5/stats/&lt;strong&gt;init&lt;/strong&gt;.py and calls
-_m5.stats.registerPythonStatsHandlers() which in turn is defined in
-src/sim/stat_register.cc and calls registerHandlers(pythonReset, pythonDump);
-to regisetr the handlers we were talking about in the previous paragraph.&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>A Tutorial on Gem5 Simulation Framework</title>
-      <link>https://nitish2112.github.io/post/gem5-simulation/</link>
-      <pubDate>Fri, 23 Jun 2017 10:09:32 -0400</pubDate>
-      
-      <guid>https://nitish2112.github.io/post/gem5-simulation/</guid>
-      <description>&lt;p&gt;
-This is an introduction tutorial to gem5 simulation framework&lt;/p&gt;
-
-&lt;h1 id=&#34;simulation-using-gem5&#34;&gt;Simulation using gem5&lt;/h1&gt;
-
-&lt;p&gt;The configuration file se.py calls Simulation.run(). The Simulation.py in config/common/Simulation.py implements the run() method. This method calls m5.instantiate() and then calls benchCheckpoints() methods. benchCheckpoints() method calls m5.simulate(). The m5 package is located in src/python/m5. m5.initantiate() and m5.simulate() both are implemented in simulate.py. The m5.instantiate() first gets the root instance by calling objects.Root.getInstance(). The Root package is in src/sim/Root.py. m5.simulate() then calls obj.createCCObject(), obj.connectPorts(), obj.init(), obj.regStats(), obj.regProbePoints(), obj.regProbeListeners(), and obj.initState() in sequence on all the obj which are the descendants of the root ( i.e. all the objects ). Each of these methods is defined in the C++ or python version of SimObject and can be reimplemented by the class itself. The m5.simulate() calls the startup() method on all the descendants of the root. The descendants of the root are basically all the objects in the tree of hierarchies not just the ones that are specified in the config file.  These startup methods are implemented in the classes for e.g. there is a startup method in class MinorCPU, BaseCPU, SimpleThread etc. After calling the startup() methods it calls _m5.event.simulate(). Don&amp;rsquo;t know how but this simulate() method calls simulate() method in src/sim/simulate.cc. The simulate method calls a doSimLoop() method which has a while(1) loop that calls eventq-&amp;gt;serviceOne() each iteration and the serviceOne method pops an event at the head of the queue and calls process() method of that event.&lt;/p&gt;</description>
     </item>
     
     <item>
