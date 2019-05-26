@@ -52,202 +52,6 @@ This is an introduction tutorial to gem5 simulation framework&lt;/p&gt;
     </item>
     
     <item>
-      <title>A Tutorial on the Gem5 Memory Model</title>
-      <link>https://nitish2112.github.io/post/gem5-memory-model/</link>
-      <pubDate>Mon, 10 Jul 2017 10:09:32 -0400</pubDate>
-      
-      <guid>https://nitish2112.github.io/post/gem5-memory-model/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;
-
-&lt;p&gt;Gem5 has following memory models (see src/mem/DRAMCtrl.py):&lt;/p&gt;
-
-&lt;p&gt;1)   DDR3_1600_8x8        : (1.6   x 8  x &lt;sup&gt;8&lt;/sup&gt;&amp;frasl;&lt;sub&gt;8&lt;/sub&gt;   = 12.8 GBps)&lt;br /&gt;
-2)   HMC_2500_1x32        : (2.5   x 1  x &lt;sup&gt;32&lt;/sup&gt;&amp;frasl;&lt;sub&gt;8&lt;/sub&gt;  = 10.0 GBps)&lt;br /&gt;
-3)   DDR3_2133_8x8        : (2.133 x 8  x &lt;sup&gt;8&lt;/sup&gt;&amp;frasl;&lt;sub&gt;8&lt;/sub&gt;   = 17.0 GBps)&lt;br /&gt;
-4)   DDR4_2400_16x4       : (2.4   x 16 x &lt;sup&gt;4&lt;/sup&gt;&amp;frasl;&lt;sub&gt;8&lt;/sub&gt;   = 19.2 GBps)&lt;br /&gt;
-5)   DDR4_2400_8x8        : (2.4   x 8  x &lt;sup&gt;8&lt;/sup&gt;&amp;frasl;&lt;sub&gt;8&lt;/sub&gt;   = 19.2 GBps)&lt;br /&gt;
-6)   DDR4_2400_4x16       : (2.4   x 4  x &lt;sup&gt;16&lt;/sup&gt;&amp;frasl;&lt;sub&gt;8&lt;/sub&gt;  = 19.2 GBps)&lt;br /&gt;
-7)   LPDDR2_S4_1066_1x32  : (1.066 x 1  x &lt;sup&gt;32&lt;/sup&gt;&amp;frasl;&lt;sub&gt;8&lt;/sub&gt;  =  4.3 GBps)&lt;br /&gt;
-8)   LPDDR3_1600_1x32     : (1.6   x 1  x &lt;sup&gt;32&lt;/sup&gt;&amp;frasl;&lt;sub&gt;8&lt;/sub&gt;  =  6.4 GBps)&lt;br /&gt;
-9)   GDDR5_4000_2x32      : (4.0   x 2  x &lt;sup&gt;32&lt;/sup&gt;&amp;frasl;&lt;sub&gt;8&lt;/sub&gt;  = 32.0 GBps)&lt;br /&gt;
-10)  HBM_1000_4H_1x128    : (1.0   x 1  x &lt;sup&gt;128&lt;/sup&gt;&amp;frasl;&lt;sub&gt;8&lt;/sub&gt; = 16.0 GBps)&lt;br /&gt;
-11)  HBM_1000_4H_1x64     : (1.0   x 1  x &lt;sup&gt;64&lt;/sup&gt;&amp;frasl;&lt;sub&gt;8&lt;/sub&gt;  =  8.0 GBps)&lt;/p&gt;
-
-&lt;p&gt;Each of these memories are derived from class DRAMCtrl in DRAMCtrl.py which
-in turn is dervied from class AbstractMemory in AbstractMemory.py. DRAMCtrl is
-a class for dram controller, but is being used to model the DRAM as well &amp;ndash; weird
-but true.&lt;/p&gt;
-
-&lt;p&gt;class DRAMCtrl in dram_ctrl.hh has the following&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;class DRAMCtrl : public AbstractMemory {
-  QueuedSlavePort port;
-
-  class Bank {
-    int openRow;
-    int bank;
-  }
-
-  class Rank {
-    int rank; // rank id
-    vector&amp;lt;Command&amp;gt; cmdList; // List of commands issued
-    vector&amp;lt;Bank&amp;gt; banks;
-  }
-
-  std::vector&amp;lt;Rank*&amp;gt; ranks;
-
-  class DRAMPacket {
-    Tick entryTime; // time when request entered the controller
-    Tick readyTime; // time when request will leave the controller
-    Packet* pkt;
-    int rank, bank, row; // populated by row decoder
-    int bankID;
-    int size; // always less than or equal to DRAM bust size
-  }
-
-  std::deque&amp;lt;DRAMPacket*&amp;gt; readQueue;
-  std::deque&amp;lt;DRAMPacket*&amp;gt; writeQueue;
-  std::deque&amp;lt;DRAMPacket*&amp;gt; respQueue;
-
-  // Actually do the DRAM access - figure out the latency it
-  // will take to service the req based on bank state, channel state etc
-  // and then update those states to account for this request.\ Based
-  // on this, update the packet&#39;s &amp;quot;readyTime&amp;quot; and move it to the
-  // response q from where it will eventually go back to the outside world.
-  void doDRAMAccess();
-
-  // When a packet reaches its &amp;quot;readyTime&amp;quot; in the response Q,
-  // use the &amp;quot;access()&amp;quot; method in AbstractMemory to actually
-  // create the response packet, and send it back to the outside world.
-  void accessAndRespond();
-
-  DRAMPacket* decodeAddr();
-
-  // The memory schduler/arbiter - picks which request needs to
-  // go next, based on the specified policy such as FCFS or FR-FCFS
-  // and moves it to the head of the queue.
-  bool chooseNext(std::deque&amp;lt;DRAMPacket*&amp;gt;&amp;amp; queue);
-
-  // For FR-FCFS policy reorder the read/write queue depending on row buffer
-  // hits and earliest bursts available in DRAM
-  bool reorderQueue(std::deque&amp;lt;DRAMPacket*&amp;gt;&amp;amp; queue, ...);
-
-  // Max column accesses (read and write) per row, before forefully closing it
-  int maxAccessesPerRow;
-
-  bool recvTimingReq(Packet* pkt);
-  
-  // Bunch of things requires to setup &amp;quot;events&amp;quot; in gem5
-  // When event &amp;quot;respondEvent&amp;quot; occurs for example, the method
-  // processRespondEvent is called;
-  void processNextReqEvent();
-  EventFunctionWrapper nextReqEvent;
-
-  void processRespondEvent();
-  EventFunctionWrapper respondEvent;
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code&gt;bool recvTimingReq (Packet* pkt) {
-  int dram_pkt_count = ....; // calculate number of DRAM bursts a packet translates to
-  if (pkt-&amp;gt;isRead())
-    Addr addr = pkt-&amp;gt;getAddr();
-    for i = 0...dram_pkt_count
-      DRAMPacket* dram_pkt = decodeAddr(pkt);
-      readQueue.push_back(dram_pkt);
-      addr = (addr | (burstSize - 1)) + 1;
-    schedule(nextReqEvent, curTick());
-  else
-    Addr addr = pkt-&amp;gt;getAddr();
-    for i = 0...dram_pkt_count
-      DRAMPacket* dram_pkt = decodeAddr(pkt);
-      writeQueue.push_back(dram_pkt);
-      addr = (addr | (burstSize - 1)) + 1;
-    accessAndRespond(pkt, frontendLatency);
-    schedule(nextReqEvent, curTick());
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code&gt;void processNextReqEvent () {
-  if (busState == READ) {
-    if (!readQueue.empty()) {
-      if (memSchedPolicy == Enums::frfcfs) // this is the default policy
-        // reorderQueue will put the packt to be scheduled at the head of the queue
-        bool found_read = reorderQueue(queue, switched_cmd_type ? tCS : 0);
-      if (!found_read) return;
-      DRAMPacket* dram_pkt = readQueue.front();
-      doDRAMAccess(dram_pkt);
-      readQueue.pop_front();
-      respQueue.push_back(dram_pkt);
-    }
-  }
-  else {
-    if (memSchedPolicy == Enums::frfcfs) // this is the default policy
-      bool found_write = reorderQueue(queue, switched_cmd_type ? tCS : 0);
-    if (!found_write) return;
-    DRAMPacket* dram_pkt = writeQueue.front();
-    doDRAMAccess(dram_pkt);
-    writeQueue.pop_front();
-  }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code&gt;PrIS Algorithm:
-
-A seamless row buffer hit request: a request that can issue a column access
-to an already activated row in the bank, without any further delay. 
-
-A hidden bank prep request : a request that can overlap the current operation in 
-other banks (in the same rank) and issue a request to activate or precharge a row 
-in the requested bank. Among the hidden bank prep requests an FCFS policy is followed. 
-
-A prepped row request : a request that needs to wait for the current column access 
-to complete to the currently active row in a bank. Thus choosing a prepped row 
-leads to a bubble in the pipeline of the scheduler where the request has to wait 
-for the row to become available for a column access command.
-
-Additionally, the PrIS algorithm picks a request in the priority order of
-CPU seamless row buffer hit &amp;gt; CPU hidden bank prep &amp;gt; CPU prepped row
-
-bool reorderQueue(std::deque&amp;lt;DRAMPacket*&amp;gt;&amp;amp; queue, Tick extra_col_delay) {
-
-  Tick min_col_at = std::max(busBusyUntil - tCL + extra_col_delay, curTick());
-
-  for (auto i = queue.begin(); i != queue.end(); i++) {
-    DRAMPacket* dram_pkt = *i;
-    if (dram_pkt-&amp;gt;rankRef.isAvailable()) { // Rank is available
-      // dram pkt row same as the open row
-      if (dram_pkt-&amp;gt;bankRef.openRow == dram_pkt-&amp;gt;row) {
-        // This a seamless request as this rquest can be handled before the next col event??
-        if (dram_pkt-&amp;gt;bankRef.colAllowedAt &amp;lt;= min_col_at) {
-          selected_pkt = i; break;
-        }
-        else if (!found_hidden_bank &amp;amp;&amp;amp; !found_prepped_pkt) {
-          selected_pkt = i; found_prepped_pkt = true;
-        }
-      }
-      // open row is not same as dram pkt row
-      else if (!found_earliest_pkt) {
-        hidden_bank_prep = ...
-        if (...) found_hidden_bank = true
-        if (hidden_bank_prep || !found_prepped_pkt)
-          selected_pkt = i;
-      }
-    }
-  }
-
-  if (selected_pkt != queue.end()) {
-    queue.erase(selected_pkt);
-    queue.push_front(selected_pkt);
-    return true;
-  }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;-&amp;gt; l1 cache [master]&amp;mdash;-&amp;gt;[slave] SystemXbar() [master] &amp;mdash;&amp;ndash;&amp;gt; mem_ctrls[i].port&lt;/p&gt;</description>
-    </item>
-    
-    <item>
       <title>A Tutorial on the Gem5 Minor CPU Model</title>
       <link>https://nitish2112.github.io/post/gem5-minor-cpu/</link>
       <pubDate>Mon, 10 Jul 2017 10:09:32 -0400</pubDate>
@@ -1010,64 +814,6 @@ CacheSet&amp;lt;Blktype&amp;gt;::findBlk(tag, is_secure) {
     </item>
     
     <item>
-      <title>A brief overview of Halide</title>
-      <link>https://nitish2112.github.io/post/halide/</link>
-      <pubDate>Mon, 10 Jul 2017 10:09:32 -0400</pubDate>
-      
-      <guid>https://nitish2112.github.io/post/halide/</guid>
-      <description>&lt;p&gt;
-&lt;em&gt;THIS PAGE IS UNDER CONSTRUCTION&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;Here I will talk about Halide&lt;/p&gt;
-
-&lt;p&gt;In order to learn Halide, let&amp;rsquo;s start with a simple example and see how Halide
-will produce the code for that example&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-C++&#34;&gt;Var x,y
-Func grad;
-Target target = get_host_target();
-grad(x,y) = x + y;
-Halide::Image&amp;lt;int32_t&amp;gt; output = gradient.realize(100, 200);
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Now let&amp;rsquo;s see how the Halide will interpret this code. The first three lines
-are nothing but defining Var and Funcs and the target where we will generate the
-code. On line number 3, the update for the Func grad is written. This is where Halide
-creates and initializes the data-structures for the functional specification to
-be later compiled into a C/C++ code. Note that the program that you are writing
-is in itself in C++, and that is the beauty of Domain Specific Languages. You can
-crate an language from say C++ and then use that to generate efficient C++ code. So, as
-we all know the operator () has a highest precedence than = operator and both () and =
-operators of class Func have been overloaded. That means first the () operators on
-both LHS and RHS will be called and then the = operator will be called for the datatype
-returned by grad(x,y). As () operator with arguments as std::vector of Vars is overladed
-in Func.cpp and creates a FuncRef, the call to grad(x,y) returns a FuncRef object. As + has
-higher predence than =, so + will be evaluated on x and y, both of which are Vars and hence
-+ operator. Now, if you search Var.cpp you will not find the overloaded operator + for Vars
-and the reason is there is a cast operator &amp;ldquo;operator Expr()&amp;rdquo; which automatically casts Var
-into object of type Expr and class Expr has overloaded + operator IROperator.h. This creates
-an Add IRNode. We will talk about IRNodes later, but the important thing is Add IRNode is also
-of derived from Expr and hence + on two Vars casted to Expr will return an Expr. Hence now,
-= operator will be called on FuncRef object with the argument as an Expr. The overloaded =
-operator for call FuncRef in Func.cpp which then calls func.define() or func.define_update() which is basically
-but creating a Defintion for the current functional expression. Each functional expression
-like the one line 4 has an associated definition with it. The first definition is called
-&amp;ldquo;initial definition&amp;rdquo; and the rest are &amp;ldquo;update definitions&amp;rdquo;. For example:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;C(x,y) = 0.0f;  // initial definition
-C(x,y) = A(x,y) + B(x,y) // update definition
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Also each Func object has a Function func data member, which is used for book keeping and is
-used in most of the places. Basically it is the internal representation of a Func.
-Hence func.define() in Function.cpp creates a Definition object for that particular function
-expression and copies it into the contents data member of the Function object. Then the call to
-= returns and we can execute the statement line 5 in our Halide code. At this point the
-the Halide program is in the memory and have not been compiled yet. realize() method will
-compile this program into a Halide IR which will then be lowered to LLVM IR or C.&lt;/p&gt;</description>
-    </item>
-    
-    <item>
       <title>Adding custom instruction to RISCV ISA and running it on gem5 and spike</title>
       <link>https://nitish2112.github.io/post/adding-instruction-riscv/</link>
       <pubDate>Mon, 10 Jul 2017 10:09:32 -0400</pubDate>
@@ -1562,64 +1308,12 @@ are hyphenated, written as one word, or written as separate words.&lt;/p&gt;
     </item>
     
     <item>
-      <title>Computer Architectural Simulation Techniques</title>
-      <link>https://nitish2112.github.io/post/event-driven-simulation/</link>
-      <pubDate>Mon, 10 Jul 2017 10:09:32 -0400</pubDate>
-      
-      <guid>https://nitish2112.github.io/post/event-driven-simulation/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;
-
-&lt;p&gt;This is an introduction tutorial on different types of simulation techniques and a brief overview of event driven simulators.&lt;/p&gt;
-
-&lt;h1 id=&#34;simulators&#34;&gt;&lt;strong&gt;Simulators&lt;/strong&gt;&lt;/h1&gt;
-
-&lt;p&gt;A simulator is a software performance model of a processor architecture which runs on a host machine. Simulation is cheap and much more accurate than analytical models.&lt;/p&gt;
-
-&lt;h2 id=&#34;metrics-for-how-good-a-simulator-is&#34;&gt;&lt;strong&gt;Metrics for how good a simulator is&lt;/strong&gt;&lt;/h2&gt;
-
-&lt;p&gt;1) How accurate the simulation model is as compared to real hardware.&lt;/p&gt;
-
-&lt;p&gt;2) How long does it take to develop the simulator,&lt;/p&gt;
-
-&lt;p&gt;3) How much time does the simulator take to simulate the design, and&lt;/p&gt;
-
-&lt;p&gt;4) How much coverage the simulator provides&lt;/p&gt;
-
-&lt;h1 id=&#34;different-simulation-techniques&#34;&gt;&lt;strong&gt;Different Simulation Techniques&lt;/strong&gt;&lt;/h1&gt;
-
-&lt;h2 id=&#34;functional-simulation&#34;&gt;&lt;strong&gt;Functional Simulation&lt;/strong&gt;&lt;/h2&gt;
-
-&lt;p&gt;Functional simulators only model the functional characteristics of a design. The instructions are simulated one at a time more of like an interpreter. These simulators are called ISA simulators. They are used to validate the correctness of a design rather than its performance characteristics. Some examples of ISA simulators would be spike for RISCV, Pydgin, SimpleScalar&amp;rsquo;s sim-safe etc.&lt;/p&gt;
-
-&lt;h2 id=&#34;trace-driven-simulation&#34;&gt;&lt;strong&gt;Trace Driven Simulation&lt;/strong&gt;&lt;/h2&gt;
-
-&lt;p&gt;A trace driven simulator takes program instructions and address traces and supplies them to micro-architectural simulator. Trace driven simulator separates functionality from timing. They require the user to store the trace files which can grow really large. However, trace driven simulators are not good in modelling multithreaded workloads as they cannot model the interaction between multiple threads.&lt;/p&gt;
-
-&lt;h2 id=&#34;execution-driven-simulation&#34;&gt;&lt;strong&gt;Execution Driven Simulation&lt;/strong&gt;&lt;/h2&gt;
-
-&lt;p&gt;Execution driven simulators combine timing and functionality together. Depending upon the integration of functional and timing components execution driven simulators are classified as follows:&lt;/p&gt;
-
-&lt;p&gt;1) &lt;strong&gt;Integrated&lt;/strong&gt; &amp;ndash; Timing and functional components are tightly coupled.&lt;/p&gt;
-
-&lt;p&gt;2) &lt;strong&gt;Timing Directed&lt;/strong&gt; &amp;ndash; The functional model keeps track of the architectural state like register file, memory etc and timing model gets information from the functional model regarding various timing events like whether a load is a cache hit or miss and then it can account for the timing of that event.&lt;/p&gt;
-
-&lt;p&gt;3) &lt;strong&gt;Functional First Simulation&lt;/strong&gt; &amp;ndash; Functional first simulators are more like Trace driven simulators. A functional simulator produces the traces which are at the same time fed to the timing simulator. The advantage of functional first simulator over trace driven simulators is that there is no need to store traces for functional first simulators.&lt;/p&gt;
-
-&lt;p&gt;4) &lt;strong&gt;Timing First Simulation&lt;/strong&gt; &amp;ndash; In timing first simulators, the timing simulator models the architectural features ( register file, memory etc ). When the timing simulator commits an instruction the functional model checks it with the functional simulation. If there are any deviations, the functional simulator repairs the timing simulator by reloading the appropriate architectural state.&lt;/p&gt;
-
-&lt;h1 id=&#34;event-driven-simulation&#34;&gt;&lt;strong&gt;Event driven simulation&lt;/strong&gt;&lt;/h1&gt;
-
-&lt;p&gt;Event driven simulation falls more into the category of timing directed simulations. Event driven simulators consist of an event queue ( priority queue ) which is checked each clock cycle to see if any event is scheduled. Events and event queues model the timing part of the simulator. Whenever an event fires, it executes the process function that the object ( whose event fired ) has assigned to this particular event. Objects and their process methods constitute the functional part of the simulator.&lt;/p&gt;</description>
-    </item>
-    
-    <item>
       <title>Gem5 miscellaneous</title>
       <link>https://nitish2112.github.io/post/gem5-misc/</link>
       <pubDate>Mon, 10 Jul 2017 10:09:32 -0400</pubDate>
       
       <guid>https://nitish2112.github.io/post/gem5-misc/</guid>
-      <description>&lt;p&gt;
-Here I will talk about miscellaneous things that you can use with gem5.&lt;/p&gt;
+      <description>&lt;p&gt;&lt;/p&gt;
 
 &lt;h1 id=&#34;adding-an-option-to-gem5&#34;&gt;Adding an option to gem5&lt;/h1&gt;
 
@@ -1656,7 +1350,7 @@ Here I will talk about miscellaneous things that you can use with gem5.&lt;/p&gt
 
 &lt;p&gt;if ( xyz ) {  &amp;hellip;. } else { &amp;hellip; }&lt;/p&gt;
 
-&lt;p&gt;Hurray! we added a new option to gem5.&lt;/p&gt;</description>
+&lt;p&gt;We have now added a new option to gem5.&lt;/p&gt;</description>
     </item>
     
     <item>

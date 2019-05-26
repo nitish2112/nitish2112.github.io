@@ -1533,8 +1533,7 @@ are hyphenated, written as one word, or written as separate words.&lt;/p&gt;
       <pubDate>Mon, 10 Jul 2017 10:09:32 -0400</pubDate>
       
       <guid>https://nitish2112.github.io/post/gem5-misc/</guid>
-      <description>&lt;p&gt;
-Here I will talk about miscellaneous things that you can use with gem5.&lt;/p&gt;
+      <description>&lt;p&gt;&lt;/p&gt;
 
 &lt;h1 id=&#34;adding-an-option-to-gem5&#34;&gt;Adding an option to gem5&lt;/h1&gt;
 
@@ -1571,7 +1570,7 @@ Here I will talk about miscellaneous things that you can use with gem5.&lt;/p&gt
 
 &lt;p&gt;if ( xyz ) {  &amp;hellip;. } else { &amp;hellip; }&lt;/p&gt;
 
-&lt;p&gt;Hurray! we added a new option to gem5.&lt;/p&gt;</description>
+&lt;p&gt;We have now added a new option to gem5.&lt;/p&gt;</description>
     </item>
     
   </channel>
