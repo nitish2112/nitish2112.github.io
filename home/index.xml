@@ -8,7 +8,73 @@
     <language>en-us</language>
     <copyright>&amp;copy; 2016 Nitish Srivastava</copyright>
     <lastBuildDate>Wed, 20 Apr 2016 00:00:00 +0000</lastBuildDate>
-    <atom:link href="/home/" rel="self" type="application/rss+xml" />
+    
+	<atom:link href="https://nitish2112.github.io/home/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title></title>
+      <link>https://nitish2112.github.io/home/about/</link>
+      <pubDate>Wed, 20 Apr 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://nitish2112.github.io/home/about/</guid>
+      <description>Biography I am a 5th year PhD candidate in Computer System Laboratory (CSL) at Cornell University. My research interests are computer architecture, high level synthesis and very large scale integration. I am being advised by Prof. David Albonesi and Prof. Zhiru Zhang. You can find my CV.</description>
+    </item>
+    
+    <item>
+      <title>Publications</title>
+      <link>https://nitish2112.github.io/home/publications/</link>
+      <pubDate>Wed, 20 Apr 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://nitish2112.github.io/home/publications/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Talks</title>
+      <link>https://nitish2112.github.io/home/talks/</link>
+      <pubDate>Wed, 20 Apr 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://nitish2112.github.io/home/talks/</guid>
+      <description>T2S-Tensor: Productively Generating High-Performance Spatial Hardware for Dense Tensor Computations We present a language and compilation framework for productively generating high-performance systolic arrays for dense tensor kernels on spatial architectures, including FPGAs and CGRAs. It decouples a functional specification from a spatial mapping, allowing programmers to quickly explore various spatial optimizations for the same function. The actual implementation of these optimizations is left to a compiler. Thus, productivity and performance are achieved at the same time.</description>
+    </item>
+    
+    <item>
+      <title>Posts</title>
+      <link>https://nitish2112.github.io/home/posts/</link>
+      <pubDate>Wed, 20 Apr 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://nitish2112.github.io/home/posts/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Projects</title>
+      <link>https://nitish2112.github.io/home/projects/</link>
+      <pubDate>Wed, 20 Apr 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://nitish2112.github.io/home/projects/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Teaching</title>
+      <link>https://nitish2112.github.io/home/teaching/</link>
+      <pubDate>Wed, 20 Apr 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://nitish2112.github.io/home/teaching/</guid>
+      <description>I have been TA for following courses at Cornell University:
+ CS3420: Embedded Systems  </description>
+    </item>
+    
+    <item>
+      <title>Contact</title>
+      <link>https://nitish2112.github.io/home/contact/</link>
+      <pubDate>Fri, 10 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://nitish2112.github.io/home/contact/</guid>
+      <description></description>
+    </item>
     
   </channel>
 </rss>
