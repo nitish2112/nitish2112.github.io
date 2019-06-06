@@ -38,20 +38,6 @@
     </item>
     
     <item>
-      <title>A Tutorial on Gem5 Simulation Framework</title>
-      <link>https://nitish2112.github.io/post/gem5-simulation/</link>
-      <pubDate>Mon, 10 Jul 2017 10:09:32 -0400</pubDate>
-      
-      <guid>https://nitish2112.github.io/post/gem5-simulation/</guid>
-      <description>&lt;p&gt;
-This is an introduction tutorial to gem5 simulation framework&lt;/p&gt;
-
-&lt;h1 id=&#34;simulation-using-gem5&#34;&gt;Simulation using gem5&lt;/h1&gt;
-
-&lt;p&gt;The configuration file se.py calls Simulation.run(). The Simulation.py in config/common/Simulation.py implements the run() method. This method calls m5.instantiate() and then calls benchCheckpoints() methods. benchCheckpoints() method calls m5.simulate(). The m5 package is located in src/python/m5. m5.initantiate() and m5.simulate() both are implemented in simulate.py. The m5.instantiate() first gets the root instance by calling objects.Root.getInstance(). The Root package is in src/sim/Root.py. m5.simulate() then calls obj.createCCObject(), obj.connectPorts(), obj.init(), obj.regStats(), obj.regProbePoints(), obj.regProbeListeners(), and obj.initState() in sequence on all the obj which are the descendants of the root ( i.e. all the objects ). Each of these methods is defined in the C++ or python version of SimObject and can be reimplemented by the class itself. The m5.simulate() calls the startup() method on all the descendants of the root. The descendants of the root are basically all the objects in the tree of hierarchies not just the ones that are specified in the config file.  These startup methods are implemented in the classes for e.g. there is a startup method in class MinorCPU, BaseCPU, SimpleThread etc. After calling the startup() methods it calls _m5.event.simulate(). Don&amp;rsquo;t know how but this simulate() method calls simulate() method in src/sim/simulate.cc. The simulate method calls a doSimLoop() method which has a while(1) loop that calls eventq-&amp;gt;serviceOne() each iteration and the serviceOne method pops an event at the head of the queue and calls process() method of that event.&lt;/p&gt;</description>
-    </item>
-    
-    <item>
       <title>A Tutorial on the Gem5 Minor CPU Model</title>
       <link>https://nitish2112.github.io/post/gem5-minor-cpu/</link>
       <pubDate>Mon, 10 Jul 2017 10:09:32 -0400</pubDate>
@@ -819,8 +805,9 @@ CacheSet&amp;lt;Blktype&amp;gt;::findBlk(tag, is_secure) {
       <pubDate>Mon, 10 Jul 2017 10:09:32 -0400</pubDate>
       
       <guid>https://nitish2112.github.io/post/adding-instruction-riscv/</guid>
-      <description>&lt;p&gt;
-This is a tutorial on how to add an instruction to the RISCV ISA, how to write program with the special instruction. I will also talk about how to add the new instruction to RISCV assembler and how to execute it on gem5.&lt;/p&gt;
+      <description>&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;This is a tutorial on how to add an instruction to the RISCV ISA, how to write program with the special instruction. I will also talk about how to add the new instruction to RISCV assembler and how to execute it on gem5.&lt;/p&gt;
 
 &lt;p&gt;First of all download and install the riscv-tools:&lt;/p&gt;
 
@@ -1001,8 +988,9 @@ simulator&lt;/p&gt;</description>
       <pubDate>Mon, 10 Jul 2017 10:09:32 -0400</pubDate>
       
       <guid>https://nitish2112.github.io/post/statistics-gem5/</guid>
-      <description>&lt;p&gt;
-This is a tutorial on how to add statistics in gem5.&lt;/p&gt;
+      <description>&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;This is a tutorial on how to add statistics in gem5.&lt;/p&gt;
 
 &lt;p&gt;&amp;ndash; All the stats are defined in the namespace Stats. namespace Stats
    is spread across the following files:&lt;/p&gt;
@@ -1305,6 +1293,21 @@ through ninety-nine and fractions when they are written out (threequarters). Mos
 are hyphenated, written as one word, or written as separate words.&lt;/p&gt;
 
 &lt;p&gt;NOTE: These are the notes taken from Alred, Gerald J., Charles T. Brusaw, and Walter E. Oliu. Handbook of technical writing. Macmillan, 2009.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Gem5 Simulation Framework</title>
+      <link>https://nitish2112.github.io/post/gem5-simulation/</link>
+      <pubDate>Mon, 10 Jul 2017 10:09:32 -0400</pubDate>
+      
+      <guid>https://nitish2112.github.io/post/gem5-simulation/</guid>
+      <description>&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;This is an introduction tutorial to gem5 simulation framework&lt;/p&gt;
+
+&lt;h1 id=&#34;simulation-using-gem5&#34;&gt;Simulation using gem5&lt;/h1&gt;
+
+&lt;p&gt;The configuration file se.py calls Simulation.run(). The Simulation.py in config/common/Simulation.py implements the run() method. This method calls m5.instantiate() and then calls benchCheckpoints() methods. benchCheckpoints() method calls m5.simulate(). The m5 package is located in src/python/m5. m5.initantiate() and m5.simulate() both are implemented in simulate.py. The m5.instantiate() first gets the root instance by calling objects.Root.getInstance(). The Root package is in src/sim/Root.py. m5.simulate() then calls obj.createCCObject(), obj.connectPorts(), obj.init(), obj.regStats(), obj.regProbePoints(), obj.regProbeListeners(), and obj.initState() in sequence on all the obj which are the descendants of the root ( i.e. all the objects ). Each of these methods is defined in the C++ or python version of SimObject and can be reimplemented by the class itself. The m5.simulate() calls the startup() method on all the descendants of the root. The descendants of the root are basically all the objects in the tree of hierarchies not just the ones that are specified in the config file.  These startup methods are implemented in the classes for e.g. there is a startup method in class MinorCPU, BaseCPU, SimpleThread etc. After calling the startup() methods it calls _m5.event.simulate(). Don&amp;rsquo;t know how but this simulate() method calls simulate() method in src/sim/simulate.cc. The simulate method calls a doSimLoop() method which has a while(1) loop that calls eventq-&amp;gt;serviceOne() each iteration and the serviceOne method pops an event at the head of the queue and calls process() method of that event.&lt;/p&gt;</description>
     </item>
     
     <item>

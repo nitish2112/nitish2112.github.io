@@ -711,59 +711,6 @@ of these optimizations is left to a compiler. Thus, productivity and performance
   
   
   <h3 class="article-title" itemprop="name">
-    <a href="https://nitish2112.github.io/post/gem5-simulation/" itemprop="url">A Tutorial on Gem5 Simulation Framework</a>
-  </h3>
-  
-
-<div class="article-metadata">
-
-  <span class="article-date">
-    <time datetime="2017-07-10 10:09:32 -0400 DST" itemprop="datePublished">
-      Mon, Jul 10, 2017
-    </time>
-  </span>
-
-  
-
-  
-  
-  
-  <span class="article-tags">
-    <i class="fa fa-tags"></i>
-    
-    <a href="./tags/gem5">gem5</a
-    >
-    
-  </span>
-  
-  
-
-  
-
-</div>
-
-  <div class="article-style" itemprop="articleBody">
-    
-    This is an introduction tutorial to gem5 simulation framework
-Simulation using gem5 The configuration file se.py calls Simulation.run(). The Simulation.py in config/common/Simulation.py implements the run() method. This method calls m5.instantiate() and then calls benchCheckpoints() methods. benchCheckpoints() method calls m5.simulate(). The m5 package is located in src/python/m5. m5.initantiate() and m5.simulate() both are implemented in simulate.py. The m5.instantiate() first gets the root instance by calling objects.Root.getInstance(). The Root package is in src/sim/Root.
-    
-  </div>
-  <p class="read-more">
-    <a href="https://nitish2112.github.io/post/gem5-simulation/" class="btn btn-primary btn-outline">
-      CONTINUE READING
-    </a>
-  </p>
-</div>
-
-      
-        
-        
-
-
-<div class="article-list-item" itemscope itemprop="blogPost">
-  
-  
-  <h3 class="article-title" itemprop="name">
     <a href="https://nitish2112.github.io/post/gem5-minor-cpu/" itemprop="url">A Tutorial on the Gem5 Minor CPU Model</a>
   </h3>
   
@@ -849,9 +796,7 @@ Simulation using gem5 The configuration file se.py calls Simulation.run(). The S
 
   <div class="article-style" itemprop="articleBody">
     
-    This is a tutorial on how to add an instruction to the RISCV ISA, how to write program with the special instruction. I will also talk about how to add the new instruction to RISCV assembler and how to execute it on gem5.
-First of all download and install the riscv-tools:
-$ git clone https://github.com/riscv/riscv-tools.git $ git submodule update --init --recursive $ export RISCV=/path/to/install/riscv/toolchain $ ./build.sh  This will build the riscv toolchain.
+    <p></p>
     
   </div>
   <p class="read-more">
@@ -903,9 +848,7 @@ $ git clone https://github.com/riscv/riscv-tools.git $ git submodule update --in
 
   <div class="article-style" itemprop="articleBody">
     
-    This is a tutorial on how to add statistics in gem5.
-&ndash; All the stats are defined in the namespace Stats. namespace Stats is spread across the following files:
--- src/base/statistics.hh -- src/sim/stat\_control.hh -- src/base/stats/info.hh -- src/base/stats/output.hh -- src/base/stats/text.hh -- src/base/stats/type.hh -- src/python/pybind11/stats.cc -- sim/power/mathexpr\_powermodel.hh  The schedStatEvent() function is used to dump statistics either all at once or periodically. This is defined in src/sim/stat_control.cc. schedStatEvent() creates a new StatEvent.
+    <p></p>
     
   </div>
   <p class="read-more">
@@ -962,6 +905,58 @@ $ git clone https://github.com/riscv/riscv-tools.git $ git submodule update --in
   </div>
   <p class="read-more">
     <a href="https://nitish2112.github.io/post/technical-writing/" class="btn btn-primary btn-outline">
+      CONTINUE READING
+    </a>
+  </p>
+</div>
+
+      
+        
+        
+
+
+<div class="article-list-item" itemscope itemprop="blogPost">
+  
+  
+  <h3 class="article-title" itemprop="name">
+    <a href="https://nitish2112.github.io/post/gem5-simulation/" itemprop="url">Gem5 Simulation Framework</a>
+  </h3>
+  
+
+<div class="article-metadata">
+
+  <span class="article-date">
+    <time datetime="2017-07-10 10:09:32 -0400 DST" itemprop="datePublished">
+      Mon, Jul 10, 2017
+    </time>
+  </span>
+
+  
+
+  
+  
+  
+  <span class="article-tags">
+    <i class="fa fa-tags"></i>
+    
+    <a href="./tags/gem5">gem5</a
+    >
+    
+  </span>
+  
+  
+
+  
+
+</div>
+
+  <div class="article-style" itemprop="articleBody">
+    
+    <p></p>
+    
+  </div>
+  <p class="read-more">
+    <a href="https://nitish2112.github.io/post/gem5-simulation/" class="btn btn-primary btn-outline">
       CONTINUE READING
     </a>
   </p>

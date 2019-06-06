@@ -187,16 +187,6 @@
   
   
   <div>
-    <h2><a href="https://nitish2112.github.io/post/gem5-simulation/">A Tutorial on Gem5 Simulation Framework</a></h2>
-    <div class="article-style">
-      
-      This is an introduction tutorial to gem5 simulation framework
-Simulation using gem5 The configuration file se.py calls Simulation.run(). The Simulation.py in config/common/Simulation.py implements the run() method. This method calls m5.instantiate() and then calls benchCheckpoints() methods. benchCheckpoints() method calls m5.simulate(). The m5 package is located in src/python/m5. m5.initantiate() and m5.simulate() both are implemented in simulate.py. The m5.instantiate() first gets the root instance by calling objects.Root.getInstance(). The Root package is in src/sim/Root.
-      
-    </div>
-  </div>
-  
-  <div>
     <h2><a href="https://nitish2112.github.io/post/gem5-memory-model/">A Tutorial on the Gem5 Memory Model</a></h2>
     <div class="article-style">
       
@@ -218,9 +208,7 @@ Simulation using gem5 The configuration file se.py calls Simulation.run(). The S
     <h2><a href="https://nitish2112.github.io/post/adding-instruction-riscv/">Adding custom instruction to RISCV ISA and running it on gem5 and spike</a></h2>
     <div class="article-style">
       
-      This is a tutorial on how to add an instruction to the RISCV ISA, how to write program with the special instruction. I will also talk about how to add the new instruction to RISCV assembler and how to execute it on gem5.
-First of all download and install the riscv-tools:
-$ git clone <a href="https://github.com/riscv/riscv-tools.git" target="_blank">https://github.com/riscv/riscv-tools.git</a> $ git submodule update &ndash;init &ndash;recursive $ export RISCV=/path/to/install/riscv/toolchain $ ./build.sh  This will build the riscv toolchain.
+      
       
     </div>
   </div>
@@ -229,9 +217,7 @@ $ git clone <a href="https://github.com/riscv/riscv-tools.git" target="_blank">h
     <h2><a href="https://nitish2112.github.io/post/statistics-gem5/">Adding custom statistics to gem5</a></h2>
     <div class="article-style">
       
-      This is a tutorial on how to add statistics in gem5.
-&ndash; All the stats are defined in the namespace Stats. namespace Stats is spread across the following files:
-&ndash; src/base/statistics.hh &ndash; src/sim/stat_control.hh &ndash; src/base/stats/info.hh &ndash; src/base/stats/output.hh &ndash; src/base/stats/text.hh &ndash; src/base/stats/type.hh &ndash; src/python/pybind11/stats.cc &ndash; sim/power/mathexpr_powermodel.hh  The schedStatEvent() function is used to dump statistics either all at once or periodically. This is defined in src/sim/stat_control.cc. schedStatEvent() creates a new StatEvent.
+      
       
     </div>
   </div>
@@ -247,6 +233,15 @@ $ git clone <a href="https://github.com/riscv/riscv-tools.git" target="_blank">h
   
   <div>
     <h2><a href="https://nitish2112.github.io/post/event-driven-simulation/">Computer Architectural Simulation Techniques</a></h2>
+    <div class="article-style">
+      
+      
+      
+    </div>
+  </div>
+  
+  <div>
+    <h2><a href="https://nitish2112.github.io/post/gem5-simulation/">Gem5 Simulation Framework</a></h2>
     <div class="article-style">
       
       
