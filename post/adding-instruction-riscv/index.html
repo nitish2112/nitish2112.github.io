@@ -187,7 +187,7 @@
 <div class="article-metadata">
 
   <span class="article-date">
-    <time datetime="2017-07-10 10:09:32 -0400 DST" itemprop="datePublished">
+    <time datetime="2017-07-10 10:09:32 -0400 -0400" itemprop="datePublished">
       Mon, Jul 10, 2017
     </time>
   </span>
@@ -406,7 +406,7 @@ of interest and MATCH tells what is the configuration required.</p>
 <pre><code>#define MATCH_MOD 0x200006b                                                    
 #define MASK_MOD 0xfe00707f
 ...
-DECLARE_INSN(add, MATCH_MOD, MASK_MOD)
+DECLARE_INSN(mod, MATCH_MOD, MASK_MOD)
 </code></pre>
 
 <p>Create a file riscv-isa-sim/riscv/insns/mod.h and add these lines:</p>

@@ -957,7 +957,7 @@ of interest and MATCH tells what is the configuration required.&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;#define MATCH_MOD 0x200006b                                                    
 #define MASK_MOD 0xfe00707f
 ...
-DECLARE_INSN(add, MATCH_MOD, MASK_MOD)
+DECLARE_INSN(mod, MATCH_MOD, MASK_MOD)
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;Create a file riscv-isa-sim/riscv/insns/mod.h and add these lines:&lt;/p&gt;
@@ -1304,6 +1304,55 @@ are hyphenated, written as one word, or written as separate words.&lt;/p&gt;
       <description>&lt;p&gt;&lt;/p&gt;
 
 &lt;p&gt;This is an introduction tutorial to gem5 simulation framework&lt;/p&gt;
+
+&lt;h1 id=&#34;simobject-in-gem5&#34;&gt;SimObject in gem5&lt;/h1&gt;
+
+&lt;pre&gt;&lt;code&gt;/* src/sim/eventq.hh */
+class EventManager {
+  EventQueue * eventq;
+
+  void schedule (Event &amp;amp;event, Tick when) { 
+    eventq-&amp;gt;schedule(&amp;amp;event);
+  }
+};
+
+/* src/sim/sim_object.hh */
+class SimObject : public EventManager {
+  void init();
+  void startup();
+}
+
+/* src/sim/eventq.hh */
+EventQueue* getEventQueue(int index) {
+  while(numMainEventQueues &amp;lt;= index) {
+    numMainEventQueues++;
+    mainEventQueue.push_back(new EventQueue(index));
+  }
+}
+
+/* src/sim/sim_object.cc */
+SimObject::SimObject(Params *p) : EventManager(getEventQueue(p-&amp;gt;eventq_index)) {}
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;creating-a-simobject&#34;&gt;Creating a SimObject&lt;/h1&gt;
+
+&lt;pre&gt;&lt;code&gt;class VVADDXcel : SimObject {
+  class VVADDXcelEvent : public Event {
+    VVADDXcel *vvadd;
+    void process() {
+      if (!this-&amp;gt;scheduled()) {
+        vvadd-&amp;gt;schedule(this, vvadd-&amp;gt;clockEdge(1));
+      }
+      vvadd-&amp;gt;tick();
+    }
+  }
+
+  void tick() {
+    /* Write the logic for posedge clock here */
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
 
 &lt;h1 id=&#34;simulation-using-gem5&#34;&gt;Simulation using gem5&lt;/h1&gt;
 

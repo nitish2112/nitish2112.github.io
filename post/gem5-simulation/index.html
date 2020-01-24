@@ -187,7 +187,7 @@
 <div class="article-metadata">
 
   <span class="article-date">
-    <time datetime="2017-07-10 10:09:32 -0400 DST" itemprop="datePublished">
+    <time datetime="2017-07-10 10:09:32 -0400 -0400" itemprop="datePublished">
       Mon, Jul 10, 2017
     </time>
   </span>
@@ -257,6 +257,55 @@
       <p></p>
 
 <p>This is an introduction tutorial to gem5 simulation framework</p>
+
+<h1 id="simobject-in-gem5">SimObject in gem5</h1>
+
+<pre><code>/* src/sim/eventq.hh */
+class EventManager {
+  EventQueue * eventq;
+
+  void schedule (Event &amp;event, Tick when) { 
+    eventq-&gt;schedule(&amp;event);
+  }
+};
+
+/* src/sim/sim_object.hh */
+class SimObject : public EventManager {
+  void init();
+  void startup();
+}
+
+/* src/sim/eventq.hh */
+EventQueue* getEventQueue(int index) {
+  while(numMainEventQueues &lt;= index) {
+    numMainEventQueues++;
+    mainEventQueue.push_back(new EventQueue(index));
+  }
+}
+
+/* src/sim/sim_object.cc */
+SimObject::SimObject(Params *p) : EventManager(getEventQueue(p-&gt;eventq_index)) {}
+
+</code></pre>
+
+<h1 id="creating-a-simobject">Creating a SimObject</h1>
+
+<pre><code>class VVADDXcel : SimObject {
+  class VVADDXcelEvent : public Event {
+    VVADDXcel *vvadd;
+    void process() {
+      if (!this-&gt;scheduled()) {
+        vvadd-&gt;schedule(this, vvadd-&gt;clockEdge(1));
+      }
+      vvadd-&gt;tick();
+    }
+  }
+
+  void tick() {
+    /* Write the logic for posedge clock here */
+  }
+}
+</code></pre>
 
 <h1 id="simulation-using-gem5">Simulation using gem5</h1>
 
