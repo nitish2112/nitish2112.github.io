@@ -18,8 +18,7 @@
       <pubDate>Wed, 20 Apr 2016 00:00:00 +0000</pubDate>
       
       <guid>https://nitish2112.github.io/home/about/</guid>
-      <description>Biography I am a software engineer in the edge TPU group at Google. I completed my Ph.D. at Cornell University where I developed domain-specific language, T2S-Tensor, to productively generate high-performance accelerators for dense tensor computations and a domain-specific hardware, Tensaurus, to accelerate mixed sparse-dense tensor computations. I was advised by Prof. David Albonesi and Prof. Zhiru Zhang. You can find my CV.
-I am interested in re-thinking algorithm, language and hardware design to accelerate sparse and dense tensor algebra.</description>
+      <description>Biography I am a software engineer in the edge TPU group at Google. I completed my Ph.D. at Cornell University where I developed domain-specific language, T2S-Tensor, to productively generate high-performance accelerators for dense tensor computations and a domain-specific hardware, Tensaurus, to accelerate mixed sparse-dense tensor computations. I was advised by Prof. David Albonesi and Prof. Zhiru Zhang. Before coming to Cornell, I obtained my Bachelor of Technology degree in Electrical Engineering from Indian Institute of Technology, Kanpur, where I was awarded with the President&amp;rsquo;s Gold Medal.</description>
     </item>
     
     <item>
@@ -37,7 +36,7 @@ I am interested in re-thinking algorithm, language and hardware design to accele
       <pubDate>Wed, 20 Apr 2016 00:00:00 +0000</pubDate>
       
       <guid>https://nitish2112.github.io/home/talks/</guid>
-      <description>T2S-Tensor: Productively Generating High-Performance Spatial Hardware for Dense Tensor Computations We present a language and compilation framework for productively generating high-performance systolic arrays for dense tensor kernels on spatial architectures, including FPGAs and CGRAs. It decouples a functional specification from a spatial mapping, allowing programmers to quickly explore various spatial optimizations for the same function. The actual implementation of these optimizations is left to a compiler. Thus, productivity and performance are achieved at the same time.</description>
+      <description>Tensaurus: A Versatile Accelerator for Mixed Sparse-Dense Tensor Computations Tensor factorizations are powerful tools in many machine learning and data analytics applications. Tensors are often sparse, which makes sparse tensor factorizations memory bound. In this talk, I present a hardware accelerator, Tensaurus, that can accelerate both dense and sparse tensor factorizations. We co-design the hardware and a sparse storage format, which allows accessing the sparse data in vectorized and streaming fashion and maximizes the utilization of the memory bandwidth.</description>
     </item>
     
     <item>

@@ -251,9 +251,9 @@
 
 <h1 id="biography">Biography</h1>
 
-<p>I am a software engineer in the edge TPU group at Google. I completed my Ph.D. at Cornell University where I developed domain-specific language, T2S-Tensor, to productively generate high-performance accelerators for dense tensor computations and a domain-specific hardware, Tensaurus, to accelerate mixed sparse-dense tensor computations. I was advised by <a href="http://www.csl.cornell.edu/~albonesi/" target="_blank">Prof. David Albonesi</a> and <a href="http://www.csl.cornell.edu/~zhiruz/" target="_blank">Prof. Zhiru Zhang</a>. You can find my <a href="home/CV.pdf" target="_blank">CV</a>.</p>
+<p>I am a software engineer in the edge TPU group at Google. I completed my Ph.D. at Cornell University where I developed domain-specific language, T2S-Tensor, to productively generate high-performance accelerators for dense tensor computations and a domain-specific hardware, Tensaurus, to accelerate mixed sparse-dense tensor computations. I was advised by <a href="http://www.csl.cornell.edu/~albonesi/" target="_blank">Prof. David Albonesi</a> and <a href="http://www.csl.cornell.edu/~zhiruz/" target="_blank">Prof. Zhiru Zhang</a>. Before coming to Cornell, I obtained my Bachelor of Technology degree in Electrical Engineering from Indian Institute of Technology, Kanpur, where I was awarded with the President&rsquo;s Gold Medal. You can find my CV <a href="home/CV.pdf" target="_blank">here</a>.</p>
 
-<p>I am interested in re-thinking algorithm, language and hardware design to accelerate sparse and dense tensor algebra. I completed my Bachelor of Technology in Electrical Engineering at Indian Institute of Technology, Kanpur, where I was awarded with President&rsquo;s Gold Medal.</p>
+<p>I am interested in re-thinking algorithm, language and hardware design to accelerate sparse and dense tensor algebra.</p>
 
 
     <div class="row">
@@ -324,6 +324,73 @@
     
 
     
+    
+    <div class="pub-list-item" itemscope itemtype="http://schema.org/CreativeWork">
+  <div class="row">
+
+    
+
+    <div class="col-md-12">
+
+    
+
+      <h3 class="article-title" itemprop="name">
+        <a href="https://nitish2112.github.io/publication/tensaurus/" itemprop="url">Tensaurus: A Versatile Accelerator for Mixed Sparse-Dense Tensor Computations.</a>
+      </h3>
+
+      <div class="pub-abstract" itemprop="text">
+        
+        
+        
+      </div>
+
+      <div class="pub-authors" itemprop="author">
+        
+        Nitish Srivastava, Hanchen Jin, Shaden Smith, Hongbo Rong, David Albonesi, Zhiru Zhang
+        
+      </div>
+
+      <div class="pub-publication">
+        
+        <em>In Int&rsquo;l Symp. on High-Performance Computer Architecture (HPCA), 2020</em>
+        
+      </div>
+
+      <div class="pub-links">
+        
+
+
+
+<a class="btn btn-primary btn-outline btn-xs" href="https://nitish2112.github.io/publication/tensaurus/">
+  Details
+</a>
+
+
+<a class="btn btn-primary btn-outline btn-xs" href="https://nitish2112.github.io/publication/tensaurus-hpca2020.pdf">
+  PDF
+</a>
+
+
+<a class="btn btn-primary btn-outline btn-xs" href="https://nitish2112.github.io/publication/hpca-tensaurus.pdf">
+  Slides
+</a>
+
+
+<a class="btn btn-primary btn-outline btn-xs" href="https://www.youtube.com/watch?v=cb2vFGbE_7M">
+  Video
+</a>
+
+
+
+
+
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
     
     <div class="pub-list-item" itemscope itemtype="http://schema.org/CreativeWork">
   <div class="row">
@@ -660,7 +727,20 @@
     
   </div>
   <div class="col-xs-12 col-md-8">
-    <p><h2 id="t2s-tensor-productively-generating-high-performance-spatial-hardware-for-dense-tensor-computations"><strong>T2S-Tensor: Productively Generating High-Performance Spatial Hardware for Dense Tensor Computations</strong></h2>
+    <p><h2 id="tensaurus-a-versatile-accelerator-for-mixed-sparse-dense-tensor-computations"><strong>Tensaurus: A Versatile Accelerator for Mixed Sparse-Dense Tensor Computations</strong></h2>
+
+<p>Tensor factorizations are powerful tools in many machine learning and data analytics applications. Tensors are often
+sparse, which makes sparse tensor factorizations memory bound. In this talk, I present a hardware accelerator, Tensaurus,
+that can accelerate both dense and sparse tensor factorizations. We co-design the hardware and a sparse storage
+format, which allows accessing the sparse data in vectorized and streaming fashion and maximizes the utilization of
+the memory bandwidth. We also extract a common computation pattern that is found in numerous matrix and tensor
+operations and implement it in the hardware.</p>
+
+<div style="position: relative; padding-bottom: 56.25%; padding-top: 30px; height: 0; overflow: hidden;">
+  <iframe src="//www.youtube.com/embed/cb2vFGbE_7M" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" allowfullscreen frameborder="0" title="YouTube Video"></iframe>
+ </div>
+
+<h2 id="t2s-tensor-productively-generating-high-performance-spatial-hardware-for-dense-tensor-computations"><strong>T2S-Tensor: Productively Generating High-Performance Spatial Hardware for Dense Tensor Computations</strong></h2>
 
 <p>We present a language and compilation framework for productively generating high-performance systolic arrays for
 dense tensor kernels on spatial architectures, including FPGAs and CGRAs. It decouples a functional specification from a spatial
