@@ -7,10 +7,19 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; 2016 Nitish Srivastava</copyright>
-    <lastBuildDate>Sun, 22 Mar 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 03 Sep 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://nitish2112.github.io/publication_types/1/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>MatRaptor: A Sparse-Sparse Matrix Multiplication Accelerator Based on Row-Wise Product</title>
+      <link>https://nitish2112.github.io/publication/matraptor/</link>
+      <pubDate>Thu, 03 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://nitish2112.github.io/publication/matraptor/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>Tensaurus: A Versatile Accelerator for Mixed Sparse-Dense Tensor Computations.</title>
