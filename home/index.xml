@@ -36,7 +36,7 @@
       <pubDate>Wed, 20 Apr 2016 00:00:00 +0000</pubDate>
       
       <guid>https://nitish2112.github.io/home/talks/</guid>
-      <description>Tensaurus: A Versatile Accelerator for Mixed Sparse-Dense Tensor Computations Tensor factorizations are powerful tools in many machine learning and data analytics applications. Tensors are often sparse, which makes sparse tensor factorizations memory bound. In this talk, I present a hardware accelerator, Tensaurus, that can accelerate both dense and sparse tensor factorizations. We co-design the hardware and a sparse storage format, which allows accessing the sparse data in vectorized and streaming fashion and maximizes the utilization of the memory bandwidth.</description>
+      <description>MatRaptor: A Sparse-Sparse Matrix Multiplication Accelerator Based on Row-Wise Product Sparse-sparse matrix multiplication (SpGEMM) is a computation kernel widely used in numerous application domains such as data analytics, graph processing, and scientific computing. In this work we propose MatRaptor, a novel SpGEMM accelerator that is high performance and highly resource efficient. Unlike conventional methods using inner or outer product as the meta operation for matrix multiplication, our approach is based on row-wise product, which offers a better tradeoff in terms of data reuse and on-chip memory requirements, and achieves higher performance for large sparse matrices.</description>
     </item>
     
     <item>

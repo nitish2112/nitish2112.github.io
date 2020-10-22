@@ -434,6 +434,14 @@
 </a>
 
 
+<a class="btn btn-primary btn-outline btn-xs" href="https://nitish2112.github.io/publication/matraptor-presentation.pdf">
+  Slides
+</a>
+
+
+<a class="btn btn-primary btn-outline btn-xs" href="https://www.youtube.com/watch?v=B8G5ZUDu4Yw">
+  Video
+</a>
 
 
 
@@ -849,7 +857,25 @@
     
   </div>
   <div class="col-xs-12 col-md-8">
-    <p><h2 id="tensaurus-a-versatile-accelerator-for-mixed-sparse-dense-tensor-computations"><strong>Tensaurus: A Versatile Accelerator for Mixed Sparse-Dense Tensor Computations</strong></h2>
+    <p><h2 id="matraptor-a-sparse-sparse-matrix-multiplication-accelerator-based-on-row-wise-product"><strong>MatRaptor: A Sparse-Sparse Matrix Multiplication Accelerator Based on Row-Wise Product</strong></h2>
+
+<p>Sparse-sparse matrix multiplication (SpGEMM) is a computation kernel widely used in numerous
+application domains such as data analytics, graph processing, and scientific computing. In
+this work we propose MatRaptor, a novel SpGEMM accelerator that is high performance and
+highly resource efficient. Unlike conventional methods using inner or outer product as the
+meta operation for matrix multiplication, our approach is based on row-wise product, which
+offers a better tradeoff in terms of data reuse and on-chip memory requirements, and
+achieves higher performance for large sparse matrices. We further propose a new
+hardware-friendly sparse storage format, which allows parallel compute engines to access
+the sparse data in a vectorized and streaming fashion, leading to high utilization of
+memory bandwidth. We prototype and simulate our accelerator architecture using gem5 on a
+diverse set of matrices</p>
+
+<div style="position: relative; padding-bottom: 56.25%; padding-top: 30px; height: 0; overflow: hidden;">
+  <iframe src="//www.youtube.com/embed/B8G5ZUDu4Yw" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" allowfullscreen frameborder="0" title="YouTube Video"></iframe>
+ </div>
+
+<h2 id="tensaurus-a-versatile-accelerator-for-mixed-sparse-dense-tensor-computations"><strong>Tensaurus: A Versatile Accelerator for Mixed Sparse-Dense Tensor Computations</strong></h2>
 
 <p>Tensor factorizations are powerful tools in many machine learning and data analytics applications. Tensors are often
 sparse, which makes sparse tensor factorizations memory bound. In this talk, I present a hardware accelerator, Tensaurus,
