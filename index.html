@@ -122,6 +122,18 @@
         
 
         <li class="nav-item">
+          <a href="./#industry" data-target="#industry">
+            
+            <span>Industry</span>
+          </a>
+        </li>
+
+        
+        
+
+        
+
+        <li class="nav-item">
           <a href="./#posts" data-target="#posts">
             
             <span>Posts</span>
@@ -860,16 +872,14 @@
     <p><h2 id="matraptor-a-sparse-sparse-matrix-multiplication-accelerator-based-on-row-wise-product"><strong>MatRaptor: A Sparse-Sparse Matrix Multiplication Accelerator Based on Row-Wise Product</strong></h2>
 
 <p>Sparse-sparse matrix multiplication (SpGEMM) is a computation kernel widely used in numerous
-application domains such as data analytics, graph processing, and scientific computing. In
-this work we propose MatRaptor, a novel SpGEMM accelerator that is high performance and
+application domains. MatRaptor, a novel SpGEMM accelerator, is high performance and
 highly resource efficient. Unlike conventional methods using inner or outer product as the
 meta operation for matrix multiplication, our approach is based on row-wise product, which
 offers a better tradeoff in terms of data reuse and on-chip memory requirements, and
 achieves higher performance for large sparse matrices. We further propose a new
 hardware-friendly sparse storage format, which allows parallel compute engines to access
 the sparse data in a vectorized and streaming fashion, leading to high utilization of
-memory bandwidth. We prototype and simulate our accelerator architecture using gem5 on a
-diverse set of matrices</p>
+memory bandwidth.</p>
 
 <div style="position: relative; padding-bottom: 56.25%; padding-top: 30px; height: 0; overflow: hidden;">
   <iframe src="//www.youtube.com/embed/B8G5ZUDu4Yw" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" allowfullscreen frameborder="0" title="YouTube Video"></iframe>
@@ -897,6 +907,48 @@ of these optimizations is left to a compiler. Thus, productivity and performance
 
 <div style="position: relative; padding-bottom: 56.25%; padding-top: 30px; height: 0; overflow: hidden;">
   <iframe src="//www.youtube.com/embed/0NXys-RJ-zo" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" allowfullscreen frameborder="0" title="YouTube Video"></iframe>
+ </div>
+</p>
+
+    
+    
+    
+
+  </div>
+</div>
+
+    </div>
+  </section>
+
+  
+  
+  <section id="industry" class="home-section">
+    <div class="container">
+      
+
+
+
+
+<div class="row">
+  <div class="col-xs-12 col-md-4 section-heading">
+    <h1>Collaborations with Inaccel</h1>
+    
+    
+  </div>
+  <div class="col-xs-12 col-md-8">
+    <p><h2 id="accelerating-face-detection-on-a-cluster-of-8-alveo-fpga-cards"><strong>Accelerating Face detection on a cluster of 8 Alveo FPGA cards</strong></h2>
+
+<p><a href="https://inaccel.com/" target="_blank">InAccel</a>, a world-pioneer in the domain of FPGA-based
+accelerators, has released an integrated framework that allows to utilize the
+power of an FPGA cluster for face detection, see <a href="https://inaccel.com/accelerated-face-detection-on-a-cluster-of-8-alveo-fpga-cards/" target="_blank">this</a>.
+Specifically, InAccel has presented a demo in which a cluster of 8 FPGAs are
+used to provide up to 1700 fps (supporting up to 56 cameras with 30 fps in
+a single server). The HLS implementation used unded the hood is the
+face detection design proposed in our FPGA 2017 and FPGA 2018 papers. See the
+demo from inaccel below:</p>
+
+<div style="position: relative; padding-bottom: 56.25%; padding-top: 30px; height: 0; overflow: hidden;">
+  <iframe src="//www.youtube.com/embed/DHIzrhyDBCI" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" allowfullscreen frameborder="0" title="YouTube Video"></iframe>
  </div>
 </p>
 

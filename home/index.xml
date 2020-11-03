@@ -36,7 +36,16 @@
       <pubDate>Wed, 20 Apr 2016 00:00:00 +0000</pubDate>
       
       <guid>https://nitish2112.github.io/home/talks/</guid>
-      <description>MatRaptor: A Sparse-Sparse Matrix Multiplication Accelerator Based on Row-Wise Product Sparse-sparse matrix multiplication (SpGEMM) is a computation kernel widely used in numerous application domains such as data analytics, graph processing, and scientific computing. In this work we propose MatRaptor, a novel SpGEMM accelerator that is high performance and highly resource efficient. Unlike conventional methods using inner or outer product as the meta operation for matrix multiplication, our approach is based on row-wise product, which offers a better tradeoff in terms of data reuse and on-chip memory requirements, and achieves higher performance for large sparse matrices.</description>
+      <description>MatRaptor: A Sparse-Sparse Matrix Multiplication Accelerator Based on Row-Wise Product Sparse-sparse matrix multiplication (SpGEMM) is a computation kernel widely used in numerous application domains. MatRaptor, a novel SpGEMM accelerator, is high performance and highly resource efficient. Unlike conventional methods using inner or outer product as the meta operation for matrix multiplication, our approach is based on row-wise product, which offers a better tradeoff in terms of data reuse and on-chip memory requirements, and achieves higher performance for large sparse matrices.</description>
+    </item>
+    
+    <item>
+      <title>Collaborations with Inaccel</title>
+      <link>https://nitish2112.github.io/home/industry/</link>
+      <pubDate>Mon, 02 Nov 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://nitish2112.github.io/home/industry/</guid>
+      <description>Accelerating Face detection on a cluster of 8 Alveo FPGA cards InAccel, a world-pioneer in the domain of FPGA-based accelerators, has released an integrated framework that allows to utilize the power of an FPGA cluster for face detection, see this. Specifically, InAccel has presented a demo in which a cluster of 8 FPGAs are used to provide up to 1700 fps (supporting up to 56 cameras with 30 fps in a single server).</description>
     </item>
     
     <item>
