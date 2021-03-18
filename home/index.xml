@@ -40,12 +40,12 @@
     </item>
     
     <item>
-      <title>Collaborations with Inaccel</title>
+      <title>Recent News</title>
       <link>https://nitish2112.github.io/home/industry/</link>
       <pubDate>Mon, 02 Nov 2020 00:00:00 +0000</pubDate>
       
       <guid>https://nitish2112.github.io/home/industry/</guid>
-      <description>Accelerating Face detection on a cluster of 8 Alveo FPGA cards InAccel, a world-pioneer in the domain of FPGA-based accelerators, has released an integrated framework that allows to utilize the power of an FPGA cluster for face detection, see this. Specifically, InAccel has presented a demo in which a cluster of 8 FPGAs are used to provide up to 1700 fps (supporting up to 56 cameras with 30 fps in a single server).</description>
+      <description>Inaccel announces record-breaking speed on facial detection test using an FPGA cluster InAccel, a world-pioneer in the domain of FPGA-based accelerators, has released an integrated framework that allows to utilize the power of an FPGA cluster for face detection, see news Specifically, InAccel has presented a demo in which a cluster of 8 FPGAs are used to provide up to 1700 fps (supporting up to 56 cameras with 30 fps in a single server).</description>
     </item>
     
     <item>
