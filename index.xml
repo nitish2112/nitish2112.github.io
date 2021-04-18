@@ -1429,7 +1429,20 @@ SimObject::SimObject(Params *p) : EventManager(getEventQueue(p-&amp;gt;eventq_in
 
 &lt;p&gt;if ( xyz ) {  &amp;hellip;. } else { &amp;hellip; }&lt;/p&gt;
 
-&lt;p&gt;We have now added a new option to gem5.&lt;/p&gt;</description>
+&lt;p&gt;We have now added a new option to gem5.&lt;/p&gt;
+
+&lt;iframe width=&#34;670&#34; height=&#34;500&#34; src=&#34;https://grid.is/embed/should-i-buy-a-house-RFDtqPz9TcOEXyg51a1ZGg?s=W1siU2hlZXQxIUIxMCIsMjVdLFsiU2hlZXQxIUIxMiIsMF0sWyJTaGVldDEhQjMiLDEwNTAwXV0=&amp;showControls=1&#34; frameborder=&#34;0&#34;&gt;&lt;/iframe&gt;</description>
+    </item>
+    
+    <item>
+      <title>Should I Buy a House?</title>
+      <link>https://nitish2112.github.io/post/should-i-buy-a-house/</link>
+      <pubDate>Mon, 10 Jul 2017 10:09:32 -0400</pubDate>
+      
+      <guid>https://nitish2112.github.io/post/should-i-buy-a-house/</guid>
+      <description>&lt;p&gt;&lt;/p&gt;
+
+&lt;iframe width=&#34;670&#34; height=&#34;1600&#34; src=&#34;https://grid.is/embed/should-i-buy-a-house-RFDtqPz9TcOEXyg51a1ZGg?s=W1siU2hlZXQxIUIxMCIsMjVdLFsiU2hlZXQxIUIxMiIsMF0sWyJTaGVldDEhQjMiLDEwNTAwXV0=&amp;showControls=1&#34; frameborder=&#34;0&#34;&gt;&lt;/iframe&gt;</description>
     </item>
     
     <item>
@@ -1448,20 +1461,6 @@ SimObject::SimObject(Params *p) : EventManager(getEventQueue(p-&amp;gt;eventq_in
       
       <guid>https://nitish2112.github.io/publication/dynamic-power-satellite/</guid>
       <description></description>
-    </item>
-    
-    <item>
-      <title>Pointer-Chase Prefetcher</title>
-      <link>https://nitish2112.github.io/project/prefetcher/</link>
-      <pubDate>Wed, 27 Apr 2016 00:00:00 +0000</pubDate>
-      
-      <guid>https://nitish2112.github.io/project/prefetcher/</guid>
-      <description>
-
-&lt;h1 id=&#34;caches-only-exploit-spatial-and-temporal-locality-in-a-set-of-address-referenced-in-a-program-due-to-dynamic-construction-of-linked-data-structures-they-difficult-to-cache-as-the-spatial-locality-between-the-nodes-is-highly-dependent-on-the-data-layout-prefetching-can-play-an-important-role-in-improving-the-performance-of-linked-data-structures-in-this-project-a-pointer-chase-mechanism-along-with-compiler-hints-is-adopted-for-prefetching-here-is-the-link-for-the-report-link-prefetcher-report-pdf&#34;&gt;Caches only exploit spatial and temporal locality in a set of address referenced in a program. Due to dynamic construction of linked data-structures, they difficult to cache as the spatial locality between the nodes is highly dependent on the data layout. Prefetching can play an important role in improving the performance of linked data-structures. In this project a pointer chase mechanism along with compiler hints is adopted for prefetching. Here is the link for the report &lt;a href=&#34;../prefetcher-report.pdf&#34;&gt;link&lt;/a&gt;&lt;/h1&gt;
-
-&lt;p&gt;+++&lt;/p&gt;
-</description>
     </item>
     
   </channel>
